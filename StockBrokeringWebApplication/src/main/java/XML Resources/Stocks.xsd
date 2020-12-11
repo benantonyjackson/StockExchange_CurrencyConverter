@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            elementFormDefault="qualified">
+	
+    <xsd:element name="CompanyName" type="xsd:string"/>
+    <xsd:element name="CompanySymbol" type="xsd:string"/>
+    <xsd:element name="NumberOfShares" type="xsd:int"/>
+    <xsd:element name="SharePrice">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="currency" type="xsd:string"/>
+                <xsd:element name="Value" type="xsd:float"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="lastUpdated" type="xsd:date"/>
+</xsd:schema>
