@@ -1,6 +1,16 @@
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Vector;
+
+import java.io.*;
+import java.net.*;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -69,6 +79,39 @@ public class MainMenu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public String getAllCompanyData() {
+        int repsoneCode = 0;
+        String idek = "";
+        
+        try {
+            //URL url = new URL("http://api.marketstack.com/v1/tickers/");
+            URL url = new URL("http://api.marketstack.com/v1/tickers?access_key=e9b83f867fd578d5c5379ef351781eaf");
+            System.out.println(url.getPath());
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            con.addRequestProperty("Cookie", "__cfduid=da0179ff1be354aba2763e5f47faf8cfe1607866259");
+            con.setRequestMethod("GET");
+
+            if (con.getResponseCode() != 200) {
+                repsoneCode = con.getResponseCode();
+                idek = con.getResponseMessage() + " " + con.getRequestMethod() + con.getURL();
+                throw new IOException(con.getResponseMessage());
+            }
+            BufferedReader ins = new BufferedReader(new InputStreamReader(con.getInputStream()));
+            String inString;
+            StringBuilder sb = new StringBuilder();
+            while ((inString = ins.readLine()) != null) {
+                sb.append(inString + "\n");
+            }
+            
+            return sb.toString();
+
+        } catch (Exception ex) {
+            //TODO add more error hadnling
+            return ex.toString() + " Response code = " + repsoneCode + " " + idek;
+        }
+    }
+    
+    
     private void btnLoadSymbolsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoadSymbolsActionPerformed
         // TODO add your handling code here:
         
@@ -89,6 +132,8 @@ public class MainMenu extends javax.swing.JFrame {
         {
             cmbSymbols.addItem(i.toString());
         }
+        
+        //cmbSymbols.addItem(getAllCompanyData());
     }//GEN-LAST:event_btnLoadSymbolsActionPerformed
 
     /**
