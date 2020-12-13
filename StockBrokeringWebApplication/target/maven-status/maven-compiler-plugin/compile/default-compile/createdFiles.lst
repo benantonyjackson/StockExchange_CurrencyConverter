@@ -1,2 +1,4 @@
 com\mycompany\stockbrokeringwebapplication\JAXRSConfiguration.class
 com\mycompany\stockbrokeringwebapplication\resources\JavaEE8Resource.class
+JsonClasses\TickerResponse.class
+JsonClasses\Ticker.class

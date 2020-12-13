@@ -5,6 +5,8 @@
  */
 package com.mycompany.stockbrokeringwebapplication;
 
+import JsonClasses.TickerResponse;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -20,13 +22,18 @@ import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.ejb.Stateless;
 import org.json.JSONObject;
+import org.json.JSONArray;
 import com.squareup.okhttp.*;
+
+
 
 
 /**
  *
  * @author Ben
  */
+
+
 @WebService(serviceName = "StockBrokeringWebService")
 @Stateless()
 public class StockBrokeringWebService {
@@ -94,50 +101,42 @@ public class StockBrokeringWebService {
         String idek = "";
         
         try {
-            /*URL url = new URL("http://api.marketstack.com/v1/tickers");
-            System.out.println(url.getPath());
-            HttpURLConnection con = (HttpURLConnection) url.openConnection();
-            //con.addRequestProperty("Cookie", "__cfduid=da0179ff1be354aba2763e5f47faf8cfe1607866259");
-            con.setRequestMethod("GET");
-
-            if (con.getResponseCode() != 200) {
-                repsoneCode = con.getResponseCode();
-                idek = con.getResponseMessage() + " " + con.getRequestMethod() + con.getURL();
-                throw new IOException(con.getResponseMessage());
-            }
-            BufferedReader ins = new BufferedReader(new InputStreamReader(con.getInputStream()));
-            String inString;
-            StringBuilder sb = new StringBuilder();
-            while ((inString = ins.readLine()) != null) {
-                sb.append(inString + "\n");
-            }
-            
-            
-            
-            JSONObject obj = new JSONObject(sb.toString());
-            String companiesListString = obj.get("data").toString();
-            
-            LinkedList<JSONObject> companies = convertJsonListStringToList(companiesListString);
-            
-            ListIterator it = companies.listIterator();
-            
-            String ret = "";
-            
-            while (it.hasNext())
-            {
-                ret += ((JSONObject)(it.next())).get("symbol") + "\n";
-            }
-            return ret;*/
             
             OkHttpClient client = new OkHttpClient();
             
             Request request = new Request.Builder()
-                    .url("http://api.marketstack.com/v1/tickers")
+                    .url("http://api.marketstack.com/v1/tickers?access_key=" + access_key)
                     .build();
             
             Response response = client.newCall(request).execute();
             
-            return response.body().string();
+            JSONObject obj = new JSONObject(response.body().string()); 
+            
+            //String companiesListString = obj.get("data").toString();
+            
+            JSONArray companies = obj.getJSONArray("data");
+            
+            String ret = "";
+            
+            for (int i = 0; i < companies.length(); i++)
+            {
+                ret += ((JSONObject)companies.get(i)).get("symbol")+ "\n";
+            }
+            
+            return ret;
+            
+            /*ObjectMapper mapper = new ObjectMapper();
+            
+            TickerResponse tickerResponse = mapper.readValue(response.body().byteStream(), TickerResponse.class);
+            
+            String ret = "";
+            
+            for (int i = 0; i <tickerResponse.data.length; i++)
+            {
+                ret += tickerResponse.data[i] + "\n";
+            }
+            
+            return ret;*/
 
         } catch (Exception ex) {
             //TODO add more error hadnling
