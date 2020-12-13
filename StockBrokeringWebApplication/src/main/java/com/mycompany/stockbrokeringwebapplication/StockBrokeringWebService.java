@@ -5,7 +5,7 @@
  */
 package com.mycompany.stockbrokeringwebapplication;
 
-import JsonClasses.TickerResponse;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -39,62 +39,6 @@ import com.squareup.okhttp.*;
 public class StockBrokeringWebService {
 
     private String access_key = "e9b83f867fd578d5c5379ef351781eaf";
-
-    /**
-     * This is a sample web service operation
-     */
-    //
-    /*public static void jsonToMap(String t) throws JSONException {
-
-        HashMap<String, String> map = new HashMap<String, String>();
-        JSONObject jObject = new JSONObject(t);
-        Iterator<?> keys = jObject.keys();
-
-        while( keys.hasNext() ){
-            String key = (String)keys.next();
-            String value = jObject.getString(key); 
-            map.put(key, value);
-
-        }
-
-        System.out.println("json : "+jObject);
-        System.out.println("map : "+map);
-    }*/
-    
-    public static LinkedList<JSONObject> convertJsonListStringToList(String listString)
-    {
-        LinkedList<JSONObject> objects = new LinkedList<JSONObject>();
-        
-        int bracketCount = 0;
-        
-        String currentObjectString = "";
-        
-        for (int i = 1; i < objects.size() - 1; i++)
-        {
-            if (listString.charAt(i) == '[')
-            {
-                bracketCount++;
-            }
-            
-            if (listString.charAt(i) == ']')
-            {
-                bracketCount--;
-            }
-            
-            if (listString.charAt(i) == ',' && bracketCount == 0)
-            {
-                objects.add(new JSONObject(currentObjectString));
-                currentObjectString = "";
-                continue;
-            }
-            
-            
-            currentObjectString += listString.charAt(i);
-            
-        }
-        
-        return objects;
-    }
     
     public String getAllCompanyData() {
         int repsoneCode = 0;
@@ -124,19 +68,6 @@ public class StockBrokeringWebService {
             }
             
             return ret;
-            
-            /*ObjectMapper mapper = new ObjectMapper();
-            
-            TickerResponse tickerResponse = mapper.readValue(response.body().byteStream(), TickerResponse.class);
-            
-            String ret = "";
-            
-            for (int i = 0; i <tickerResponse.data.length; i++)
-            {
-                ret += tickerResponse.data[i] + "\n";
-            }
-            
-            return ret;*/
 
         } catch (Exception ex) {
             //TODO add more error hadnling
