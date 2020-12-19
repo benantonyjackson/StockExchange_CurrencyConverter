@@ -18,9 +18,26 @@ def get_default_response(body={}):
     return res
 
 
+def construct_query_parameter():
+    all_currencies = json.loads(get_all_currencies().response)['all_currencies']
+
+    string = ""
+    params = {"compact": "ultra", "apiKey": API_KEY}
+
+    base_currency = "GBP"
+
+    for currency in all_currencies:
+        string += base_currency + "_" + currency + ','
+
+    params["q"] = string[:-1]
+
+    return params
+
+
 @app.route("/convert", methods=["GET"])
 def convert():
-    return get_default_response({"Message": "It worked"})
+    return str(construct_query_parameter())
+
 
 
 @app.route("/get_all_currencies")
