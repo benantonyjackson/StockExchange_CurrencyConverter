@@ -5,6 +5,8 @@ from flask import jsonify
 import requests
 import json
 
+from datetime import datetime
+
 BASE_URL = "http://data.fixer.io/api"
 API_KEY = "ad056783a6a38055946311f0eb3a79e2"
 BASE_CURRENCY = 'EUR'
@@ -41,10 +43,13 @@ def get_default_response(body):
 @app.route("/convert", methods=["GET"])
 def convert():
     try:
-        res = requests.get(BASE_URL + "/latest", params={'access_key': API_KEY})
-        if res.json()['success']:
-            save_json_to_file(res.json(), RATES_FILE_NAME)
-            return get_default_response(res.text)
+        res = requests.get(BASE_URL + "/latest", params={'access_key': API_KEY}).json()
+        res['last_updated'] = str(datetime.now())
+        res['message'] = "Successfully fetched most recent conversion rate"
+
+        if res['success']:
+            save_json_to_file(res, RATES_FILE_NAME)
+            return get_default_response(res)
         else:
             raise requests.RequestException
     except requests.RequestException:
@@ -53,20 +58,25 @@ def convert():
             body['message'] = "Up to date list of currencies could not be fetched"
             return get_default_response(body)
         except FileNotFoundError:
-            return get_default_response({"Message": "No connection available. And backup file cannot be found"})
+            response = get_default_response({"message": "No connection available. And backup file cannot be found"})
+            response.status_code = 424
+            return response
     except:
-        get_default_response({"Message": "An error occurred"})
+        return get_default_response({"message": "An error occurred"})
 
 
 @app.route("/get_all_currencies")
 def get_all_currencies():
     try:
-        res = requests.get(BASE_URL + "/symbols", params={'access_key': API_KEY})
+        res = requests.get(BASE_URL + "/symbols", params={'access_key': API_KEY}).json()
 
-        if res.json()['success']:
-            list_of_currency_codes = json.loads(res.text)
-            save_json_to_file({"all_currencies": list(list_of_currency_codes['symbols'].keys())}, LIST_OF_CURRENCIES_FILENAME)
-            return get_default_response({"all_currencies": list(list_of_currency_codes['symbols'].keys())})
+        if res['success']:
+            list_of_currency_codes = res
+            data = {"all_currencies": list(list_of_currency_codes['symbols'].keys())}
+            data['last_updated'] = str(datetime.now())
+            data['message'] = "Successfully fetched most recent list of currencies"
+            save_json_to_file(data, LIST_OF_CURRENCIES_FILENAME)
+            return get_default_response(data)
         else:
             raise requests.RequestException
     except requests.RequestException:
@@ -75,9 +85,11 @@ def get_all_currencies():
             body['message'] = "Up to date list of currencies could not be fetched"
             return get_default_response(body)
         except FileNotFoundError:
-            return get_default_response({"Message": "No connection available, and backup file cannot be found"})
+            response = get_default_response({"message": "No connection available, and backup file cannot be found"})
+            response.status_code = 424
+            return response
     except:
-        get_default_response({"Message": "An error occurred"})
+        return get_default_response({"message": "An error occurred"})
 
 
 if __name__ == "__main__":
