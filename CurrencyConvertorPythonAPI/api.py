@@ -48,11 +48,14 @@ def convert():
             save_json_to_file(res.text, RATES_FILE_NAME)
             return get_default_response(res.text)
         else:
-            return get_default_response(read_json_from_file(RATES_FILE_NAME))
+            raise requests.RequestException
     except requests.RequestException:
-        return get_default_response({"Message": "No connection available"})
-    except FileNotFoundError:
-        return get_default_response({"Message": "No connection available. And backup file cannot be found"})
+        try:
+            body = read_json_from_file(RATES_FILE_NAME)
+            body['message'] = "Up to date list of currencies could not be fetched"
+            return get_default_response(body)
+        except FileNotFoundError:
+            return get_default_response({"Message": "No connection available. And backup file cannot be found"})
     except:
         get_default_response({"Message": "An error occurred"})
 
@@ -67,11 +70,14 @@ def get_all_currencies():
             save_json_to_file({"all_currencies": list(list_of_currency_codes['symbols'].keys())}, LIST_OF_CURRENCIES_FILENAME)
             return get_default_response({"all_currencies": list(list_of_currency_codes['symbols'].keys())})
         else:
-            return get_default_response(read_json_from_file(LIST_OF_CURRENCIES_FILENAME))
+            raise requests.RequestException
     except requests.RequestException:
-        return get_default_response({"Message": "No connection available"})
-    except FileNotFoundError:
-        return get_default_response({"Message": "No connection available. And backup file cannot be found"})
+        try:
+            body = read_json_from_file(LIST_OF_CURRENCIES_FILENAME)
+            body['message'] = "Up to date list of currencies could not be fetched"
+            return get_default_response(body)
+        except FileNotFoundError:
+            return get_default_response({"Message": "No connection available, and backup file cannot be found"})
     except:
         get_default_response({"Message": "An error occurred"})
 
