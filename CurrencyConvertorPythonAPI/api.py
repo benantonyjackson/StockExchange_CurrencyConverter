@@ -29,20 +29,28 @@ def read_rates_from_file(filename=RATES_FILE_NAME):
 def get_default_response(body):
     res = Response()
     res.headers['Content-type'] = "application/json"
-    res.response = body
+
+    if type(body) is str:
+        res.response = body
+    elif type(body) is dict:
+        res.response = json.dumps(body)
+
     return res
 
 
 @app.route("/convert", methods=["GET"])
 def convert():
-    res = requests.get(BASE_URL + "/latest", params={'access_key': API_KEY})
-    print(str(res.json()['success']) + str(type(res.json()['success'])))
-    if res.json()['success']:
-        print("Success")
-        save_rates_to_file(res.text)
-        return get_default_response(res.text)
-    else:
-        return get_default_response(read_rates_from_file())
+    try:
+        res = requests.get(BASE_URL + "/latest", params={'access_key': API_KEY})
+        print(str(res.json()['success']) + str(type(res.json()['success'])))
+        if res.json()['success']:
+            print("Success")
+            save_rates_to_file(res.text)
+            return get_default_response(res.text)
+        else:
+            return get_default_response(read_rates_from_file())
+    except requests.RequestException:
+        return get_default_response({"Message": "No connection available"})
 
 
 @app.route("/get_all_currencies")
