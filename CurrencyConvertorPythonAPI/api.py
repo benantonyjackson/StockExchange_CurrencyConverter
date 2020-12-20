@@ -31,9 +31,9 @@ def get_default_response(body):
     res.headers['Content-type'] = "application/json"
 
     if type(body) is str:
-        res.response = body
+        res.data = body
     elif type(body) is dict:
-        res.response = json.dumps(body)
+        res.data = json.dumps(body)
 
     return res
 
@@ -42,9 +42,7 @@ def get_default_response(body):
 def convert():
     try:
         res = requests.get(BASE_URL + "/latest", params={'access_key': API_KEY})
-        print(str(res.json()['success']) + str(type(res.json()['success'])))
         if res.json()['success']:
-            print("Success")
             save_rates_to_file(res.text)
             return get_default_response(res.text)
         else:
