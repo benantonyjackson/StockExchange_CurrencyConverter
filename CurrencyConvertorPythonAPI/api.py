@@ -9,18 +9,19 @@ BASE_URL = "http://data.fixer.io/api"
 API_KEY = "ad056783a6a38055946311f0eb3a79e2"
 BASE_CURRENCY = 'EUR'
 RATES_FILE_NAME = "rates.json"
+LIST_OF_CURRENCIES_FILENAME = "currencies.json"
 
 app = Flask(__name__)
 
 
-def save_rates_to_file(data, file_name=RATES_FILE_NAME):
+def save_json_to_file(data, file_name):
     file = open(file_name, "w")
 
     file.write(json.dumps(data))
     file.close()
 
 
-def read_rates_from_file(filename=RATES_FILE_NAME):
+def read_json_from_file(filename):
     file = open(filename, "r")
 
     return json.loads(file.read())
@@ -32,6 +33,7 @@ def get_default_response(body):
 
     if type(body) is str:
         res.data = body
+
     elif type(body) is dict:
         res.data = json.dumps(body)
 
@@ -41,23 +43,37 @@ def get_default_response(body):
 @app.route("/convert", methods=["GET"])
 def convert():
     try:
-        res = requests.get(BASE_URL + "/latest", params={'access_key': API_KEY})
+        res = requests.get(BASE_URL + "/latest", params={'accesss_key': API_KEY})
         if res.json()['success']:
-            save_rates_to_file(res.text)
+            save_json_to_file(res.text, RATES_FILE_NAME)
             return get_default_response(res.text)
         else:
-            return get_default_response(read_rates_from_file())
+            return get_default_response(read_json_from_file(RATES_FILE_NAME))
     except requests.RequestException:
         return get_default_response({"Message": "No connection available"})
+    except FileNotFoundError:
+        return get_default_response({"Message": "No connection available. And backup file cannot be found"})
+    except:
+        get_default_response({"Message": "An error occurred"})
 
 
 @app.route("/get_all_currencies")
 def get_all_currencies():
-    res = requests.get(BASE_URL + "/symbols", params={'access_key': API_KEY})
+    try:
+        res = requests.get(BASE_URL + "/symbols", params={'accesss_key': API_KEY})
 
-    list_of_currency_codes = json.loads(res.text)
-
-    return get_default_response({"all_currencies": list(list_of_currency_codes['results'].keys())})
+        if res.json()['success']:
+            list_of_currency_codes = json.loads(res.text)
+            save_json_to_file({"all_currencies": list(list_of_currency_codes['symbols'].keys())}, LIST_OF_CURRENCIES_FILENAME)
+            return get_default_response({"all_currencies": list(list_of_currency_codes['symbols'].keys())})
+        else:
+            return get_default_response(read_json_from_file(LIST_OF_CURRENCIES_FILENAME))
+    except requests.RequestException:
+        return get_default_response({"Message": "No connection available"})
+    except FileNotFoundError:
+        return get_default_response({"Message": "No connection available. And backup file cannot be found"})
+    except:
+        get_default_response({"Message": "An error occurred"})
 
 
 if __name__ == "__main__":
