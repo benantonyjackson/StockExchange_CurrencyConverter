@@ -17,14 +17,12 @@ app = Flask(__name__)
 def save_json_to_file(data, file_name):
     file = open(file_name, "w")
 
-    file.write(json.dumps(data))
-    file.close()
+    json.dump(data, file)
 
 
 def read_json_from_file(filename):
     file = open(filename, "r")
-
-    return json.loads(file.read())
+    return json.load(file)
 
 
 def get_default_response(body):
@@ -43,9 +41,9 @@ def get_default_response(body):
 @app.route("/convert", methods=["GET"])
 def convert():
     try:
-        res = requests.get(BASE_URL + "/latest", params={'accesss_key': API_KEY})
+        res = requests.get(BASE_URL + "/latest", params={'access_key': API_KEY})
         if res.json()['success']:
-            save_json_to_file(res.text, RATES_FILE_NAME)
+            save_json_to_file(res.json(), RATES_FILE_NAME)
             return get_default_response(res.text)
         else:
             raise requests.RequestException
@@ -63,7 +61,7 @@ def convert():
 @app.route("/get_all_currencies")
 def get_all_currencies():
     try:
-        res = requests.get(BASE_URL + "/symbols", params={'accesss_key': API_KEY})
+        res = requests.get(BASE_URL + "/symbols", params={'access_key': API_KEY})
 
         if res.json()['success']:
             list_of_currency_codes = json.loads(res.text)
