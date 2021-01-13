@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<AllCompanies>
-    <all_companies>
-        <CompanyName>Bag bad corperation</CompanyName>
+<CompanyList>
+    <company_list>
+        <CompanyName>Big bad corperation</CompanyName>
         <CompanySymbol>AAPL</CompanySymbol>
         <NumberOfShares>10000</NumberOfShares>
         <SharePrice>
@@ -9,9 +9,9 @@
             <Value>50.51</Value>
         </SharePrice>
         <lastUpdated>2019-04-25</lastUpdated>
-    </all_companies>
-    <all_companies>
-        <CompanyName>Bag bad corperation</CompanyName>
+    </company_list>
+    <company_list>
+        <CompanyName>Big bad corperation</CompanyName>
         <CompanySymbol>MSFT</CompanySymbol>
         <NumberOfShares>10000</NumberOfShares>
         <SharePrice>
@@ -19,9 +19,9 @@
             <Value>50.51</Value>
         </SharePrice>
         <lastUpdated>2019-04-25</lastUpdated>
-    </all_companies>
-    <all_companies>
-        <CompanyName>Bag bad corperation</CompanyName>
+    </company_list>
+    <company_list>
+        <CompanyName>Big bad corperation</CompanyName>
         <CompanySymbol>AMZN</CompanySymbol>
         <NumberOfShares>10000</NumberOfShares>
         <SharePrice>
@@ -29,9 +29,9 @@
             <Value>50.51</Value>
         </SharePrice>
         <lastUpdated>2019-04-25</lastUpdated>
-    </all_companies>
-    <all_companies>
-        <CompanyName>Bag bad corperation</CompanyName>
+    </company_list>
+    <company_list>
+        <CompanyName>Big bad corperation</CompanyName>
         <CompanySymbol>GOOG</CompanySymbol>
         <NumberOfShares>10000</NumberOfShares>
         <SharePrice>
@@ -39,9 +39,9 @@
             <Value>50.51</Value>
         </SharePrice>
         <lastUpdated>2019-04-25</lastUpdated>
-    </all_companies>
-    <all_companies>
-        <CompanyName>Bag bad corperation</CompanyName>
+    </company_list>
+    <company_list>
+        <CompanyName>Big bad corperation</CompanyName>
         <CompanySymbol>GOOGL</CompanySymbol>
         <NumberOfShares>10000</NumberOfShares>
         <SharePrice>
@@ -49,9 +49,9 @@
             <Value>50.51</Value>
         </SharePrice>
         <lastUpdated>2019-04-25</lastUpdated>
-    </all_companies>
-    <all_companies>
-        <CompanyName>Bag bad corperation</CompanyName>
+    </company_list>
+    <company_list>
+        <CompanyName>Big bad corperation</CompanyName>
         <CompanySymbol>FB</CompanySymbol>
         <NumberOfShares>10000</NumberOfShares>
         <SharePrice>
@@ -59,9 +59,9 @@
             <Value>50.51</Value>
         </SharePrice>
         <lastUpdated>2019-04-25</lastUpdated>
-    </all_companies>
-    <all_companies>
-        <CompanyName>Bag bad corperation</CompanyName>
+    </company_list>
+    <company_list>
+        <CompanyName>Big bad corperation</CompanyName>
         <CompanySymbol>VOD</CompanySymbol>
         <NumberOfShares>10000</NumberOfShares>
         <SharePrice>
@@ -69,5 +69,5 @@
             <Value>50.51</Value>
         </SharePrice>
         <lastUpdated>2019-04-25</lastUpdated>
-    </all_companies>
-</AllCompanies>
+    </company_list>
+</CompanyList>

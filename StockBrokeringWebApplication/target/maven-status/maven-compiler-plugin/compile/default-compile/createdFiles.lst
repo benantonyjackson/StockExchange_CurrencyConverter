@@ -1,6 +1,6 @@
 com\mycompany\stockbrokeringwebapplication\JAXRSConfiguration.class
+generated\CompanyList.class
 generated\Company.class
-generated\ObjectFactory.class
 generated\Company$SharePrice.class
 com\mycompany\stockbrokeringwebapplication\resources\JavaEE8Resource.class
-generated\AllCompanies.class
+generated\ObjectFactory.class

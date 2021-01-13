@@ -122,6 +122,18 @@
                         </configuration>
                         <id>jaxb-generate-all_compaines</id>
                     </execution>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <schemaIncludes>
+                                <include>jaxb/CompanyList/*.xsd</include>
+                            </schemaIncludes>
+                            <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-CompanyList.episode</episodeFile>
+                        </configuration>
+                        <id>jaxb-generate-CompanyList</id>
+                    </execution>
                 </executions>
                 <configuration>
                     <catalog>src/main/resources/jaxb/catalog.xml</catalog>

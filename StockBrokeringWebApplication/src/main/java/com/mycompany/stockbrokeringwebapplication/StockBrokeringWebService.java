@@ -24,8 +24,8 @@ import javax.ejb.Stateless;
 import org.json.JSONObject;
 import org.json.JSONArray;
 import com.squareup.okhttp.*;
-import generated.AllCompanies;
 import generated.Company;
+import generated.CompanyList;
 import java.io.File;
 import java.time.LocalDate;
 import java.util.Set;
@@ -90,13 +90,11 @@ public class StockBrokeringWebService {
         return "Hello " + txt + " !!!";
     }
     
-    
-    
     public String genorateRandomCompanyData()
     {
         Vector<String> symbols = getAllSymbols(100);
         
-        AllCompanies allCompanies = new AllCompanies();
+        CompanyList allCompanies = new CompanyList();
         
         String ret = "Sup\n";
         
@@ -106,7 +104,7 @@ public class StockBrokeringWebService {
                 Company company = new Company();
 
                 company.setCompanySymbol(symbol);
-                company.setCompanyName("Bag bad corperation");
+                company.setCompanyName("Big bad corperation");
 
                 XMLGregorianCalendar xmlGregorianCalendar;
 
@@ -121,11 +119,8 @@ public class StockBrokeringWebService {
 
                 company.setSharePrice(sharePrice);
                 
-                allCompanies.getAllCompanies().add(company);
-                
-                ret += symbol + "\n";
+                allCompanies.getCompanyList().add(company);
             } catch (DatatypeConfigurationException ex) {
-                ret += "Errors be occuring\n";
                 Logger.getLogger(StockBrokeringWebService.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
