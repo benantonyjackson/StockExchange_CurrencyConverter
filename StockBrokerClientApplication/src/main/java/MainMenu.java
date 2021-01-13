@@ -29,6 +29,46 @@ public class MainMenu extends javax.swing.JFrame {
      */
     public MainMenu() {
         initComponents();
+        System.out.println("Appliction started");
+        
+        /*try { // Call Web Service Operation
+            docwebservices.CurrencyConversionWSService service = new docwebservices.CurrencyConversionWSService();
+            docwebservices.CurrencyConversionWS port = service.getCurrencyConversionWSPort();
+            // TODO process result here
+            java.util.List<java.lang.String> result = port.getCurrencyCodes();
+            
+            for (int i = 0; i < result.size(); i++)
+            {
+                System.out.println("Hello world");
+                cmbSymbols.addItem(result.get(i));
+            }
+            
+        } catch (Exception ex) {
+            // TODO handle custom exceptions here
+            System.out.println("Error occured");
+            System.out.println(ex.toString());
+        }*/
+        
+        
+        try { // Call Web Service Operation
+            com.mycompany.stockbrokeringwebapplication.StockBrokeringWebService_Service service = new com.mycompany.stockbrokeringwebapplication.StockBrokeringWebService_Service();
+            com.mycompany.stockbrokeringwebapplication.StockBrokeringWebService port = service.getStockBrokeringWebServicePort();
+            // TODO initialize WS operation arguments here
+            int limit = 0;
+            // TODO process result here
+            java.util.List<java.lang.Object> result = port.getAllSymbols(limit);
+            //System.out.println("Result = "+result);
+            
+            for (Object i: result)
+            {
+                cmbSymbols.addItem(i.toString());
+            }
+        } catch (Exception ex) {
+            // TODO handle custom exceptions here
+        }
+
+        
+        
     }
 
     /**
@@ -41,16 +81,8 @@ public class MainMenu extends javax.swing.JFrame {
     private void initComponents() {
 
         cmbSymbols = new javax.swing.JComboBox<>();
-        btnLoadSymbols = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        btnLoadSymbols.setText("Load Symbols");
-        btnLoadSymbols.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLoadSymbolsActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -58,49 +90,21 @@ public class MainMenu extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(71, 71, 71)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(cmbSymbols, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnLoadSymbols, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(157, Short.MAX_VALUE))
+                .addComponent(cmbSymbols, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(420, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(83, 83, 83)
                 .addComponent(cmbSymbols, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(80, 80, 80)
-                .addComponent(btnLoadSymbols)
-                .addContainerGap(153, Short.MAX_VALUE))
+                .addContainerGap(238, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     
-    private void btnLoadSymbolsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoadSymbolsActionPerformed
-        // TODO add your handling code here:
-        
-        List<Object> symbols = null;
-        
-        try { // Call Web Service Operation
-            com.mycompany.stockbrokeringwebapplication.StockBrokeringWebService_Service service = new com.mycompany.stockbrokeringwebapplication.StockBrokeringWebService_Service();
-            com.mycompany.stockbrokeringwebapplication.StockBrokeringWebService port = service.getStockBrokeringWebServicePort();
-            // TODO initialize WS operation arguments here
-            int limit = 100;
-            // TODO process result here
-            symbols = port.getAllSymbols(limit);
-        } catch (Exception ex) {
-            // TODO handle custom exceptions here
-        }
-        
-        for (Object i: symbols)
-        {
-            cmbSymbols.addItem(i.toString());
-        }
-        
-        //cmbSymbols.addItem(getAllCompanyData());
-    }//GEN-LAST:event_btnLoadSymbolsActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -137,7 +141,6 @@ public class MainMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnLoadSymbols;
     private javax.swing.JComboBox<String> cmbSymbols;
     // End of variables declaration//GEN-END:variables
 }

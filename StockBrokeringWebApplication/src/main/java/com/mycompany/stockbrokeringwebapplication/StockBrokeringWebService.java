@@ -24,6 +24,16 @@ import javax.ejb.Stateless;
 import org.json.JSONObject;
 import org.json.JSONArray;
 import com.squareup.okhttp.*;
+import generated.AllCompanies;
+import generated.Company;
+import java.io.File;
+import java.time.LocalDate;
+import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
 
 
 
@@ -79,6 +89,72 @@ public class StockBrokeringWebService {
     public String hello(@WebParam(name = "name") String txt) {
         return "Hello " + txt + " !!!";
     }
+    
+    
+    
+    public String genorateRandomCompanyData()
+    {
+        Vector<String> symbols = getAllSymbols(100);
+        
+        AllCompanies allCompanies = new AllCompanies();
+        
+        String ret = "Sup\n";
+        
+        for (String symbol: symbols)
+        {
+            try {
+                Company company = new Company();
+
+                company.setCompanySymbol(symbol);
+                company.setCompanyName("Bag bad corperation");
+
+                XMLGregorianCalendar xmlGregorianCalendar;
+
+                xmlGregorianCalendar = DatatypeFactory.newInstance().newXMLGregorianCalendar("2019-04-25");
+
+                company.setLastUpdated(xmlGregorianCalendar);
+                company.setNumberOfShares(10000);
+
+                Company.SharePrice sharePrice = new Company.SharePrice();
+                sharePrice.setCurrency("GBP");
+                sharePrice.setValue((float) 50.51);
+
+                company.setSharePrice(sharePrice);
+                
+                allCompanies.getAllCompanies().add(company);
+                
+                ret += symbol + "\n";
+            } catch (DatatypeConfigurationException ex) {
+                ret += "Errors be occuring\n";
+                Logger.getLogger(StockBrokeringWebService.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        try {            
+            javax.xml.bind.JAXBContext jaxbCtx = javax.xml.bind.JAXBContext.newInstance(allCompanies.getClass().getPackage().getName());
+            javax.xml.bind.Marshaller marshaller = jaxbCtx.createMarshaller();
+            marshaller.setProperty(javax.xml.bind.Marshaller.JAXB_ENCODING, "UTF-8"); //NOI18N
+            marshaller.setProperty(javax.xml.bind.Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+            
+            ret += "Before file write\n";
+            File file = new File("E:\\repo\\Cloud\\StockBrokeringWebApplication\\company_data.xml");
+            file.setExecutable(true);
+            file.setWritable(true);
+            
+            marshaller.marshal(allCompanies, file);
+            marshaller.marshal(allCompanies, System.out);
+            
+            ret += "After file write";
+        } catch (javax.xml.bind.JAXBException ex) {
+            // XXXTODO Handle exception
+            ret += "Errors be occuring\n";
+            java.util.logging.Logger.getLogger("global").log(java.util.logging.Level.SEVERE, null, ex); //NOI18N
+            ret += "Errors be occuring\n";
+        }   
+        
+        return ret;
+    }
+    
 
     /**
      * Web service operation
@@ -89,22 +165,30 @@ public class StockBrokeringWebService {
 
         Vector<String> symbols = new Vector<String>();
         
-        String[] companies = getAllCompanyData().split("\n");
+        /*String[] companies = getAllCompanyData().split("\n");
         
         for (int i = 0; i < companies.length; i++)
         {
             symbols.add(companies[i]);
-        }
+        }*/
         
-        /*symbols.add("AAPL");
+        symbols.add("AAPL");
         symbols.add("MSFT");
         symbols.add("AMZN");
         symbols.add("GOOG");
         symbols.add("GOOGL");
         symbols.add("FB");
-        symbols.add("VOD");*/
+        symbols.add("VOD");
 
         return symbols;
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "getCompanyData")
+    public String getCompanyData() {
+        return genorateRandomCompanyData();
     }
 
 }

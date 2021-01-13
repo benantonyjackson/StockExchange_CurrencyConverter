@@ -15,5 +15,6 @@ Any value defined here will override the pom.xml file value but is only applicab
 -->
         <org-netbeans-modules-maven-jaxws._5f_C_5f_StockBrokeringWebService>http://localhost:8080/StockBrokeringWebService/StockBrokeringWebService?wsdl</org-netbeans-modules-maven-jaxws._5f_C_5f_StockBrokeringWebService>
         <netbeans.hint.jdkPlatform>JDK_1.8</netbeans.hint.jdkPlatform>
+        <org-netbeans-modules-maven-jaxws._5f_C_5f_CurrencyConversionWSService>http://localhost:8080/CurrencyConvertor/CurrencyConversionWSService?wsdl</org-netbeans-modules-maven-jaxws._5f_C_5f_CurrencyConversionWSService>
     </properties>
 </project-shared-configuration>

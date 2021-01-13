@@ -18,7 +18,6 @@ app = Flask(__name__)
 
 def save_json_to_file(data, file_name):
     file = open(file_name, "w")
-
     json.dump(data, file)
 
 
