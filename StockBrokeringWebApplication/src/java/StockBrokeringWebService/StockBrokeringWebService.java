@@ -94,6 +94,13 @@ public class StockBrokeringWebService {
     public CompanyList getAllCompanyData() {
         CompanyList allCompanies = new CompanyList();
         
+        File file = new File(allCompaniesFile);
+        
+        if (!file.exists())
+        {
+            genorateRandomCompanyData();
+        }
+        
         try {
             javax.xml.bind.JAXBContext jaxbCtx = javax.xml.bind.JAXBContext.newInstance(allCompanies.getClass().getPackage().getName());
             javax.xml.bind.Unmarshaller unmarshaller = jaxbCtx.createUnmarshaller();

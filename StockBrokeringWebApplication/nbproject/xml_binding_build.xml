@@ -11,19 +11,19 @@
     <target name="jaxb-code-generation" depends="xjc-typedef-target,-do-init,-init-macrodef-javac">
         <mkdir dir="${build.generated.sources.dir}/jaxb" xmlns:s="http://xml.netbeans.org/schema/JAXBWizConfig"/>
         <mkdir dir="build/generated/jaxbCache" xmlns:s="http://xml.netbeans.org/schema/JAXBWizConfig"/>
-        <mkdir dir="build/generated/jaxbCache/Company List"/>
-        <xjc destdir="build/generated/jaxbCache/Company List" catalog="catalog.xml">
+        <mkdir dir="build/generated/jaxbCache/Company_List"/>
+        <xjc destdir="build/generated/jaxbCache/Company_List" catalog="catalog.xml">
             <classpath>
                 <pathelement location="${src.dir}"/>
                 <pathelement path="${jaxbwiz.xjcrun.classpath}"/>
             </classpath>
             <arg value="-xmlschema"/>
-            <schema file="src/conf/xml-resources/jaxb/Company List/company_list.xsd"/>
-            <depends file="src/conf/xml-resources/jaxb/Company List/company_list.xsd"/>
-            <produces dir="build/generated/jaxbCache/Company List"/>
+            <schema file="src/conf/xml-resources/jaxb/Company_List/company_list.xsd"/>
+            <depends file="src/conf/xml-resources/jaxb/Company_List/company_list.xsd"/>
+            <produces dir="build/generated/jaxbCache/Company_List"/>
         </xjc>
         <copy todir="${build.generated.sources.dir}/jaxb">
-            <fileset dir="build/generated/jaxbCache/Company List"/>
+            <fileset dir="build/generated/jaxbCache/Company_List"/>
         </copy>
         <!--*** Web project javac macro does not support sourcepath attribute, so do not pass "sourcepath=${src.dir}"-->
     </target>

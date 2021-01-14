@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <schemas xmlns='http://xml.netbeans.org/schema/JAXBWizConfig' destdir='build/generated-sources/jaxb' projectName='StockBrokeringWebApplication' version='1.0'>
-	<schema type='-xmlschema' package='' name='Company List'>
+	<schema type='-xmlschema' package='' name='Company_List'>
 		<xjc-options>
 		</xjc-options>
 		<schema-sources>
-			<schema-source location='src/conf/xml-resources/jaxb/Company List/company_list.xsd' origLocation='src/java/XML Resources/company_list.xsd'/>
+			<schema-source location='src/conf/xml-resources/jaxb/Company_List/company_list.xsd' origLocation='src/java/XML Resources/company_list.xsd'/>
 		</schema-sources>
 		<bindings>
 		</bindings>

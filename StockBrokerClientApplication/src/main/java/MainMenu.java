@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Vector;
 
+import com.mycompany.stockbrokerclientapplication.*;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -48,20 +50,29 @@ public class MainMenu extends javax.swing.JFrame {
             System.out.println("Error occured");
             System.out.println(ex.toString());
         }*/
-        
-        
+
         
         
         try { // Call Web Service Operation
-            com.mycompany.stockbrokeringwebapplication.StockBrokeringWebService_Service service = new com.mycompany.stockbrokeringwebapplication.StockBrokeringWebService_Service();
-            com.mycompany.stockbrokeringwebapplication.StockBrokeringWebService port = service.getStockBrokeringWebServicePort();
+            stockbrokeringwebservice.StockBrokeringWebService_Service service = new stockbrokeringwebservice.StockBrokeringWebService_Service();
+            stockbrokeringwebservice.StockBrokeringWebService port = service.getStockBrokeringWebServicePort();
             // TODO process result here
+            CompanyList allCompanies = port.getAllCompanyData();
             
-            txtResult.setText(port.getAllCompanyData());
+            String result = "";
+            
+            for (Company company: allCompanies.getCompanyList())
+            {
+                result += company.getCompanySymbol();
+            }
+            
+            txtResult.setText(resutl);
+            
         } catch (Exception ex) {
             // TODO handle custom exceptions here
-            txtResult.setText(ex.getMessage());
         }
+
+        
     }
 
     /**
