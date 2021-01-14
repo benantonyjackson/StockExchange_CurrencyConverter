@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="file:/E:/repo/Cloud/StockBrokeringWebApplication/src/main/java/XML%20Resources/all_companies.xsd" uri="src/main/resources/jaxb/testBinding/all_companies.xsd"/>
+</catalog>

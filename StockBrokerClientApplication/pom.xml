@@ -31,24 +31,6 @@
                         </goals>
                         <configuration>
                             <wsdlFiles>
-                                <wsdlFile>localhost_8080/StockBrokeringWebService/StockBrokeringWebService.wsdl</wsdlFile>
-                            </wsdlFiles>
-                            <packageName></packageName>
-                            <vmArgs>
-                                <vmArg>-Djavax.xml.accessExternalSchema=all</vmArg>
-                            </vmArgs>
-                            <wsdlLocation>http://localhost:8080/StockBrokeringWebService/StockBrokeringWebService?wsdl</wsdlLocation>
-                            <staleFile>${project.build.directory}/jaxws/stale/StockBrokeringWebService.stale</staleFile>
-                        </configuration>
-                        <id>wsimport-generate-StockBrokeringWebService</id>
-                        <phase>generate-sources</phase>
-                    </execution>
-                    <execution>
-                        <goals>
-                            <goal>wsimport</goal>
-                        </goals>
-                        <configuration>
-                            <wsdlFiles>
                                 <wsdlFile>localhost_8080/CurrencyConvertor/CurrencyConversionWSService.wsdl</wsdlFile>
                             </wsdlFiles>
                             <packageName></packageName>

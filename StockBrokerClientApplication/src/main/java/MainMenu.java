@@ -50,25 +50,18 @@ public class MainMenu extends javax.swing.JFrame {
         }*/
         
         
+        
+        
         try { // Call Web Service Operation
             com.mycompany.stockbrokeringwebapplication.StockBrokeringWebService_Service service = new com.mycompany.stockbrokeringwebapplication.StockBrokeringWebService_Service();
             com.mycompany.stockbrokeringwebapplication.StockBrokeringWebService port = service.getStockBrokeringWebServicePort();
-            // TODO initialize WS operation arguments here
-            int limit = 0;
             // TODO process result here
-            java.util.List<java.lang.Object> result = port.getAllSymbols(limit);
-            //System.out.println("Result = "+result);
             
-            for (Object i: result)
-            {
-                cmbSymbols.addItem(i.toString());
-            }
+            txtResult.setText(port.getAllCompanyData());
         } catch (Exception ex) {
             // TODO handle custom exceptions here
+            txtResult.setText(ex.getMessage());
         }
-
-        
-        
     }
 
     /**
@@ -80,25 +73,30 @@ public class MainMenu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        cmbSymbols = new javax.swing.JComboBox<>();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtResult = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        txtResult.setColumns(20);
+        txtResult.setRows(5);
+        jScrollPane1.setViewportView(txtResult);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(71, 71, 71)
-                .addComponent(cmbSymbols, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(420, Short.MAX_VALUE))
+                .addGap(209, 209, 209)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(384, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(83, 83, 83)
-                .addComponent(cmbSymbols, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(238, Short.MAX_VALUE))
+                .addGap(162, 162, 162)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(321, Short.MAX_VALUE))
         );
 
         pack();
@@ -141,6 +139,7 @@ public class MainMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> cmbSymbols;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea txtResult;
     // End of variables declaration//GEN-END:variables
 }

@@ -4,6 +4,18 @@
 <xsd:import namespace="http://stockbrokeringwebapplication.mycompany.com/" schemaLocation="http://localhost:8080/StockBrokeringWebService/StockBrokeringWebService?xsd=1"/>
 </xsd:schema>
 </types>
+<message name="getAllCompanyData">
+<part name="parameters" element="tns:getAllCompanyData"/>
+</message>
+<message name="getAllCompanyDataResponse">
+<part name="parameters" element="tns:getAllCompanyDataResponse"/>
+</message>
+<message name="genorateRandomCompanyData">
+<part name="parameters" element="tns:genorateRandomCompanyData"/>
+</message>
+<message name="genorateRandomCompanyDataResponse">
+<part name="parameters" element="tns:genorateRandomCompanyDataResponse"/>
+</message>
 <message name="hello">
 <part name="parameters" element="tns:hello"/>
 </message>
@@ -16,7 +28,21 @@
 <message name="getAllSymbolsResponse">
 <part name="parameters" element="tns:getAllSymbolsResponse"/>
 </message>
+<message name="getCompanyData">
+<part name="parameters" element="tns:getCompanyData"/>
+</message>
+<message name="getCompanyDataResponse">
+<part name="parameters" element="tns:getCompanyDataResponse"/>
+</message>
 <portType name="StockBrokeringWebService">
+<operation name="getAllCompanyData">
+<input wsam:Action="http://stockbrokeringwebapplication.mycompany.com/StockBrokeringWebService/getAllCompanyDataRequest" message="tns:getAllCompanyData"/>
+<output wsam:Action="http://stockbrokeringwebapplication.mycompany.com/StockBrokeringWebService/getAllCompanyDataResponse" message="tns:getAllCompanyDataResponse"/>
+</operation>
+<operation name="genorateRandomCompanyData">
+<input wsam:Action="http://stockbrokeringwebapplication.mycompany.com/StockBrokeringWebService/genorateRandomCompanyDataRequest" message="tns:genorateRandomCompanyData"/>
+<output wsam:Action="http://stockbrokeringwebapplication.mycompany.com/StockBrokeringWebService/genorateRandomCompanyDataResponse" message="tns:genorateRandomCompanyDataResponse"/>
+</operation>
 <operation name="hello">
 <input wsam:Action="http://stockbrokeringwebapplication.mycompany.com/StockBrokeringWebService/helloRequest" message="tns:hello"/>
 <output wsam:Action="http://stockbrokeringwebapplication.mycompany.com/StockBrokeringWebService/helloResponse" message="tns:helloResponse"/>
@@ -25,9 +51,31 @@
 <input wsam:Action="http://stockbrokeringwebapplication.mycompany.com/StockBrokeringWebService/getAllSymbolsRequest" message="tns:getAllSymbols"/>
 <output wsam:Action="http://stockbrokeringwebapplication.mycompany.com/StockBrokeringWebService/getAllSymbolsResponse" message="tns:getAllSymbolsResponse"/>
 </operation>
+<operation name="getCompanyData">
+<input wsam:Action="http://stockbrokeringwebapplication.mycompany.com/StockBrokeringWebService/getCompanyDataRequest" message="tns:getCompanyData"/>
+<output wsam:Action="http://stockbrokeringwebapplication.mycompany.com/StockBrokeringWebService/getCompanyDataResponse" message="tns:getCompanyDataResponse"/>
+</operation>
 </portType>
 <binding name="StockBrokeringWebServicePortBinding" type="tns:StockBrokeringWebService">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+<operation name="getAllCompanyData">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="genorateRandomCompanyData">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
 <operation name="hello">
 <soap:operation soapAction=""/>
 <input>
@@ -38,6 +86,15 @@
 </output>
 </operation>
 <operation name="getAllSymbols">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="getCompanyData">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>

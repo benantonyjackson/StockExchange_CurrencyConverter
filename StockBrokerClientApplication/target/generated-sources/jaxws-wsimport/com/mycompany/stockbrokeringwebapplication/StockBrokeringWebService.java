@@ -27,6 +27,30 @@ public interface StockBrokeringWebService {
 
     /**
      * 
+     * @return
+     *     returns java.lang.String
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "getAllCompanyData", targetNamespace = "http://stockbrokeringwebapplication.mycompany.com/", className = "com.mycompany.stockbrokeringwebapplication.GetAllCompanyData")
+    @ResponseWrapper(localName = "getAllCompanyDataResponse", targetNamespace = "http://stockbrokeringwebapplication.mycompany.com/", className = "com.mycompany.stockbrokeringwebapplication.GetAllCompanyDataResponse")
+    @Action(input = "http://stockbrokeringwebapplication.mycompany.com/StockBrokeringWebService/getAllCompanyDataRequest", output = "http://stockbrokeringwebapplication.mycompany.com/StockBrokeringWebService/getAllCompanyDataResponse")
+    public String getAllCompanyData();
+
+    /**
+     * 
+     * @return
+     *     returns java.lang.String
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "genorateRandomCompanyData", targetNamespace = "http://stockbrokeringwebapplication.mycompany.com/", className = "com.mycompany.stockbrokeringwebapplication.GenorateRandomCompanyData")
+    @ResponseWrapper(localName = "genorateRandomCompanyDataResponse", targetNamespace = "http://stockbrokeringwebapplication.mycompany.com/", className = "com.mycompany.stockbrokeringwebapplication.GenorateRandomCompanyDataResponse")
+    @Action(input = "http://stockbrokeringwebapplication.mycompany.com/StockBrokeringWebService/genorateRandomCompanyDataRequest", output = "http://stockbrokeringwebapplication.mycompany.com/StockBrokeringWebService/genorateRandomCompanyDataResponse")
+    public String genorateRandomCompanyData();
+
+    /**
+     * 
      * @param name
      * @return
      *     returns java.lang.String
@@ -54,5 +78,17 @@ public interface StockBrokeringWebService {
     public List<Object> getAllSymbols(
         @WebParam(name = "Limit", targetNamespace = "")
         int limit);
+
+    /**
+     * 
+     * @return
+     *     returns java.lang.String
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "getCompanyData", targetNamespace = "http://stockbrokeringwebapplication.mycompany.com/", className = "com.mycompany.stockbrokeringwebapplication.GetCompanyData")
+    @ResponseWrapper(localName = "getCompanyDataResponse", targetNamespace = "http://stockbrokeringwebapplication.mycompany.com/", className = "com.mycompany.stockbrokeringwebapplication.GetCompanyDataResponse")
+    @Action(input = "http://stockbrokeringwebapplication.mycompany.com/StockBrokeringWebService/getCompanyDataRequest", output = "http://stockbrokeringwebapplication.mycompany.com/StockBrokeringWebService/getCompanyDataResponse")
+    public String getCompanyData();
 
 }
