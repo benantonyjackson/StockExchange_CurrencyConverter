@@ -1,3 +1,8 @@
+
+import com.mycompany.stockbrokerclientapplication.Company;
+import com.mycompany.stockbrokerclientapplication.StockBrokeringWebService;
+import com.mycompany.stockbrokerclientapplication.StockBrokeringWebService_Service;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -137,6 +142,27 @@ public class CompanyView extends javax.swing.JPanel {
     void buyShares(int numberOfShares)
     {
         
+        try { // Call Web Service Operation
+            StockBrokeringWebService_Service service = new StockBrokeringWebService_Service();
+            StockBrokeringWebService port = service.getStockBrokeringWebServicePort();
+            // TODO initialize WS operation arguments here
+            java.lang.String symbol = txtSymbol.getText();
+            // TODO process result here
+            updateView(port.buyShare(symbol, numberOfShares));
+            
+        } catch (Exception ex) {
+            // TODO handle custom exceptions here
+        }
+
+    }
+    
+    public void updateView(Company c)
+    {
+        txtSymbol.setText(c.getCompanySymbol());
+        txtName.setText(c.getCompanyName());
+        txtPrice.setText("" + c.getSharePrice().getValue());
+        txtShares.setText("" + c.getNumberOfShares());
+        txtLastUpdated.setText("" + c.getLastUpdated());
     }
     
     

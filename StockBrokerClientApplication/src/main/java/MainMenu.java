@@ -64,11 +64,9 @@ public class MainMenu extends javax.swing.JFrame {
         for (Company c: companies)
         {
             CompanyView cv = new CompanyView();
-            cv.txtSymbol.setText(c.getCompanySymbol());
-            cv.txtName.setText(c.getCompanyName());
-            cv.txtPrice.setText("" + c.getSharePrice().getValue());
-            cv.txtShares.setText("" + c.getNumberOfShares());
-            cv.txtLastUpdated.setText("" + c.getLastUpdated());
+            
+            cv.updateView(c);
+            
             jp.add(cv);
         }
         

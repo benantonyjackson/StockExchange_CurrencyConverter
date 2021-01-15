@@ -1,5 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI (http://jax-ws.java.net). RI's version is Metro/2.4.3 (RELEASE-2.4.3-ad3323c; 2019-01-21T17:46:06+0000) JAXWS-RI/2.3.2 JAXWS-API/2.3.2 JAXB-RI/2.3.2 JAXB-API/2.3.2 git-revision#unknown. --><xs:schema xmlns:tns="http://StockBrokeringWebService/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://StockBrokeringWebService/">
 
+<xs:element name="buyShare" type="tns:buyShare"/>
+
+<xs:element name="buyShareResponse" type="tns:buyShareResponse"/>
+
 <xs:element name="genorateRandomCompanyData" type="tns:genorateRandomCompanyData"/>
 
 <xs:element name="genorateRandomCompanyDataResponse" type="tns:genorateRandomCompanyDataResponse"/>
@@ -11,6 +15,36 @@
 <xs:element name="getCompanyData" type="tns:getCompanyData"/>
 
 <xs:element name="getCompanyDataResponse" type="tns:getCompanyDataResponse"/>
+
+<xs:complexType name="buyShare">
+<xs:sequence>
+<xs:element name="Symbol" type="xs:string" minOccurs="0"/>
+<xs:element name="NumberOfShares" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="buyShareResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:Company" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="Company">
+<xs:sequence>
+<xs:element name="CompanyName" type="xs:string"/>
+<xs:element name="CompanySymbol" type="xs:string"/>
+<xs:element name="NumberOfShares" type="xs:int"/>
+<xs:element name="SharePrice">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="currency" type="xs:string"/>
+<xs:element name="Value" type="xs:float"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="lastUpdated" type="xs:date"/>
+</xs:sequence>
+</xs:complexType>
 
 <xs:complexType name="getAllSymbols">
 <xs:sequence/>
@@ -35,30 +69,13 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="Company">
-<xs:sequence>
-<xs:element name="CompanyName" type="xs:string"/>
-<xs:element name="CompanySymbol" type="xs:string"/>
-<xs:element name="NumberOfShares" type="xs:int"/>
-<xs:element name="SharePrice">
-<xs:complexType>
-<xs:sequence>
-<xs:element name="currency" type="xs:string"/>
-<xs:element name="Value" type="xs:float"/>
-</xs:sequence>
-</xs:complexType>
-</xs:element>
-<xs:element name="lastUpdated" type="xs:date"/>
-</xs:sequence>
-</xs:complexType>
-
 <xs:complexType name="genorateRandomCompanyData">
 <xs:sequence/>
 </xs:complexType>
 
 <xs:complexType name="genorateRandomCompanyDataResponse">
 <xs:sequence>
-<xs:element name="return" type="xs:string" minOccurs="0"/>
+<xs:element name="return" type="tns:Company" minOccurs="0" maxOccurs="unbounded"/>
 </xs:sequence>
 </xs:complexType>
 </xs:schema>

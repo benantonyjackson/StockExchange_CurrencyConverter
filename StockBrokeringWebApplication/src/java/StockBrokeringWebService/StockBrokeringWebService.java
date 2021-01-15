@@ -157,7 +157,9 @@ public class StockBrokeringWebService {
             }
         }
         
+        company.setNumberOfShares(company.getNumberOfShares() - NumberOfShares);
         
+        overwriteCompanyData(Companies);
         
         return company;
     }

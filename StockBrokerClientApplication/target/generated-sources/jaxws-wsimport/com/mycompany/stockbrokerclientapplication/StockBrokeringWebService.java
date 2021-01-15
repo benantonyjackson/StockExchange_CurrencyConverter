@@ -27,6 +27,36 @@ public interface StockBrokeringWebService {
 
     /**
      * 
+     * @param symbol
+     * @param numberOfShares
+     * @return
+     *     returns com.mycompany.stockbrokerclientapplication.Company
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "buyShare", targetNamespace = "http://StockBrokeringWebService/", className = "com.mycompany.stockbrokerclientapplication.BuyShare")
+    @ResponseWrapper(localName = "buyShareResponse", targetNamespace = "http://StockBrokeringWebService/", className = "com.mycompany.stockbrokerclientapplication.BuyShareResponse")
+    @Action(input = "http://StockBrokeringWebService/StockBrokeringWebService/buyShareRequest", output = "http://StockBrokeringWebService/StockBrokeringWebService/buyShareResponse")
+    public Company buyShare(
+        @WebParam(name = "Symbol", targetNamespace = "")
+        String symbol,
+        @WebParam(name = "NumberOfShares", targetNamespace = "")
+        int numberOfShares);
+
+    /**
+     * 
+     * @return
+     *     returns java.util.List<com.mycompany.stockbrokerclientapplication.Company>
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "genorateRandomCompanyData", targetNamespace = "http://StockBrokeringWebService/", className = "com.mycompany.stockbrokerclientapplication.GenorateRandomCompanyData")
+    @ResponseWrapper(localName = "genorateRandomCompanyDataResponse", targetNamespace = "http://StockBrokeringWebService/", className = "com.mycompany.stockbrokerclientapplication.GenorateRandomCompanyDataResponse")
+    @Action(input = "http://StockBrokeringWebService/StockBrokeringWebService/genorateRandomCompanyDataRequest", output = "http://StockBrokeringWebService/StockBrokeringWebService/genorateRandomCompanyDataResponse")
+    public List<Company> genorateRandomCompanyData();
+
+    /**
+     * 
      * @return
      *     returns java.util.List<java.lang.String>
      */
@@ -54,17 +84,5 @@ public interface StockBrokeringWebService {
         int limit,
         @WebParam(name = "Offset", targetNamespace = "")
         int offset);
-
-    /**
-     * 
-     * @return
-     *     returns java.lang.String
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "genorateRandomCompanyData", targetNamespace = "http://StockBrokeringWebService/", className = "com.mycompany.stockbrokerclientapplication.GenorateRandomCompanyData")
-    @ResponseWrapper(localName = "genorateRandomCompanyDataResponse", targetNamespace = "http://StockBrokeringWebService/", className = "com.mycompany.stockbrokerclientapplication.GenorateRandomCompanyDataResponse")
-    @Action(input = "http://StockBrokeringWebService/StockBrokeringWebService/genorateRandomCompanyDataRequest", output = "http://StockBrokeringWebService/StockBrokeringWebService/genorateRandomCompanyDataResponse")
-    public String genorateRandomCompanyData();
 
 }

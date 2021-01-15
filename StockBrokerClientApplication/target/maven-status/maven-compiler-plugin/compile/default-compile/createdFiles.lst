@@ -8,7 +8,9 @@ docwebservices\CurrencyConversionWS.class
 com\mycompany\stockbrokerclientapplication\package-info.class
 com\mycompany\stockbrokerclientapplication\GetAllSymbolsResponse.class
 com\mycompany\stockbrokerclientapplication\Company$SharePrice.class
+com\mycompany\stockbrokerclientapplication\BuyShare.class
 com\mycompany\stockbrokerclientapplication\TestVectorResponse.class
+com\mycompany\stockbrokerclientapplication\BuyShareResponse.class
 com\mycompany\stockbrokerclientapplication\CompanyAsString.class
 com\mycompany\stockbrokerclientapplication\GetCompanyDataResponse.class
 com\mycompany\stockbrokerclientapplication\GetCompanyData.class

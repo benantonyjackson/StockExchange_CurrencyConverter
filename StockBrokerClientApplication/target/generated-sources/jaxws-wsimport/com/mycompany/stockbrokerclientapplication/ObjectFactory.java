@@ -25,8 +25,10 @@ import javax.xml.namespace.QName;
 public class ObjectFactory {
 
     private final static QName _GetCompanyDataResponse_QNAME = new QName("http://StockBrokeringWebService/", "getCompanyDataResponse");
+    private final static QName _BuyShare_QNAME = new QName("http://StockBrokeringWebService/", "buyShare");
     private final static QName _GetAllSymbols_QNAME = new QName("http://StockBrokeringWebService/", "getAllSymbols");
     private final static QName _GetCompanyData_QNAME = new QName("http://StockBrokeringWebService/", "getCompanyData");
+    private final static QName _BuyShareResponse_QNAME = new QName("http://StockBrokeringWebService/", "buyShareResponse");
     private final static QName _GetAllSymbolsResponse_QNAME = new QName("http://StockBrokeringWebService/", "getAllSymbolsResponse");
     private final static QName _GenorateRandomCompanyData_QNAME = new QName("http://StockBrokeringWebService/", "genorateRandomCompanyData");
     private final static QName _GenorateRandomCompanyDataResponse_QNAME = new QName("http://StockBrokeringWebService/", "genorateRandomCompanyDataResponse");
@@ -44,6 +46,14 @@ public class ObjectFactory {
      */
     public Company createCompany() {
         return new Company();
+    }
+
+    /**
+     * Create an instance of {@link BuyShare }
+     * 
+     */
+    public BuyShare createBuyShare() {
+        return new BuyShare();
     }
 
     /**
@@ -76,6 +86,14 @@ public class ObjectFactory {
      */
     public GenorateRandomCompanyDataResponse createGenorateRandomCompanyDataResponse() {
         return new GenorateRandomCompanyDataResponse();
+    }
+
+    /**
+     * Create an instance of {@link BuyShareResponse }
+     * 
+     */
+    public BuyShareResponse createBuyShareResponse() {
+        return new BuyShareResponse();
     }
 
     /**
@@ -112,6 +130,15 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link BuyShare }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://StockBrokeringWebService/", name = "buyShare")
+    public JAXBElement<BuyShare> createBuyShare(BuyShare value) {
+        return new JAXBElement<BuyShare>(_BuyShare_QNAME, BuyShare.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link GetAllSymbols }{@code >}}
      * 
      */
@@ -127,6 +154,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://StockBrokeringWebService/", name = "getCompanyData")
     public JAXBElement<GetCompanyData> createGetCompanyData(GetCompanyData value) {
         return new JAXBElement<GetCompanyData>(_GetCompanyData_QNAME, GetCompanyData.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link BuyShareResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://StockBrokeringWebService/", name = "buyShareResponse")
+    public JAXBElement<BuyShareResponse> createBuyShareResponse(BuyShareResponse value) {
+        return new JAXBElement<BuyShareResponse>(_BuyShareResponse_QNAME, BuyShareResponse.class, null, value);
     }
 
     /**
