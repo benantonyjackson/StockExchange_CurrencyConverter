@@ -36,6 +36,8 @@ public class CompanyView extends javax.swing.JPanel {
         lblShareList = new javax.swing.JLabel();
         txtLastUpdated = new javax.swing.JTextField();
         lblLastUpdated = new javax.swing.JLabel();
+        txtBuyShares = new javax.swing.JTextField();
+        btnBuyShares = new javax.swing.JButton();
 
         txtSymbol.setToolTipText("");
         txtSymbol.setEnabled(false);
@@ -62,6 +64,15 @@ public class CompanyView extends javax.swing.JPanel {
 
         lblLastUpdated.setText("Last Updated:");
 
+        txtBuyShares.setText("0");
+
+        btnBuyShares.setText("Buy shares");
+        btnBuyShares.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuySharesActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -69,17 +80,22 @@ public class CompanyView extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtLastUpdated, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtBuyShares, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnBuyShares, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE))
+                    .addComponent(lblLastUpdated)
                     .addComponent(txtSymbol, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblSymbol)
                     .addComponent(txtShares, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblShares)
-                    .addComponent(txtLastUpdated, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblLastUpdated)
                     .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbName)
                     .addComponent(lblShareList)
                     .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(118, Short.MAX_VALUE))
+                .addGap(14, 14, 14))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -103,18 +119,35 @@ public class CompanyView extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(lblLastUpdated)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtLastUpdated, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtLastUpdated, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtBuyShares, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuyShares))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnBuySharesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuySharesActionPerformed
+        
+        buyShares(Integer.parseInt(btnBuyShares.getText()));
+        
+    }//GEN-LAST:event_btnBuySharesActionPerformed
 
+    
+    void buyShares(int numberOfShares)
+    {
+        
+    }
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuyShares;
     private javax.swing.JLabel lbName;
     private javax.swing.JLabel lblLastUpdated;
     private javax.swing.JLabel lblShareList;
     private javax.swing.JLabel lblShares;
     private javax.swing.JLabel lblSymbol;
+    private javax.swing.JTextField txtBuyShares;
     public javax.swing.JTextField txtLastUpdated;
     public javax.swing.JTextField txtName;
     public javax.swing.JTextField txtPrice;

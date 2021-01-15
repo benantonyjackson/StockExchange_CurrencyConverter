@@ -7,8 +7,9 @@ package StockBrokeringWebService;
 
 import generated.Company;
 import generated.CompanyList;
-import java.awt.List;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,13 +31,11 @@ import javax.xml.datatype.XMLGregorianCalendar;
 public class StockBrokeringWebService {
     private String allCompaniesFile = "company_data.xml";
     
-    public String genorateRandomCompanyData()
+    public List<Company> genorateRandomCompanyData()
     {
         Vector<String> symbols = getAllSymbols();
         
-        CompanyList allCompanies = new CompanyList();
-        
-        String ret = "Sup\n";
+        List<Company> allCompanies = new ArrayList<Company>();
         
         for (String symbol: symbols)
         {
@@ -59,32 +58,15 @@ public class StockBrokeringWebService {
 
                 company.setSharePrice(sharePrice);
                 
-                allCompanies.getCompanyList().add(company);
+                allCompanies.add(company);
             } catch (DatatypeConfigurationException ex) {
                 Logger.getLogger(StockBrokeringWebService.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         
-        try {            
-            javax.xml.bind.JAXBContext jaxbCtx = javax.xml.bind.JAXBContext.newInstance(allCompanies.getClass().getPackage().getName());
-            javax.xml.bind.Marshaller marshaller = jaxbCtx.createMarshaller();
-            marshaller.setProperty(javax.xml.bind.Marshaller.JAXB_ENCODING, "UTF-8"); //NOI18N
-            marshaller.setProperty(javax.xml.bind.Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-            
-            File file = new File(allCompaniesFile);
-            file.setExecutable(true);
-            file.setWritable(true);
-            
-            marshaller.marshal(allCompanies, file);
-            marshaller.marshal(allCompanies, System.out);
-            
-            ret += "After file write";
-        } catch (javax.xml.bind.JAXBException ex) {
-            // XXXTODO Handle exception
-            java.util.logging.Logger.getLogger("global").log(java.util.logging.Level.SEVERE, null, ex); //NOI18N
-        }   
+        overwriteCompanyData(allCompanies);
         
-        return ret;
+        return allCompanies;
     }
     
 
@@ -133,6 +115,51 @@ public class StockBrokeringWebService {
         }
         
         return allCompanies.getCompanyList();
+    }
+    
+    void overwriteCompanyData(List<Company> companies)
+    {
+        CompanyList allCompanies = new CompanyList();
+        
+        allCompanies.getCompanyList().addAll(companies);
+        
+        try {            
+            javax.xml.bind.JAXBContext jaxbCtx = javax.xml.bind.JAXBContext.newInstance(allCompanies.getClass().getPackage().getName());
+            javax.xml.bind.Marshaller marshaller = jaxbCtx.createMarshaller();
+            marshaller.setProperty(javax.xml.bind.Marshaller.JAXB_ENCODING, "UTF-8"); //NOI18N
+            marshaller.setProperty(javax.xml.bind.Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+            
+            File file = new File(allCompaniesFile);
+            file.setExecutable(true);
+            file.setWritable(true);
+            
+            marshaller.marshal(allCompanies, file);
+            
+        } catch (javax.xml.bind.JAXBException ex) {
+            // XXXTODO Handle exception
+            java.util.logging.Logger.getLogger("global").log(java.util.logging.Level.SEVERE, null, ex); //NOI18N
+        } 
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "buyShare")
+    public Company buyShare(@WebParam(name = "Symbol") String Symbol, @WebParam(name = "NumberOfShares") int NumberOfShares) {
+        Company company = null;
+        java.util.List<Company> Companies = getCompanyData(1000, 0);
+        for (Company c: Companies)
+        {
+            if (c.getCompanySymbol().equals(Symbol))
+            {
+                company = c;
+                break;
+            }
+        }
+        
+        
+        
+        return company;
     }
 
 

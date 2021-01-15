@@ -19,18 +19,24 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="txtLastUpdated" min="-2" pref="153" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="txtBuyShares" min="-2" pref="78" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="btnBuyShares" pref="92" max="32767" attributes="0"/>
+                  </Group>
+                  <Component id="lblLastUpdated" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="txtSymbol" alignment="0" min="-2" pref="153" max="-2" attributes="0"/>
                   <Component id="lblSymbol" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="txtShares" alignment="0" min="-2" pref="153" max="-2" attributes="0"/>
                   <Component id="lblShares" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtLastUpdated" alignment="0" min="-2" pref="153" max="-2" attributes="0"/>
-                  <Component id="lblLastUpdated" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="txtName" alignment="0" min="-2" pref="153" max="-2" attributes="0"/>
                   <Component id="lbName" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="lblShareList" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="txtPrice" alignment="0" min="-2" pref="153" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="118" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -56,8 +62,12 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="lblLastUpdated" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="txtLastUpdated" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="48" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="txtLastUpdated" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtBuyShares" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnBuyShares" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="45" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -132,6 +142,19 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Last Updated:"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtBuyShares">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="0"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnBuyShares">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Buy shares"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBuySharesActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
