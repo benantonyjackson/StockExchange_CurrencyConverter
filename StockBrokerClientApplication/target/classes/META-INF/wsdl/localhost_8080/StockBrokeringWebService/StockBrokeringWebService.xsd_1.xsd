@@ -1,24 +1,16 @@
 <?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI (http://jax-ws.java.net). RI's version is Metro/2.4.3 (RELEASE-2.4.3-ad3323c; 2019-01-21T17:46:06+0000) JAXWS-RI/2.3.2 JAXWS-API/2.3.2 JAXB-RI/2.3.2 JAXB-API/2.3.2 git-revision#unknown. --><xs:schema xmlns:tns="http://StockBrokeringWebService/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://StockBrokeringWebService/">
 
-<xs:element name="CompanyList">
-<xs:complexType>
-<xs:sequence>
-<xs:element name="company_list" type="tns:Company" minOccurs="0" maxOccurs="unbounded"/>
-</xs:sequence>
-</xs:complexType>
-</xs:element>
-
 <xs:element name="genorateRandomCompanyData" type="tns:genorateRandomCompanyData"/>
 
 <xs:element name="genorateRandomCompanyDataResponse" type="tns:genorateRandomCompanyDataResponse"/>
 
-<xs:element name="getAllCompanyData" type="tns:getAllCompanyData"/>
-
-<xs:element name="getAllCompanyDataResponse" type="tns:getAllCompanyDataResponse"/>
-
 <xs:element name="getAllSymbols" type="tns:getAllSymbols"/>
 
 <xs:element name="getAllSymbolsResponse" type="tns:getAllSymbolsResponse"/>
+
+<xs:element name="getCompanyData" type="tns:getCompanyData"/>
+
+<xs:element name="getCompanyDataResponse" type="tns:getCompanyDataResponse"/>
 
 <xs:complexType name="getAllSymbols">
 <xs:sequence/>
@@ -30,13 +22,16 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="getAllCompanyData">
-<xs:sequence/>
+<xs:complexType name="getCompanyData">
+<xs:sequence>
+<xs:element name="Limit" type="xs:int"/>
+<xs:element name="Offset" type="xs:int"/>
+</xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="getAllCompanyDataResponse">
+<xs:complexType name="getCompanyDataResponse">
 <xs:sequence>
-<xs:element name="return" minOccurs="0"/>
+<xs:element name="return" type="tns:Company" minOccurs="0" maxOccurs="unbounded"/>
 </xs:sequence>
 </xs:complexType>
 

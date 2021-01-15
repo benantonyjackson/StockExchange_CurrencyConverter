@@ -1,4 +1,6 @@
 
+import com.mycompany.stockbrokerclientapplication.Company;
+import com.mycompany.stockbrokerclientapplication.CompanyList;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -9,7 +11,9 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Vector;
 
-import com.mycompany.stockbrokerclientapplication.*;
+import com.mycompany.stockbrokerclientapplication.StockBrokeringWebService_Service;
+import com.mycompany.stockbrokerclientapplication.StockBrokeringWebService;
+import com.mycompany.stockbrokerclientapplication.Company;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -33,46 +37,29 @@ public class MainMenu extends javax.swing.JFrame {
         initComponents();
         System.out.println("Appliction started");
         
-        /*try { // Call Web Service Operation
-            docwebservices.CurrencyConversionWSService service = new docwebservices.CurrencyConversionWSService();
-            docwebservices.CurrencyConversionWS port = service.getCurrencyConversionWSPort();
-            // TODO process result here
-            java.util.List<java.lang.String> result = port.getCurrencyCodes();
-            
-            for (int i = 0; i < result.size(); i++)
-            {
-                System.out.println("Hello world");
-                cmbSymbols.addItem(result.get(i));
-            }
-            
-        } catch (Exception ex) {
-            // TODO handle custom exceptions here
-            System.out.println("Error occured");
-            System.out.println(ex.toString());
-        }*/
-
-        
         
         try { // Call Web Service Operation
-            stockbrokeringwebservice.StockBrokeringWebService_Service service = new stockbrokeringwebservice.StockBrokeringWebService_Service();
-            stockbrokeringwebservice.StockBrokeringWebService port = service.getStockBrokeringWebServicePort();
+            StockBrokeringWebService_Service service = new StockBrokeringWebService_Service();
+            StockBrokeringWebService port = service.getStockBrokeringWebServicePort();
+            // TODO initialize WS operation arguments here
+            int limit = 100;
+            int offset = 0;
             // TODO process result here
-            CompanyList allCompanies = port.getAllCompanyData();
+            java.util.List<Company> allCompanies = port.getCompanyData(limit, offset);
             
             String result = "";
             
-            for (Company company: allCompanies.getCompanyList())
+            for (Company c: allCompanies)
             {
-                result += company.getCompanySymbol();
+                result += c.getSharePrice().getValue() + " ";
             }
             
-            txtResult.setText(resutl);
+            txtResult.setText(result);
             
         } catch (Exception ex) {
             // TODO handle custom exceptions here
         }
 
-        
     }
 
     /**
@@ -98,16 +85,14 @@ public class MainMenu extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(209, 209, 209)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(384, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 749, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(162, 162, 162)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(321, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 522, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 37, Short.MAX_VALUE))
         );
 
         pack();
@@ -153,4 +138,6 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea txtResult;
     // End of variables declaration//GEN-END:variables
+
+
 }

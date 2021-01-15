@@ -24,9 +24,9 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
+    private final static QName _GetCompanyDataResponse_QNAME = new QName("http://StockBrokeringWebService/", "getCompanyDataResponse");
     private final static QName _GetAllSymbols_QNAME = new QName("http://StockBrokeringWebService/", "getAllSymbols");
-    private final static QName _GetAllCompanyData_QNAME = new QName("http://StockBrokeringWebService/", "getAllCompanyData");
-    private final static QName _GetAllCompanyDataResponse_QNAME = new QName("http://StockBrokeringWebService/", "getAllCompanyDataResponse");
+    private final static QName _GetCompanyData_QNAME = new QName("http://StockBrokeringWebService/", "getCompanyData");
     private final static QName _GetAllSymbolsResponse_QNAME = new QName("http://StockBrokeringWebService/", "getAllSymbolsResponse");
     private final static QName _GenorateRandomCompanyData_QNAME = new QName("http://StockBrokeringWebService/", "genorateRandomCompanyData");
     private final static QName _GenorateRandomCompanyDataResponse_QNAME = new QName("http://StockBrokeringWebService/", "genorateRandomCompanyDataResponse");
@@ -55,19 +55,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GetAllCompanyData }
+     * Create an instance of {@link GetCompanyData }
      * 
      */
-    public GetAllCompanyData createGetAllCompanyData() {
-        return new GetAllCompanyData();
+    public GetCompanyData createGetCompanyData() {
+        return new GetCompanyData();
     }
 
     /**
-     * Create an instance of {@link CompanyList }
+     * Create an instance of {@link GetCompanyDataResponse }
      * 
      */
-    public CompanyList createCompanyList() {
-        return new CompanyList();
+    public GetCompanyDataResponse createGetCompanyDataResponse() {
+        return new GetCompanyDataResponse();
     }
 
     /**
@@ -76,14 +76,6 @@ public class ObjectFactory {
      */
     public GenorateRandomCompanyDataResponse createGenorateRandomCompanyDataResponse() {
         return new GenorateRandomCompanyDataResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetAllCompanyDataResponse }
-     * 
-     */
-    public GetAllCompanyDataResponse createGetAllCompanyDataResponse() {
-        return new GetAllCompanyDataResponse();
     }
 
     /**
@@ -111,6 +103,15 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetCompanyDataResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://StockBrokeringWebService/", name = "getCompanyDataResponse")
+    public JAXBElement<GetCompanyDataResponse> createGetCompanyDataResponse(GetCompanyDataResponse value) {
+        return new JAXBElement<GetCompanyDataResponse>(_GetCompanyDataResponse_QNAME, GetCompanyDataResponse.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link GetAllSymbols }{@code >}}
      * 
      */
@@ -120,21 +121,12 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GetAllCompanyData }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetCompanyData }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://StockBrokeringWebService/", name = "getAllCompanyData")
-    public JAXBElement<GetAllCompanyData> createGetAllCompanyData(GetAllCompanyData value) {
-        return new JAXBElement<GetAllCompanyData>(_GetAllCompanyData_QNAME, GetAllCompanyData.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GetAllCompanyDataResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://StockBrokeringWebService/", name = "getAllCompanyDataResponse")
-    public JAXBElement<GetAllCompanyDataResponse> createGetAllCompanyDataResponse(GetAllCompanyDataResponse value) {
-        return new JAXBElement<GetAllCompanyDataResponse>(_GetAllCompanyDataResponse_QNAME, GetAllCompanyDataResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://StockBrokeringWebService/", name = "getCompanyData")
+    public JAXBElement<GetCompanyData> createGetCompanyData(GetCompanyData value) {
+        return new JAXBElement<GetCompanyData>(_GetCompanyData_QNAME, GetCompanyData.class, null, value);
     }
 
     /**

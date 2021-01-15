@@ -7,6 +7,7 @@ package StockBrokeringWebService;
 
 import generated.Company;
 import generated.CompanyList;
+import java.awt.List;
 import java.io.File;
 import java.util.Vector;
 import java.util.logging.Level;
@@ -18,6 +19,7 @@ import javax.ejb.Stateless;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
+
 
 /**
  *
@@ -87,12 +89,10 @@ public class StockBrokeringWebService {
     
     
     
-    /**
-     * Web service operation
-     */
-    @WebMethod(operationName = "getAllCompanyData")
-    public CompanyList getAllCompanyData() {
-        CompanyList allCompanies = new CompanyList();
+    
+    
+    /*
+    CompanyList allCompanies = new CompanyList();
         
         File file = new File(allCompaniesFile);
         
@@ -111,7 +111,9 @@ public class StockBrokeringWebService {
         }
         
         return allCompanies;
-    }
+    
+    */
+    
 
     /**
      * Web service operation
@@ -132,4 +134,34 @@ public class StockBrokeringWebService {
 
         return symbols;
     }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "getCompanyData")
+    public java.util.List<Company> getCompanyData(@WebParam(name = "Limit") int Limit, @WebParam(name = "Offset") int Offset) {
+        
+        CompanyList allCompanies = new CompanyList();
+        
+        File file = new File(allCompaniesFile);
+        
+        if (!file.exists())
+        {
+            genorateRandomCompanyData();
+        }
+        
+        try {
+            javax.xml.bind.JAXBContext jaxbCtx = javax.xml.bind.JAXBContext.newInstance(allCompanies.getClass().getPackage().getName());
+            javax.xml.bind.Unmarshaller unmarshaller = jaxbCtx.createUnmarshaller();
+            allCompanies = (CompanyList) unmarshaller.unmarshal(new java.io.File(allCompaniesFile)); //NOI18N
+        } catch (javax.xml.bind.JAXBException ex) {
+            // XXXTODO Handle exception
+            java.util.logging.Logger.getLogger("global").log(java.util.logging.Level.SEVERE, null, ex); //NOI18N
+        }
+        
+        return allCompanies.getCompanyList();
+    }
+
+
+
 }

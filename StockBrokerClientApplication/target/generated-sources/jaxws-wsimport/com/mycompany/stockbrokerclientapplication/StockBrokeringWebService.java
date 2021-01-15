@@ -3,6 +3,7 @@ package com.mycompany.stockbrokerclientapplication;
 
 import java.util.List;
 import javax.jws.WebMethod;
+import javax.jws.WebParam;
 import javax.jws.WebResult;
 import javax.jws.WebService;
 import javax.xml.bind.annotation.XmlSeeAlso;
@@ -27,30 +28,6 @@ public interface StockBrokeringWebService {
     /**
      * 
      * @return
-     *     returns java.lang.String
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "genorateRandomCompanyData", targetNamespace = "http://StockBrokeringWebService/", className = "com.mycompany.stockbrokerclientapplication.GenorateRandomCompanyData")
-    @ResponseWrapper(localName = "genorateRandomCompanyDataResponse", targetNamespace = "http://StockBrokeringWebService/", className = "com.mycompany.stockbrokerclientapplication.GenorateRandomCompanyDataResponse")
-    @Action(input = "http://StockBrokeringWebService/StockBrokeringWebService/genorateRandomCompanyDataRequest", output = "http://StockBrokeringWebService/StockBrokeringWebService/genorateRandomCompanyDataResponse")
-    public String genorateRandomCompanyData();
-
-    /**
-     * 
-     * @return
-     *     returns java.lang.Object
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "getAllCompanyData", targetNamespace = "http://StockBrokeringWebService/", className = "com.mycompany.stockbrokerclientapplication.GetAllCompanyData")
-    @ResponseWrapper(localName = "getAllCompanyDataResponse", targetNamespace = "http://StockBrokeringWebService/", className = "com.mycompany.stockbrokerclientapplication.GetAllCompanyDataResponse")
-    @Action(input = "http://StockBrokeringWebService/StockBrokeringWebService/getAllCompanyDataRequest", output = "http://StockBrokeringWebService/StockBrokeringWebService/getAllCompanyDataResponse")
-    public Object getAllCompanyData();
-
-    /**
-     * 
-     * @return
      *     returns java.util.List<java.lang.String>
      */
     @WebMethod
@@ -59,5 +36,35 @@ public interface StockBrokeringWebService {
     @ResponseWrapper(localName = "getAllSymbolsResponse", targetNamespace = "http://StockBrokeringWebService/", className = "com.mycompany.stockbrokerclientapplication.GetAllSymbolsResponse")
     @Action(input = "http://StockBrokeringWebService/StockBrokeringWebService/getAllSymbolsRequest", output = "http://StockBrokeringWebService/StockBrokeringWebService/getAllSymbolsResponse")
     public List<String> getAllSymbols();
+
+    /**
+     * 
+     * @param offset
+     * @param limit
+     * @return
+     *     returns java.util.List<com.mycompany.stockbrokerclientapplication.Company>
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "getCompanyData", targetNamespace = "http://StockBrokeringWebService/", className = "com.mycompany.stockbrokerclientapplication.GetCompanyData")
+    @ResponseWrapper(localName = "getCompanyDataResponse", targetNamespace = "http://StockBrokeringWebService/", className = "com.mycompany.stockbrokerclientapplication.GetCompanyDataResponse")
+    @Action(input = "http://StockBrokeringWebService/StockBrokeringWebService/getCompanyDataRequest", output = "http://StockBrokeringWebService/StockBrokeringWebService/getCompanyDataResponse")
+    public List<Company> getCompanyData(
+        @WebParam(name = "Limit", targetNamespace = "")
+        int limit,
+        @WebParam(name = "Offset", targetNamespace = "")
+        int offset);
+
+    /**
+     * 
+     * @return
+     *     returns java.lang.String
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "genorateRandomCompanyData", targetNamespace = "http://StockBrokeringWebService/", className = "com.mycompany.stockbrokerclientapplication.GenorateRandomCompanyData")
+    @ResponseWrapper(localName = "genorateRandomCompanyDataResponse", targetNamespace = "http://StockBrokeringWebService/", className = "com.mycompany.stockbrokerclientapplication.GenorateRandomCompanyDataResponse")
+    @Action(input = "http://StockBrokeringWebService/StockBrokeringWebService/genorateRandomCompanyDataRequest", output = "http://StockBrokeringWebService/StockBrokeringWebService/genorateRandomCompanyDataResponse")
+    public String genorateRandomCompanyData();
 
 }
