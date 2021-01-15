@@ -87,33 +87,6 @@ public class StockBrokeringWebService {
         return ret;
     }
     
-    
-    
-    
-    
-    /*
-    CompanyList allCompanies = new CompanyList();
-        
-        File file = new File(allCompaniesFile);
-        
-        if (!file.exists())
-        {
-            genorateRandomCompanyData();
-        }
-        
-        try {
-            javax.xml.bind.JAXBContext jaxbCtx = javax.xml.bind.JAXBContext.newInstance(allCompanies.getClass().getPackage().getName());
-            javax.xml.bind.Unmarshaller unmarshaller = jaxbCtx.createUnmarshaller();
-            allCompanies = (CompanyList) unmarshaller.unmarshal(new java.io.File(allCompaniesFile)); //NOI18N
-        } catch (javax.xml.bind.JAXBException ex) {
-            // XXXTODO Handle exception
-            java.util.logging.Logger.getLogger("global").log(java.util.logging.Level.SEVERE, null, ex); //NOI18N
-        }
-        
-        return allCompanies;
-    
-    */
-    
 
     /**
      * Web service operation
