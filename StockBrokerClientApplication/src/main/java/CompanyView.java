@@ -133,8 +133,15 @@ public class CompanyView extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBuySharesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuySharesActionPerformed
-        
-        buyShares(Integer.parseInt(btnBuyShares.getText()));
+        try
+        {
+            int numOfShares = Integer.valueOf(txtBuyShares.getText().trim());
+            buyShares(numOfShares);
+        }
+        catch (java.lang.NumberFormatException ex)
+        {
+            //add message
+        }
         
     }//GEN-LAST:event_btnBuySharesActionPerformed
 
@@ -145,9 +152,9 @@ public class CompanyView extends javax.swing.JPanel {
         try { // Call Web Service Operation
             StockBrokeringWebService_Service service = new StockBrokeringWebService_Service();
             StockBrokeringWebService port = service.getStockBrokeringWebServicePort();
-            // TODO initialize WS operation arguments here
+            
             java.lang.String symbol = txtSymbol.getText();
-            // TODO process result here
+            
             updateView(port.buyShare(symbol, numberOfShares));
             
         } catch (Exception ex) {
