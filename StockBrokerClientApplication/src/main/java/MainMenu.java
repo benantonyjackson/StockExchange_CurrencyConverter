@@ -84,6 +84,7 @@ public class MainMenu extends javax.swing.JFrame {
         
         
         scrlPnCompanyView.setViewportView(jp);
+        lblNumberOfResult.setText("Results: " + companies.size());
     }
     
     /**
@@ -96,10 +97,13 @@ public class MainMenu extends javax.swing.JFrame {
     private void initComponents() {
 
         scrlPnCompanyView = new javax.swing.JScrollPane();
+        lblNumberOfResult = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         scrlPnCompanyView.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        lblNumberOfResult.setText("Results: 0");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -108,11 +112,17 @@ public class MainMenu extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(41, 41, 41)
                 .addComponent(scrlPnCompanyView, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(477, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(lblNumberOfResult)
+                .addContainerGap(411, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(scrlPnCompanyView, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 559, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblNumberOfResult)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -155,6 +165,7 @@ public class MainMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel lblNumberOfResult;
     private javax.swing.JScrollPane scrlPnCompanyView;
     // End of variables declaration//GEN-END:variables
 
