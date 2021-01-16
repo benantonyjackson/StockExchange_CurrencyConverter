@@ -113,8 +113,8 @@ public class StockBrokeringWebService {
 
         for (int i = 0; i < companies.length(); i++)
         {
-            String symbol = ((JSONObject)companies.get(i)).get("symbol")+ "\n";
-            String name = ((JSONObject)companies.get(i)).get("name")+ "\n";
+            String symbol = ((JSONObject)companies.get(i)).get("symbol").toString();
+            String name = ((JSONObject)companies.get(i)).get("name").toString();
 
             namesAndSymbols.add(new Pair<String, String>(symbol, name));
         }
