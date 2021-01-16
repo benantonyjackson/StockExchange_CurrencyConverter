@@ -7,9 +7,16 @@ package StockBrokeringWebService;
 
 import generated.Company;
 import generated.CompanyList;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -17,13 +24,23 @@ import java.util.List;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.util.Pair;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.ejb.Stateless;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
-import javax.xml.datatype.XMLGregorianCalendar;
+import javax.xml.datatype.XMLGregorianCalendar; 
+//import okhttp3.*;
+//import okhttp3.OkHttpClient;
+//import okhttp3.Request;
+//import okhttp3.Response;
+//import org.apache.hc.client5.http.classic.methods.HttpGet;
+//import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
+//import org.apache.hc.client5.http.impl.classic.HttpClients;
+import org.json.*;
+
 
 
 /**
@@ -35,19 +52,88 @@ import javax.xml.datatype.XMLGregorianCalendar;
 public class StockBrokeringWebService {
     private String allCompaniesFile = "company_data.xml";
     
+    private String access_key = "e9b83f867fd578d5c5379ef351781eaf";
+    
+    
+
+    
+    public List<Pair<String, String>> getCompanyNamesAndSymbols() throws IOException
+    {
+        List<Pair<String, String>> namesAndSymbols = new ArrayList<Pair<String, String>>();
+        
+//        OkHttpClient client = new OkHttpClient();
+//
+//        Request request = new Request.Builder()
+//                .url("http://api.marketstack.com/v1/tickers?access_key=" + access_key)
+//                .build();
+//
+//        Response response = client.newCall(request).execute();
+        
+        
+//        URL url = new URL("http://api.marketstack.com/v1/tickers?access_key=" + access_key);
+//        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+//        
+//        BufferedReader ins = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+//        String response = "";
+//        
+//        String inString = "";
+//        
+//        while ((inString = ins.readLine()) != null) {
+//            response += inString + "\n";
+//        }
+
+//        CloseableHttpClient client = HttpClients.createDefault();
+//        HttpGet request = new HttpGet("https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY");
+//        
+//        String response = client.execute(request, httpResponse ->
+//            mapper.readValue(httpResponse.getEntity().getContent(), APOD.class)););
+        
+        URL con = new URL("http://api.marketstack.com/v1/tickers?access_key=" + access_key);
+        URLConnection yc = con.openConnection();
+        yc.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11");
+        BufferedReader in = new BufferedReader(
+                                new InputStreamReader(
+                                yc.getInputStream()));
+        String inputLine = "";
+        String response = "";
+        while ((inputLine = in.readLine()) != null)
+        {
+            response += inputLine + "\n";
+        }
+            
+        in.close();
+
+        java.util.logging.Logger.getLogger("global").log(java.util.logging.Level.INFO, null, "Request output" + response);
+        
+        JSONObject obj = new JSONObject(response); 
+
+        JSONArray companies = obj.getJSONArray("data");
+
+        String ret = "";
+
+        for (int i = 0; i < companies.length(); i++)
+        {
+            String symbol = ((JSONObject)companies.get(i)).get("symbol")+ "\n";
+            String name = ((JSONObject)companies.get(i)).get("name")+ "\n";
+
+            namesAndSymbols.add(new Pair<String, String>(symbol, name));
+        }
+
+        return namesAndSymbols;
+    }
+    
     public List<Company> genorateRandomCompanyData()
     {
-        Vector<String> symbols = getAllSymbols();
-        
         List<Company> allCompanies = new ArrayList<Company>();
-        
-        for (String symbol: symbols)
-        {
-            try {
+        List<Pair<String, String>> symbolsAndNames;
+        try {
+            symbolsAndNames = getCompanyNamesAndSymbols();
+            for (Pair<String, String> nameAndSymbol: symbolsAndNames)
+            {
                 Company company = new Company();
 
-                company.setCompanySymbol(symbol);
-                company.setCompanyName("Big bad corperation");
+                company.setCompanySymbol(nameAndSymbol.getKey());
+                company.setCompanyName(nameAndSymbol.getValue());
 
                 XMLGregorianCalendar xmlGregorianCalendar;
 
@@ -68,36 +154,17 @@ public class StockBrokeringWebService {
                 company.setSharePrice(sharePrice);
                 
                 allCompanies.add(company);
-            } catch (DatatypeConfigurationException ex) {
-                Logger.getLogger(StockBrokeringWebService.class.getName()).log(Level.SEVERE, null, ex);
             }
+        } catch (IOException ex) {
+            Logger.getLogger(StockBrokeringWebService.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (DatatypeConfigurationException ex) {
+            Logger.getLogger(StockBrokeringWebService.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        overwriteCompanyData(allCompanies);
         
         return allCompanies;
     }
     
 
-    /**
-     * Web service operation
-     */
-    @WebMethod(operationName = "getAllSymbols")
-    public Vector<String> getAllSymbols() {
-        //http://api.marketstack.com/v1/tickers?access_key=e9b83f867fd578d5c5379ef351781eaf
-
-        Vector<String> symbols = new Vector<String>();
-        
-        symbols.add("AAPL");
-        symbols.add("MSFT");
-        symbols.add("AMZN");
-        symbols.add("GOOG");
-        symbols.add("GOOGL");
-        symbols.add("FB");
-        symbols.add("VOD");
-
-        return symbols;
-    }
 
     /**
      * Web service operation
@@ -111,7 +178,7 @@ public class StockBrokeringWebService {
         
         if (!file.exists())
         {
-            genorateRandomCompanyData();
+            overwriteCompanyData(genorateRandomCompanyData());
         }
         
         try {

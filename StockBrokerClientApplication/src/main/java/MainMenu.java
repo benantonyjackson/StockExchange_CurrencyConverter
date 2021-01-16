@@ -1,6 +1,6 @@
 
 import com.mycompany.stockbrokerclientapplication.Company;
-import com.mycompany.stockbrokerclientapplication.CompanyList;
+//import com.mycompany.stockbrokerclientapplication.CompanyList;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
