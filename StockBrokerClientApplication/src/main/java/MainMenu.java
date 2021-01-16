@@ -14,8 +14,11 @@ import java.util.Vector;
 import com.mycompany.stockbrokerclientapplication.StockBrokeringWebService_Service;
 import com.mycompany.stockbrokerclientapplication.StockBrokeringWebService;
 import com.mycompany.stockbrokerclientapplication.Company;
+import java.net.ConnectException;
 import javax.swing.BoxLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.xml.ws.http.HTTPException;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -38,9 +41,10 @@ public class MainMenu extends javax.swing.JFrame {
     public MainMenu() {
         initComponents();
         System.out.println("Appliction started");
+        scrlPnCompanyView.getVerticalScrollBar().setUnitIncrement(20);
         
-        
-        try { // Call Web Service Operation
+        try 
+        { 
             StockBrokeringWebService_Service service = new StockBrokeringWebService_Service();
             StockBrokeringWebService port = service.getStockBrokeringWebServicePort();
             // TODO initialize WS operation arguments here
@@ -48,9 +52,17 @@ public class MainMenu extends javax.swing.JFrame {
             int offset = 0;
             // TODO process result here
             populateCompayView(port.getCompanyData(limit, offset));
-            
-        } catch (Exception ex) {
-            // TODO handle custom exceptions here
+        
+        } 
+        /*catch (java.net.ConnectException ex) 
+        {
+            System.out.println("Could not connect to web service");
+        }*/
+        catch (Exception ex) 
+        {
+            JOptionPane.showMessageDialog(this, "Sorry, an error occured when "
+                    + "trying to connect to the web service\n\n"
+                    + "Full error message: " + ex.getMessage());
         }
 
     }

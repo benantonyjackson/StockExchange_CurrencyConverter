@@ -8,6 +8,10 @@ package StockBrokeringWebService;
 import generated.Company;
 import generated.CompanyList;
 import java.io.File;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
@@ -47,14 +51,19 @@ public class StockBrokeringWebService {
 
                 XMLGregorianCalendar xmlGregorianCalendar;
 
-                xmlGregorianCalendar = DatatypeFactory.newInstance().newXMLGregorianCalendar("2019-04-25");
+                xmlGregorianCalendar = DatatypeFactory.newInstance()
+                        .newXMLGregorianCalendar(LocalDateTime.now().toString());
 
                 company.setLastUpdated(xmlGregorianCalendar);
                 company.setNumberOfShares(10000);
 
                 Company.SharePrice sharePrice = new Company.SharePrice();
-                sharePrice.setCurrency("GBP");
-                sharePrice.setValue((float) 50.51);
+                sharePrice.setCurrency("EUR");
+                float min = 10;
+                float max = 1000;
+                float price = (min + (float)Math.random() * (max - min));
+                BigDecimal bd = new BigDecimal(price).setScale(2, RoundingMode.HALF_UP);
+                sharePrice.setValue(bd.floatValue());
 
                 company.setSharePrice(sharePrice);
                 

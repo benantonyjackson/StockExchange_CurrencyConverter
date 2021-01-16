@@ -2,6 +2,7 @@
 import com.mycompany.stockbrokerclientapplication.Company;
 import com.mycompany.stockbrokerclientapplication.StockBrokeringWebService;
 import com.mycompany.stockbrokerclientapplication.StockBrokeringWebService_Service;
+import javax.swing.JOptionPane;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -140,7 +141,7 @@ public class CompanyView extends javax.swing.JPanel {
         }
         catch (java.lang.NumberFormatException ex)
         {
-            //add message
+            JOptionPane.showMessageDialog(this, "Please enter a number");
         }
         
     }//GEN-LAST:event_btnBuySharesActionPerformed
