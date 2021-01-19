@@ -1,3 +1,4 @@
+import flask
 from flask import Flask
 from flask import Response
 from flask import jsonify
@@ -41,6 +42,19 @@ def get_default_response(body):
 
 @app.route("/convert", methods=["GET"])
 def convert():
+    rates = requests.get("http://127.0.0.1:5000/rates").json()
+
+    json_data = flask.request.json
+
+    conversion = float(rates['rates'][json_data['base_currency']]) * float(json_data['value'])
+
+    return_data = {"value": conversion}
+
+    return get_default_response(return_data)
+
+
+@app.route("/rates", methods=["GET"])
+def rates():
     try:
         res = requests.get(BASE_URL + "/latest", params={'access_key': API_KEY}).json()
         res['last_updated'] = str(datetime.now())
@@ -64,7 +78,7 @@ def convert():
         return get_default_response({"message": "An error occurred"})
 
 
-@app.route("/get_all_currencies")
+@app.route("/currencies")
 def get_all_currencies():
     try:
         res = requests.get(BASE_URL + "/symbols", params={'access_key': API_KEY}).json()

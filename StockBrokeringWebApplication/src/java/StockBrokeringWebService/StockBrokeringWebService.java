@@ -221,15 +221,31 @@ public class StockBrokeringWebService {
     @WebMethod(operationName = "GetCompaniesBySymbol")
     public List<Company> GetCompaniesBySymbol(@WebParam(name = "symbol") String symbol) {
         java.util.List<Company> allCompanies = getCompanyData(1000, 0);
-        //java.util.logging.Logger.getLogger("global").log(java.util.logging.Level.INFO, null, "Size " + allCompanies.size());
         List<Company> filteredCompanies = new ArrayList<Company>();
         
         for (Company company: allCompanies)
         {
-            //java.util.logging.Logger.getLogger("global").log(java.util.logging.Level.INFO, null, "Current company: " + company.getCompanySymbol());
             if (company.getCompanySymbol().equals(symbol))
             {
-                java.util.logging.Logger.getLogger("global").log(java.util.logging.Level.INFO, null, "Current company: " + company.getCompanySymbol());
+                filteredCompanies.add(company);
+            }
+        }
+        
+        return filteredCompanies;
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "getCompaniesByName")
+    public List<Company> getCompaniesByName(@WebParam(name = "name") String name) {
+        java.util.List<Company> allCompanies = getCompanyData(1000, 0);
+        List<Company> filteredCompanies = new ArrayList<Company>();
+        
+        for (Company company: allCompanies)
+        {
+            if (company.getCompanyName().equals(name))
+            {
                 filteredCompanies.add(company);
             }
         }

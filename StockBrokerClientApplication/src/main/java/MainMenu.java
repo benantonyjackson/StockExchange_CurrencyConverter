@@ -103,6 +103,9 @@ public class MainMenu extends javax.swing.JFrame {
         txtFilterBySymbol = new javax.swing.JTextField();
         btnFilterBySymbol = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        txtFilterByName = new javax.swing.JTextField();
+        btnFilterByName = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -120,6 +123,16 @@ public class MainMenu extends javax.swing.JFrame {
         });
 
         jLabel1.setText("Filter by symbol");
+
+        btnFilterByName.setText("Search");
+        btnFilterByName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFilterByNameActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Filter by name");
+        jLabel2.setToolTipText("");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -141,7 +154,12 @@ public class MainMenu extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(btnFilterBySymbol))
                             .addComponent(lblNumberOfResult)
-                            .addComponent(jLabel1))
+                            .addComponent(jLabel1)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtFilterByName, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnFilterByName))
+                            .addComponent(jLabel2))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
@@ -156,6 +174,12 @@ public class MainMenu extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtFilterBySymbol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnFilterBySymbol))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtFilterByName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnFilterByName))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -179,8 +203,24 @@ public class MainMenu extends javax.swing.JFrame {
         } catch (Exception ex) {
             // TODO handle custom exceptions here
         }
-
     }//GEN-LAST:event_btnFilterBySymbolActionPerformed
+
+    private void btnFilterByNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilterByNameActionPerformed
+        
+        try { // Call Web Service Operation
+            StockBrokeringWebService_Service service = new StockBrokeringWebService_Service();
+            StockBrokeringWebService port = service.getStockBrokeringWebServicePort();
+
+            java.lang.String name = txtFilterByName.getText();
+            java.util.List<Company> companies = port.getCompaniesByName(name);
+            
+            populateCompayView(companies);
+            
+        } catch (Exception ex) {
+            // TODO handle custom exceptions here
+        }
+
+    }//GEN-LAST:event_btnFilterByNameActionPerformed
 
     
     /**
@@ -219,11 +259,14 @@ public class MainMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnFilterByName;
     private javax.swing.JButton btnFilterBySymbol;
     private javax.swing.JButton btnSearch;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel lblNumberOfResult;
     private javax.swing.JScrollPane scrlPnCompanyView;
+    private javax.swing.JTextField txtFilterByName;
     private javax.swing.JTextField txtFilterBySymbol;
     // End of variables declaration//GEN-END:variables
 

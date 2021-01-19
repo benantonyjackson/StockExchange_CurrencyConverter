@@ -43,6 +43,21 @@ public interface StockBrokeringWebService {
 
     /**
      * 
+     * @param name
+     * @return
+     *     returns java.util.List<com.mycompany.stockbrokerclientapplication.Company>
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "getCompaniesByName", targetNamespace = "http://StockBrokeringWebService/", className = "com.mycompany.stockbrokerclientapplication.GetCompaniesByName")
+    @ResponseWrapper(localName = "getCompaniesByNameResponse", targetNamespace = "http://StockBrokeringWebService/", className = "com.mycompany.stockbrokerclientapplication.GetCompaniesByNameResponse")
+    @Action(input = "http://StockBrokeringWebService/StockBrokeringWebService/getCompaniesByNameRequest", output = "http://StockBrokeringWebService/StockBrokeringWebService/getCompaniesByNameResponse")
+    public List<Company> getCompaniesByName(
+        @WebParam(name = "name", targetNamespace = "")
+        String name);
+
+    /**
+     * 
      * @return
      *     returns java.util.List<com.mycompany.stockbrokerclientapplication.Pair>
      * @throws IOException_Exception

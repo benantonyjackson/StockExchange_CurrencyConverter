@@ -25,13 +25,15 @@ import javax.xml.namespace.QName;
 public class ObjectFactory {
 
     private final static QName _GetCompanyNamesAndSymbols_QNAME = new QName("http://StockBrokeringWebService/", "getCompanyNamesAndSymbols");
-    private final static QName _GetCompanyDataResponse_QNAME = new QName("http://StockBrokeringWebService/", "getCompanyDataResponse");
     private final static QName _BuyShare_QNAME = new QName("http://StockBrokeringWebService/", "buyShare");
     private final static QName _GetCompanyData_QNAME = new QName("http://StockBrokeringWebService/", "getCompanyData");
+    private final static QName _GetCompaniesByNameResponse_QNAME = new QName("http://StockBrokeringWebService/", "getCompaniesByNameResponse");
     private final static QName _BuyShareResponse_QNAME = new QName("http://StockBrokeringWebService/", "buyShareResponse");
+    private final static QName _GetCompanyNamesAndSymbolsResponse_QNAME = new QName("http://StockBrokeringWebService/", "getCompanyNamesAndSymbolsResponse");
+    private final static QName _GetCompaniesByName_QNAME = new QName("http://StockBrokeringWebService/", "getCompaniesByName");
+    private final static QName _GetCompanyDataResponse_QNAME = new QName("http://StockBrokeringWebService/", "getCompanyDataResponse");
     private final static QName _GetCompaniesBySymbol_QNAME = new QName("http://StockBrokeringWebService/", "GetCompaniesBySymbol");
     private final static QName _GenorateRandomCompanyData_QNAME = new QName("http://StockBrokeringWebService/", "genorateRandomCompanyData");
-    private final static QName _GetCompanyNamesAndSymbolsResponse_QNAME = new QName("http://StockBrokeringWebService/", "getCompanyNamesAndSymbolsResponse");
     private final static QName _GetCompaniesBySymbolResponse_QNAME = new QName("http://StockBrokeringWebService/", "GetCompaniesBySymbolResponse");
     private final static QName _GenorateRandomCompanyDataResponse_QNAME = new QName("http://StockBrokeringWebService/", "genorateRandomCompanyDataResponse");
     private final static QName _IOException_QNAME = new QName("http://StockBrokeringWebService/", "IOException");
@@ -52,27 +54,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link BuyShare }
+     * Create an instance of {@link GetCompaniesByName }
      * 
      */
-    public BuyShare createBuyShare() {
-        return new BuyShare();
-    }
-
-    /**
-     * Create an instance of {@link GetCompanyData }
-     * 
-     */
-    public GetCompanyData createGetCompanyData() {
-        return new GetCompanyData();
-    }
-
-    /**
-     * Create an instance of {@link GetCompanyNamesAndSymbols }
-     * 
-     */
-    public GetCompanyNamesAndSymbols createGetCompanyNamesAndSymbols() {
-        return new GetCompanyNamesAndSymbols();
+    public GetCompaniesByName createGetCompaniesByName() {
+        return new GetCompaniesByName();
     }
 
     /**
@@ -108,14 +94,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link BuyShareResponse }
-     * 
-     */
-    public BuyShareResponse createBuyShareResponse() {
-        return new BuyShareResponse();
-    }
-
-    /**
      * Create an instance of {@link GetCompaniesBySymbol }
      * 
      */
@@ -129,6 +107,46 @@ public class ObjectFactory {
      */
     public GenorateRandomCompanyData createGenorateRandomCompanyData() {
         return new GenorateRandomCompanyData();
+    }
+
+    /**
+     * Create an instance of {@link BuyShare }
+     * 
+     */
+    public BuyShare createBuyShare() {
+        return new BuyShare();
+    }
+
+    /**
+     * Create an instance of {@link GetCompanyData }
+     * 
+     */
+    public GetCompanyData createGetCompanyData() {
+        return new GetCompanyData();
+    }
+
+    /**
+     * Create an instance of {@link GetCompaniesByNameResponse }
+     * 
+     */
+    public GetCompaniesByNameResponse createGetCompaniesByNameResponse() {
+        return new GetCompaniesByNameResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetCompanyNamesAndSymbols }
+     * 
+     */
+    public GetCompanyNamesAndSymbols createGetCompanyNamesAndSymbols() {
+        return new GetCompanyNamesAndSymbols();
+    }
+
+    /**
+     * Create an instance of {@link BuyShareResponse }
+     * 
+     */
+    public BuyShareResponse createBuyShareResponse() {
+        return new BuyShareResponse();
     }
 
     /**
@@ -165,15 +183,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GetCompanyDataResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://StockBrokeringWebService/", name = "getCompanyDataResponse")
-    public JAXBElement<GetCompanyDataResponse> createGetCompanyDataResponse(GetCompanyDataResponse value) {
-        return new JAXBElement<GetCompanyDataResponse>(_GetCompanyDataResponse_QNAME, GetCompanyDataResponse.class, null, value);
-    }
-
-    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link BuyShare }{@code >}}
      * 
      */
@@ -192,12 +201,48 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetCompaniesByNameResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://StockBrokeringWebService/", name = "getCompaniesByNameResponse")
+    public JAXBElement<GetCompaniesByNameResponse> createGetCompaniesByNameResponse(GetCompaniesByNameResponse value) {
+        return new JAXBElement<GetCompaniesByNameResponse>(_GetCompaniesByNameResponse_QNAME, GetCompaniesByNameResponse.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link BuyShareResponse }{@code >}}
      * 
      */
     @XmlElementDecl(namespace = "http://StockBrokeringWebService/", name = "buyShareResponse")
     public JAXBElement<BuyShareResponse> createBuyShareResponse(BuyShareResponse value) {
         return new JAXBElement<BuyShareResponse>(_BuyShareResponse_QNAME, BuyShareResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetCompanyNamesAndSymbolsResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://StockBrokeringWebService/", name = "getCompanyNamesAndSymbolsResponse")
+    public JAXBElement<GetCompanyNamesAndSymbolsResponse> createGetCompanyNamesAndSymbolsResponse(GetCompanyNamesAndSymbolsResponse value) {
+        return new JAXBElement<GetCompanyNamesAndSymbolsResponse>(_GetCompanyNamesAndSymbolsResponse_QNAME, GetCompanyNamesAndSymbolsResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetCompaniesByName }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://StockBrokeringWebService/", name = "getCompaniesByName")
+    public JAXBElement<GetCompaniesByName> createGetCompaniesByName(GetCompaniesByName value) {
+        return new JAXBElement<GetCompaniesByName>(_GetCompaniesByName_QNAME, GetCompaniesByName.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetCompanyDataResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://StockBrokeringWebService/", name = "getCompanyDataResponse")
+    public JAXBElement<GetCompanyDataResponse> createGetCompanyDataResponse(GetCompanyDataResponse value) {
+        return new JAXBElement<GetCompanyDataResponse>(_GetCompanyDataResponse_QNAME, GetCompanyDataResponse.class, null, value);
     }
 
     /**
@@ -216,15 +261,6 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://StockBrokeringWebService/", name = "genorateRandomCompanyData")
     public JAXBElement<GenorateRandomCompanyData> createGenorateRandomCompanyData(GenorateRandomCompanyData value) {
         return new JAXBElement<GenorateRandomCompanyData>(_GenorateRandomCompanyData_QNAME, GenorateRandomCompanyData.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GetCompanyNamesAndSymbolsResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://StockBrokeringWebService/", name = "getCompanyNamesAndSymbolsResponse")
-    public JAXBElement<GetCompanyNamesAndSymbolsResponse> createGetCompanyNamesAndSymbolsResponse(GetCompanyNamesAndSymbolsResponse value) {
-        return new JAXBElement<GetCompanyNamesAndSymbolsResponse>(_GetCompanyNamesAndSymbolsResponse_QNAME, GetCompanyNamesAndSymbolsResponse.class, null, value);
     }
 
     /**
