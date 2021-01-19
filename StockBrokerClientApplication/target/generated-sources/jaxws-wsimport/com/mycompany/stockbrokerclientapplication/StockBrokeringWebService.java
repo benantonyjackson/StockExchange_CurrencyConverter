@@ -8,6 +8,7 @@ import javax.jws.WebResult;
 import javax.jws.WebService;
 import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.ws.Action;
+import javax.xml.ws.FaultAction;
 import javax.xml.ws.RequestWrapper;
 import javax.xml.ws.ResponseWrapper;
 
@@ -28,20 +29,34 @@ public interface StockBrokeringWebService {
     /**
      * 
      * @param symbol
-     * @param numberOfShares
      * @return
-     *     returns com.mycompany.stockbrokerclientapplication.Company
+     *     returns java.util.List<com.mycompany.stockbrokerclientapplication.Company>
+     */
+    @WebMethod(operationName = "GetCompaniesBySymbol")
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "GetCompaniesBySymbol", targetNamespace = "http://StockBrokeringWebService/", className = "com.mycompany.stockbrokerclientapplication.GetCompaniesBySymbol")
+    @ResponseWrapper(localName = "GetCompaniesBySymbolResponse", targetNamespace = "http://StockBrokeringWebService/", className = "com.mycompany.stockbrokerclientapplication.GetCompaniesBySymbolResponse")
+    @Action(input = "http://StockBrokeringWebService/StockBrokeringWebService/GetCompaniesBySymbolRequest", output = "http://StockBrokeringWebService/StockBrokeringWebService/GetCompaniesBySymbolResponse")
+    public List<Company> getCompaniesBySymbol(
+        @WebParam(name = "symbol", targetNamespace = "")
+        String symbol);
+
+    /**
+     * 
+     * @return
+     *     returns java.util.List<com.mycompany.stockbrokerclientapplication.Pair>
+     * @throws IOException_Exception
      */
     @WebMethod
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "buyShare", targetNamespace = "http://StockBrokeringWebService/", className = "com.mycompany.stockbrokerclientapplication.BuyShare")
-    @ResponseWrapper(localName = "buyShareResponse", targetNamespace = "http://StockBrokeringWebService/", className = "com.mycompany.stockbrokerclientapplication.BuyShareResponse")
-    @Action(input = "http://StockBrokeringWebService/StockBrokeringWebService/buyShareRequest", output = "http://StockBrokeringWebService/StockBrokeringWebService/buyShareResponse")
-    public Company buyShare(
-        @WebParam(name = "Symbol", targetNamespace = "")
-        String symbol,
-        @WebParam(name = "NumberOfShares", targetNamespace = "")
-        int numberOfShares);
+    @RequestWrapper(localName = "getCompanyNamesAndSymbols", targetNamespace = "http://StockBrokeringWebService/", className = "com.mycompany.stockbrokerclientapplication.GetCompanyNamesAndSymbols")
+    @ResponseWrapper(localName = "getCompanyNamesAndSymbolsResponse", targetNamespace = "http://StockBrokeringWebService/", className = "com.mycompany.stockbrokerclientapplication.GetCompanyNamesAndSymbolsResponse")
+    @Action(input = "http://StockBrokeringWebService/StockBrokeringWebService/getCompanyNamesAndSymbolsRequest", output = "http://StockBrokeringWebService/StockBrokeringWebService/getCompanyNamesAndSymbolsResponse", fault = {
+        @FaultAction(className = IOException_Exception.class, value = "http://StockBrokeringWebService/StockBrokeringWebService/getCompanyNamesAndSymbols/Fault/IOException")
+    })
+    public List<Pair> getCompanyNamesAndSymbols()
+        throws IOException_Exception
+    ;
 
     /**
      * 
@@ -54,18 +69,6 @@ public interface StockBrokeringWebService {
     @ResponseWrapper(localName = "genorateRandomCompanyDataResponse", targetNamespace = "http://StockBrokeringWebService/", className = "com.mycompany.stockbrokerclientapplication.GenorateRandomCompanyDataResponse")
     @Action(input = "http://StockBrokeringWebService/StockBrokeringWebService/genorateRandomCompanyDataRequest", output = "http://StockBrokeringWebService/StockBrokeringWebService/genorateRandomCompanyDataResponse")
     public List<Company> genorateRandomCompanyData();
-
-    /**
-     * 
-     * @return
-     *     returns java.util.List<java.lang.String>
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "getAllSymbols", targetNamespace = "http://StockBrokeringWebService/", className = "com.mycompany.stockbrokerclientapplication.GetAllSymbols")
-    @ResponseWrapper(localName = "getAllSymbolsResponse", targetNamespace = "http://StockBrokeringWebService/", className = "com.mycompany.stockbrokerclientapplication.GetAllSymbolsResponse")
-    @Action(input = "http://StockBrokeringWebService/StockBrokeringWebService/getAllSymbolsRequest", output = "http://StockBrokeringWebService/StockBrokeringWebService/getAllSymbolsResponse")
-    public List<String> getAllSymbols();
 
     /**
      * 
@@ -84,5 +87,23 @@ public interface StockBrokeringWebService {
         int limit,
         @WebParam(name = "Offset", targetNamespace = "")
         int offset);
+
+    /**
+     * 
+     * @param symbol
+     * @param numberOfShares
+     * @return
+     *     returns com.mycompany.stockbrokerclientapplication.Company
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "buyShare", targetNamespace = "http://StockBrokeringWebService/", className = "com.mycompany.stockbrokerclientapplication.BuyShare")
+    @ResponseWrapper(localName = "buyShareResponse", targetNamespace = "http://StockBrokeringWebService/", className = "com.mycompany.stockbrokerclientapplication.BuyShareResponse")
+    @Action(input = "http://StockBrokeringWebService/StockBrokeringWebService/buyShareRequest", output = "http://StockBrokeringWebService/StockBrokeringWebService/buyShareResponse")
+    public Company buyShare(
+        @WebParam(name = "Symbol", targetNamespace = "")
+        String symbol,
+        @WebParam(name = "NumberOfShares", targetNamespace = "")
+        int numberOfShares);
 
 }

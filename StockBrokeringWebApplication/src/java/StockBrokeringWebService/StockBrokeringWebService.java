@@ -61,32 +61,6 @@ public class StockBrokeringWebService {
     {
         List<Pair<String, String>> namesAndSymbols = new ArrayList<Pair<String, String>>();
         
-//        OkHttpClient client = new OkHttpClient();
-//
-//        Request request = new Request.Builder()
-//                .url("http://api.marketstack.com/v1/tickers?access_key=" + access_key)
-//                .build();
-//
-//        Response response = client.newCall(request).execute();
-        
-        
-//        URL url = new URL("http://api.marketstack.com/v1/tickers?access_key=" + access_key);
-//        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-//        
-//        BufferedReader ins = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-//        String response = "";
-//        
-//        String inString = "";
-//        
-//        while ((inString = ins.readLine()) != null) {
-//            response += inString + "\n";
-//        }
-
-//        CloseableHttpClient client = HttpClients.createDefault();
-//        HttpGet request = new HttpGet("https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY");
-//        
-//        String response = client.execute(request, httpResponse ->
-//            mapper.readValue(httpResponse.getEntity().getContent(), APOD.class)););
         
         URL con = new URL("http://api.marketstack.com/v1/tickers?access_key=" + access_key);
         URLConnection yc = con.openConnection();
@@ -146,7 +120,7 @@ public class StockBrokeringWebService {
                 Company.SharePrice sharePrice = new Company.SharePrice();
                 sharePrice.setCurrency("EUR");
                 float min = 10;
-                float max = 1000;
+                float max = 10000;
                 float price = (min + (float)Math.random() * (max - min));
                 BigDecimal bd = new BigDecimal(price).setScale(2, RoundingMode.HALF_UP);
                 sharePrice.setValue(bd.floatValue());
@@ -173,6 +147,7 @@ public class StockBrokeringWebService {
     public java.util.List<Company> getCompanyData(@WebParam(name = "Limit") int Limit, @WebParam(name = "Offset") int Offset) {
         
         CompanyList allCompanies = new CompanyList();
+        
         
         File file = new File(allCompaniesFile);
         
@@ -238,6 +213,28 @@ public class StockBrokeringWebService {
         overwriteCompanyData(Companies);
         
         return company;
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "GetCompaniesBySymbol")
+    public List<Company> GetCompaniesBySymbol(@WebParam(name = "symbol") String symbol) {
+        java.util.List<Company> allCompanies = getCompanyData(1000, 0);
+        //java.util.logging.Logger.getLogger("global").log(java.util.logging.Level.INFO, null, "Size " + allCompanies.size());
+        List<Company> filteredCompanies = new ArrayList<Company>();
+        
+        for (Company company: allCompanies)
+        {
+            //java.util.logging.Logger.getLogger("global").log(java.util.logging.Level.INFO, null, "Current company: " + company.getCompanySymbol());
+            if (company.getCompanySymbol().equals(symbol))
+            {
+                java.util.logging.Logger.getLogger("global").log(java.util.logging.Level.INFO, null, "Current company: " + company.getCompanySymbol());
+                filteredCompanies.add(company);
+            }
+        }
+        
+        return filteredCompanies;
     }
 
 

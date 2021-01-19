@@ -14,6 +14,7 @@ import java.util.Vector;
 import com.mycompany.stockbrokerclientapplication.StockBrokeringWebService_Service;
 import com.mycompany.stockbrokerclientapplication.StockBrokeringWebService;
 import com.mycompany.stockbrokerclientapplication.Company;
+import com.mycompany.stockbrokerclientapplication.Pair;
 import java.net.ConnectException;
 import javax.swing.BoxLayout;
 import javax.swing.JOptionPane;
@@ -98,12 +99,27 @@ public class MainMenu extends javax.swing.JFrame {
 
         scrlPnCompanyView = new javax.swing.JScrollPane();
         lblNumberOfResult = new javax.swing.JLabel();
+        btnSearch = new javax.swing.JButton();
+        txtFilterBySymbol = new javax.swing.JTextField();
+        btnFilterBySymbol = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         scrlPnCompanyView.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         lblNumberOfResult.setText("Results: 0");
+
+        btnSearch.setText("Search");
+
+        btnFilterBySymbol.setText("Search");
+        btnFilterBySymbol.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFilterBySymbolActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Filter by symbol");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -112,9 +128,21 @@ public class MainMenu extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(41, 41, 41)
                 .addComponent(scrlPnCompanyView, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(lblNumberOfResult)
-                .addContainerGap(411, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 373, Short.MAX_VALUE)
+                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtFilterBySymbol, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnFilterBySymbol))
+                            .addComponent(lblNumberOfResult)
+                            .addComponent(jLabel1))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -122,11 +150,37 @@ public class MainMenu extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblNumberOfResult)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(33, 33, 33)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtFilterBySymbol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnFilterBySymbol))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnFilterBySymbolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilterBySymbolActionPerformed
+        
+        try { // Call Web Service Operation
+            StockBrokeringWebService_Service service = new StockBrokeringWebService_Service();
+            StockBrokeringWebService port = service.getStockBrokeringWebServicePort();
+            // TODO initialize WS operation arguments here
+            java.lang.String symbol = txtFilterBySymbol.getText();
+            // TODO process result here
+            java.util.List<Company> companies = port.getCompaniesBySymbol(symbol);
+            
+            populateCompayView(companies);
+            
+        } catch (Exception ex) {
+            // TODO handle custom exceptions here
+        }
+
+    }//GEN-LAST:event_btnFilterBySymbolActionPerformed
 
     
     /**
@@ -165,8 +219,12 @@ public class MainMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnFilterBySymbol;
+    private javax.swing.JButton btnSearch;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblNumberOfResult;
     private javax.swing.JScrollPane scrlPnCompanyView;
+    private javax.swing.JTextField txtFilterBySymbol;
     // End of variables declaration//GEN-END:variables
 
 
