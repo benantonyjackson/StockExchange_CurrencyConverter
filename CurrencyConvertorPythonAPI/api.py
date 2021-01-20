@@ -52,8 +52,8 @@ def convert():
     return_data = {"message": allRatesJson['message'], "values": []}
 
     for value_to_convert in json_data:
-        conversion = round(float(
-            allRatesJson['rates'][value_to_convert['base_currency']]) * float(value_to_convert['value']), 2)
+        rate = allRatesJson['rates'][value_to_convert['to']] / allRatesJson['rates'][value_to_convert['from']]
+        conversion = round(rate * value_to_convert['value'], 2)
 
         return_data['values'].append(conversion)
 

@@ -269,13 +269,10 @@ public class StockBrokeringWebService {
             if (!company.getSharePrice().getCurrency().equals(currencyType))
             {
                 JSONObject obj = new JSONObject();
-                //obj.append("base_currency", company.getSharePrice().getCurrency());
-                //obj.append("value", company.getSharePrice().getValue());
                 
-                obj.put("base_currency", company.getSharePrice().getCurrency());
+                obj.put("from", company.getSharePrice().getCurrency());
+                obj.put("to", currencyType);
                 obj.put("value", company.getSharePrice().getValue());
-                
-                //obj.
                 
                 arr.put(obj);
             }
@@ -309,6 +306,7 @@ public class StockBrokeringWebService {
                           responseBuilder.append(responseLine.trim());
                       }
                     System.out.println(responseBuilder.toString());
+                    response = responseBuilder.toString();
                 }
                 
                 JSONObject responseObj = new JSONObject(response);
@@ -320,8 +318,13 @@ public class StockBrokeringWebService {
                     Company.SharePrice newSharePrice = new Company.SharePrice();
                     
                     newSharePrice.setCurrency(currencyType);
-                    newSharePrice.setValue(responseArray.getFloat(i));
+                    newSharePrice.setValue(responseArray.getBigDecimal(i).floatValue());
                     company.setSharePrice(newSharePrice);
+                    
+                    System.out.println(newSharePrice.getCurrency());
+                    System.out.println(newSharePrice.getValue());
+                    
+                    companies.set(i, company);
                 }
                 
             } catch (MalformedURLException ex) {
