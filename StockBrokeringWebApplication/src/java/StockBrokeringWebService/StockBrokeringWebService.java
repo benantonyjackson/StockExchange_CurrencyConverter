@@ -37,14 +37,6 @@ import javax.enterprise.context.RequestScoped;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar; 
-//import okhttp3.*;
-//import okhttp3.OkHttpClient;
-//import okhttp3.Request;
-//import okhttp3.Response;
-//import org.apache.hc.client5.http.classic.methods.HttpGet;
-//import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
-//import org.apache.hc.client5.http.impl.classic.HttpClients;
-
 
 
 import org.json.*;
@@ -69,21 +61,8 @@ public class StockBrokeringWebService {
     {
         List<Pair<String, String>> namesAndSymbols = new ArrayList<Pair<String, String>>();
         
-        
-        URL con = new URL("http://api.marketstack.com/v1/tickers?access_key=" + access_key);
-        URLConnection yc = con.openConnection();
-        yc.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11");
-        BufferedReader in = new BufferedReader(
-                                new InputStreamReader(
-                                yc.getInputStream()));
-        String inputLine = "";
-        String response = "";
-        while ((inputLine = in.readLine()) != null)
-        {
-            response += inputLine + "\n";
-        }
-            
-        in.close();
+        byte[] arr = "".getBytes();
+        String response = makeRequest("http://api.marketstack.com/v1/tickers?access_key=" + access_key, "GET");
 
         java.util.logging.Logger.getLogger("global").log(java.util.logging.Level.INFO, null, "Request output" + response);
         
@@ -172,9 +151,9 @@ public class StockBrokeringWebService {
             // XXXTODO Handle exception
             java.util.logging.Logger.getLogger("global").log(java.util.logging.Level.SEVERE, null, ex); //NOI18N
         }
-        List<Company> list = convertCurrencies(allCompanies.getCompanyList(), "GBP");
-        //return allCompanies.getCompanyList();
-        return list;
+        //List<Company> list = convertCurrencies(allCompanies.getCompanyList(), "GBP");
+        return allCompanies.getCompanyList();
+        //return list;
     }
     
     void overwriteCompanyData(List<Company> companies)
@@ -313,9 +292,18 @@ public class StockBrokeringWebService {
         return companies;
     }
     
+    private String makeRequest(String uri, String MethodType)
+    {
+        byte[] arr = "".getBytes();
+        return makeRequest(uri, MethodType, arr);
+    }
+    
     private String makeRequest(String uri, String MethodType, byte[] input)
     {
         URL url = null;
+        
+        boolean bodyIsEmpty = (input.length == 0);
+        
         try {
             url = new URL(uri);
         } catch (MalformedURLException ex) {
@@ -335,17 +323,20 @@ public class StockBrokeringWebService {
         }
 
         con.setRequestProperty("Content-Type", "application/json; utf-8");
-
+        con.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11");
         con.setRequestProperty("Accept", "application/json");
 
-        con.setDoOutput(true);
-
-        try (OutputStream os = con.getOutputStream()) {
-            //byte[] input = arr.toString().getBytes("utf-8");
-            os.write(input, 0, input.length);
-        } catch (IOException ex) {
-            Logger.getLogger(StockBrokeringWebService.class.getName()).log(Level.SEVERE, null, ex);
+        con.setDoOutput(bodyIsEmpty);
+        
+        if (!bodyIsEmpty)
+        {
+            try (OutputStream os = con.getOutputStream()) {
+                os.write(input, 0, input.length);
+            } catch (IOException ex) {
+                Logger.getLogger(StockBrokeringWebService.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
+        
 
         String response = "";
         try (BufferedReader br = new BufferedReader(
