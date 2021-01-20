@@ -42,15 +42,18 @@ def get_default_response(body):
 
 @app.route("/convert", methods=["GET"])
 def convert():
-    rates = requests.get("http://127.0.0.1:5000/rates").json()
+    allRates = requests.get("http://127.0.0.1:5000/rates")
+    allRatesJson = allRates.json()
 
     json_data = flask.request.json
 
-    conversion = float(rates['rates'][json_data['base_currency']]) * float(json_data['value'])
+    return_data = {"message": allRatesJson['message'], "values": []}
 
-    return_data = {"value": conversion}
+    for value_to_convert in json_data:
+        conversion = float(allRatesJson['rates'][value_to_convert['base_currency']]) * float(value_to_convert['value'])
+        return_data['values'].append(conversion)
 
-    return get_default_response(return_data)
+    return get_default_response(return_data), allRates.status_code
 
 
 @app.route("/rates", methods=["GET"])

@@ -54,7 +54,7 @@ public class StockBrokeringWebService {
     
     private String access_key = "e9b83f867fd578d5c5379ef351781eaf";
     
-    
+    private String baseCurrencyRate = "EUR";
 
     
     public List<Pair<String, String>> getCompanyNamesAndSymbols() throws IOException
@@ -118,7 +118,7 @@ public class StockBrokeringWebService {
                 company.setNumberOfShares(10000);
 
                 Company.SharePrice sharePrice = new Company.SharePrice();
-                sharePrice.setCurrency("EUR");
+                sharePrice.setCurrency(baseCurrencyRate);
                 float min = 10;
                 float max = 10000;
                 float price = (min + (float)Math.random() * (max - min));
@@ -253,6 +253,20 @@ public class StockBrokeringWebService {
         return filteredCompanies;
     }
 
-
+    private List<Company> convertCurrencies(List<Company> companies, String currencyType)
+    {
+        if (!currencyType.equals(baseCurrencyRate))
+        {
+            for (Company company: companies)
+            {
+                if (company.getSharePrice().getCurrency() != currencyType)
+                {
+                    //TODO: Create JSON object for request
+                }
+            }
+        }
+        
+        return companies;
+    }
 
 }
