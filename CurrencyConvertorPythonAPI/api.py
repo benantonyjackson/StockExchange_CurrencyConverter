@@ -47,8 +47,6 @@ def convert():
 
     json_data = flask.request.json
 
-    print(json_data)
-
     return_data = {"message": allRatesJson['message'], "values": []}
 
     for value_to_convert in json_data:

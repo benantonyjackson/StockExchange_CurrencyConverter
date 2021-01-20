@@ -13,10 +13,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.text.DecimalFormat;
@@ -280,34 +282,14 @@ public class StockBrokeringWebService {
 
         if (arr.length() > 0)
         {
+                String response = "";
             try {
-               
-                URL url = new URL ("http://127.0.0.1:5000/convert");
-                HttpURLConnection con = (HttpURLConnection)url.openConnection();
-                con.setRequestMethod("POST");
-                
-                con.setRequestProperty("Content-Type", "application/json; utf-8");
-                
-                con.setRequestProperty("Accept", "application/json");
-
-                con.setDoOutput(true);
-
-                try(OutputStream os = con.getOutputStream()) {
-                    byte[] input = arr.toString().getBytes("utf-8");
-                    os.write(input, 0, input.length);			
-                }
-                
-                String response = ""; 
-                try(BufferedReader br = new BufferedReader(
-                    new InputStreamReader(con.getInputStream(), "utf-8"))) {
-                      StringBuilder responseBuilder = new StringBuilder();
-                      String responseLine = null;
-                      while ((responseLine = br.readLine()) != null) {
-                          responseBuilder.append(responseLine.trim());
-                      }
-                    System.out.println(responseBuilder.toString());
-                    response = responseBuilder.toString();
-                }
+                response = makeRequest(
+                        "http://127.0.0.1:5000/convert", "POST",
+                        arr.toString().getBytes("utf-8"));
+            } catch (UnsupportedEncodingException ex) {
+                Logger.getLogger(StockBrokeringWebService.class.getName()).log(Level.SEVERE, null, ex);
+            }
                 
                 JSONObject responseObj = new JSONObject(response);
                 JSONArray responseArray = responseObj.getJSONArray("values");
@@ -326,15 +308,70 @@ public class StockBrokeringWebService {
                     
                     companies.set(i, company);
                 }
-                
-            } catch (MalformedURLException ex) {
-                Logger.getLogger(StockBrokeringWebService.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                Logger.getLogger(StockBrokeringWebService.class.getName()).log(Level.SEVERE, null, ex);
-            }
         }
         
         return companies;
+    }
+    
+    private String makeRequest(String uri, String MethodType, byte[] input)
+    {
+        URL url = null;
+        try {
+            url = new URL(uri);
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(StockBrokeringWebService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        HttpURLConnection con = null;
+        try {
+            con = (HttpURLConnection) url.openConnection();
+        } catch (IOException ex) {
+            Logger.getLogger(StockBrokeringWebService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            con.setRequestMethod(MethodType);
+        } catch (ProtocolException ex) {
+            Logger.getLogger(StockBrokeringWebService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        con.setRequestProperty("Content-Type", "application/json; utf-8");
+
+        con.setRequestProperty("Accept", "application/json");
+
+        con.setDoOutput(true);
+
+        try (OutputStream os = con.getOutputStream()) {
+            //byte[] input = arr.toString().getBytes("utf-8");
+            os.write(input, 0, input.length);
+        } catch (IOException ex) {
+            Logger.getLogger(StockBrokeringWebService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        String response = "";
+        try (BufferedReader br = new BufferedReader(
+                new InputStreamReader(con.getInputStream(), "utf-8"))) {
+            StringBuilder responseBuilder = new StringBuilder();
+            String responseLine = null;
+            while ((responseLine = br.readLine()) != null) {
+                responseBuilder.append(responseLine.trim());
+            }
+            System.out.println(responseBuilder.toString());
+            response = responseBuilder.toString();
+        } catch (IOException ex) {
+            Logger.getLogger(StockBrokeringWebService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return response;
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "getCurrencies")
+    public List<String> getCurrencies() {
+        List currencies = new ArrayList<String>();
+        
+        return currencies;
     }
 
 }
