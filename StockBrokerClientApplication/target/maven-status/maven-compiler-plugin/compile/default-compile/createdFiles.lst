@@ -3,6 +3,8 @@ MainMenu$3.class
 com\mycompany\stockbrokerclientapplication\IOException.class
 com\mycompany\stockbrokerclientapplication\GetCompaniesByName.class
 com\mycompany\stockbrokerclientapplication\GetCompaniesByNameResponse.class
+com\mycompany\stockbrokerclientapplication\GetCurrenciesResponse.class
+com\mycompany\stockbrokerclientapplication\GetCurrencies.class
 com\mycompany\stockbrokerclientapplication\Pair.class
 com\mycompany\stockbrokerclientapplication\IOException_Exception.class
 com\mycompany\stockbrokerclientapplication\GetCompaniesBySymbolResponse.class

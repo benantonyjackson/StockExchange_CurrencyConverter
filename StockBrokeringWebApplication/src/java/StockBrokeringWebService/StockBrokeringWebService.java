@@ -360,7 +360,14 @@ public class StockBrokeringWebService {
      */
     @WebMethod(operationName = "getCurrencies")
     public List<String> getCurrencies() {
-        List currencies = new ArrayList<String>();
+        //List currencies = new ArrayList<String>();
+        
+        String response = makeRequest("http://127.0.0.1:5000/currencies", "GET");
+        
+        JSONObject obj = new JSONObject(response);
+        JSONArray arr = obj.getJSONArray("all_currencies");
+        
+        List currencies = arr.toList();
         
         return currencies;
     }

@@ -28,6 +28,18 @@ public interface StockBrokeringWebService {
 
     /**
      * 
+     * @return
+     *     returns java.util.List<com.mycompany.stockbrokerclientapplication.Company>
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "genorateRandomCompanyData", targetNamespace = "http://StockBrokeringWebService/", className = "com.mycompany.stockbrokerclientapplication.GenorateRandomCompanyData")
+    @ResponseWrapper(localName = "genorateRandomCompanyDataResponse", targetNamespace = "http://StockBrokeringWebService/", className = "com.mycompany.stockbrokerclientapplication.GenorateRandomCompanyDataResponse")
+    @Action(input = "http://StockBrokeringWebService/StockBrokeringWebService/genorateRandomCompanyDataRequest", output = "http://StockBrokeringWebService/StockBrokeringWebService/genorateRandomCompanyDataResponse")
+    public List<Company> genorateRandomCompanyData();
+
+    /**
+     * 
      * @param symbol
      * @return
      *     returns java.util.List<com.mycompany.stockbrokerclientapplication.Company>
@@ -40,21 +52,6 @@ public interface StockBrokeringWebService {
     public List<Company> getCompaniesBySymbol(
         @WebParam(name = "symbol", targetNamespace = "")
         String symbol);
-
-    /**
-     * 
-     * @param name
-     * @return
-     *     returns java.util.List<com.mycompany.stockbrokerclientapplication.Company>
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "getCompaniesByName", targetNamespace = "http://StockBrokeringWebService/", className = "com.mycompany.stockbrokerclientapplication.GetCompaniesByName")
-    @ResponseWrapper(localName = "getCompaniesByNameResponse", targetNamespace = "http://StockBrokeringWebService/", className = "com.mycompany.stockbrokerclientapplication.GetCompaniesByNameResponse")
-    @Action(input = "http://StockBrokeringWebService/StockBrokeringWebService/getCompaniesByNameRequest", output = "http://StockBrokeringWebService/StockBrokeringWebService/getCompaniesByNameResponse")
-    public List<Company> getCompaniesByName(
-        @WebParam(name = "name", targetNamespace = "")
-        String name);
 
     /**
      * 
@@ -75,15 +72,30 @@ public interface StockBrokeringWebService {
 
     /**
      * 
+     * @param name
      * @return
      *     returns java.util.List<com.mycompany.stockbrokerclientapplication.Company>
      */
     @WebMethod
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "genorateRandomCompanyData", targetNamespace = "http://StockBrokeringWebService/", className = "com.mycompany.stockbrokerclientapplication.GenorateRandomCompanyData")
-    @ResponseWrapper(localName = "genorateRandomCompanyDataResponse", targetNamespace = "http://StockBrokeringWebService/", className = "com.mycompany.stockbrokerclientapplication.GenorateRandomCompanyDataResponse")
-    @Action(input = "http://StockBrokeringWebService/StockBrokeringWebService/genorateRandomCompanyDataRequest", output = "http://StockBrokeringWebService/StockBrokeringWebService/genorateRandomCompanyDataResponse")
-    public List<Company> genorateRandomCompanyData();
+    @RequestWrapper(localName = "getCompaniesByName", targetNamespace = "http://StockBrokeringWebService/", className = "com.mycompany.stockbrokerclientapplication.GetCompaniesByName")
+    @ResponseWrapper(localName = "getCompaniesByNameResponse", targetNamespace = "http://StockBrokeringWebService/", className = "com.mycompany.stockbrokerclientapplication.GetCompaniesByNameResponse")
+    @Action(input = "http://StockBrokeringWebService/StockBrokeringWebService/getCompaniesByNameRequest", output = "http://StockBrokeringWebService/StockBrokeringWebService/getCompaniesByNameResponse")
+    public List<Company> getCompaniesByName(
+        @WebParam(name = "name", targetNamespace = "")
+        String name);
+
+    /**
+     * 
+     * @return
+     *     returns java.util.List<java.lang.String>
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "getCurrencies", targetNamespace = "http://StockBrokeringWebService/", className = "com.mycompany.stockbrokerclientapplication.GetCurrencies")
+    @ResponseWrapper(localName = "getCurrenciesResponse", targetNamespace = "http://StockBrokeringWebService/", className = "com.mycompany.stockbrokerclientapplication.GetCurrenciesResponse")
+    @Action(input = "http://StockBrokeringWebService/StockBrokeringWebService/getCurrenciesRequest", output = "http://StockBrokeringWebService/StockBrokeringWebService/getCurrenciesResponse")
+    public List<String> getCurrencies();
 
     /**
      * 

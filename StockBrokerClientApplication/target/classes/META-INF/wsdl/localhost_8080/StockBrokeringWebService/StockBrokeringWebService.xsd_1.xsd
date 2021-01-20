@@ -26,6 +26,10 @@
 
 <xs:element name="getCompanyNamesAndSymbolsResponse" type="tns:getCompanyNamesAndSymbolsResponse"/>
 
+<xs:element name="getCurrencies" type="tns:getCurrencies"/>
+
+<xs:element name="getCurrenciesResponse" type="tns:getCurrenciesResponse"/>
+
 <xs:complexType name="getCompanyNamesAndSymbols">
 <xs:sequence/>
 </xs:complexType>
@@ -43,6 +47,16 @@
 <xs:complexType name="IOException">
 <xs:sequence>
 <xs:element name="message" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getCurrencies">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="getCurrenciesResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -101,6 +115,16 @@
 </xs:sequence>
 </xs:complexType>
 
+<xs:complexType name="genorateRandomCompanyData">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="genorateRandomCompanyDataResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:Company" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
 <xs:complexType name="GetCompaniesBySymbol">
 <xs:sequence>
 <xs:element name="symbol" type="xs:string" minOccurs="0"/>
@@ -108,16 +132,6 @@
 </xs:complexType>
 
 <xs:complexType name="GetCompaniesBySymbolResponse">
-<xs:sequence>
-<xs:element name="return" type="tns:Company" minOccurs="0" maxOccurs="unbounded"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="genorateRandomCompanyData">
-<xs:sequence/>
-</xs:complexType>
-
-<xs:complexType name="genorateRandomCompanyDataResponse">
 <xs:sequence>
 <xs:element name="return" type="tns:Company" minOccurs="0" maxOccurs="unbounded"/>
 </xs:sequence>

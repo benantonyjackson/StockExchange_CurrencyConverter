@@ -25,6 +25,7 @@ import javax.xml.namespace.QName;
 public class ObjectFactory {
 
     private final static QName _GetCompanyNamesAndSymbols_QNAME = new QName("http://StockBrokeringWebService/", "getCompanyNamesAndSymbols");
+    private final static QName _GetCurrencies_QNAME = new QName("http://StockBrokeringWebService/", "getCurrencies");
     private final static QName _BuyShare_QNAME = new QName("http://StockBrokeringWebService/", "buyShare");
     private final static QName _GetCompanyData_QNAME = new QName("http://StockBrokeringWebService/", "getCompanyData");
     private final static QName _GetCompaniesByNameResponse_QNAME = new QName("http://StockBrokeringWebService/", "getCompaniesByNameResponse");
@@ -34,6 +35,7 @@ public class ObjectFactory {
     private final static QName _GetCompanyDataResponse_QNAME = new QName("http://StockBrokeringWebService/", "getCompanyDataResponse");
     private final static QName _GetCompaniesBySymbol_QNAME = new QName("http://StockBrokeringWebService/", "GetCompaniesBySymbol");
     private final static QName _GenorateRandomCompanyData_QNAME = new QName("http://StockBrokeringWebService/", "genorateRandomCompanyData");
+    private final static QName _GetCurrenciesResponse_QNAME = new QName("http://StockBrokeringWebService/", "getCurrenciesResponse");
     private final static QName _GetCompaniesBySymbolResponse_QNAME = new QName("http://StockBrokeringWebService/", "GetCompaniesBySymbolResponse");
     private final static QName _GenorateRandomCompanyDataResponse_QNAME = new QName("http://StockBrokeringWebService/", "genorateRandomCompanyDataResponse");
     private final static QName _IOException_QNAME = new QName("http://StockBrokeringWebService/", "IOException");
@@ -110,6 +112,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link GetCurrenciesResponse }
+     * 
+     */
+    public GetCurrenciesResponse createGetCurrenciesResponse() {
+        return new GetCurrenciesResponse();
+    }
+
+    /**
      * Create an instance of {@link BuyShare }
      * 
      */
@@ -139,6 +149,14 @@ public class ObjectFactory {
      */
     public GetCompanyNamesAndSymbols createGetCompanyNamesAndSymbols() {
         return new GetCompanyNamesAndSymbols();
+    }
+
+    /**
+     * Create an instance of {@link GetCurrencies }
+     * 
+     */
+    public GetCurrencies createGetCurrencies() {
+        return new GetCurrencies();
     }
 
     /**
@@ -180,6 +198,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://StockBrokeringWebService/", name = "getCompanyNamesAndSymbols")
     public JAXBElement<GetCompanyNamesAndSymbols> createGetCompanyNamesAndSymbols(GetCompanyNamesAndSymbols value) {
         return new JAXBElement<GetCompanyNamesAndSymbols>(_GetCompanyNamesAndSymbols_QNAME, GetCompanyNamesAndSymbols.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetCurrencies }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://StockBrokeringWebService/", name = "getCurrencies")
+    public JAXBElement<GetCurrencies> createGetCurrencies(GetCurrencies value) {
+        return new JAXBElement<GetCurrencies>(_GetCurrencies_QNAME, GetCurrencies.class, null, value);
     }
 
     /**
@@ -261,6 +288,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://StockBrokeringWebService/", name = "genorateRandomCompanyData")
     public JAXBElement<GenorateRandomCompanyData> createGenorateRandomCompanyData(GenorateRandomCompanyData value) {
         return new JAXBElement<GenorateRandomCompanyData>(_GenorateRandomCompanyData_QNAME, GenorateRandomCompanyData.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetCurrenciesResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://StockBrokeringWebService/", name = "getCurrenciesResponse")
+    public JAXBElement<GetCurrenciesResponse> createGetCurrenciesResponse(GetCurrenciesResponse value) {
+        return new JAXBElement<GetCurrenciesResponse>(_GetCurrenciesResponse_QNAME, GetCurrenciesResponse.class, null, value);
     }
 
     /**
