@@ -12,9 +12,11 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.text.DecimalFormat;
@@ -29,6 +31,7 @@ import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.ejb.Stateless;
+import javax.enterprise.context.RequestScoped;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar; 
@@ -39,6 +42,9 @@ import javax.xml.datatype.XMLGregorianCalendar;
 //import org.apache.hc.client5.http.classic.methods.HttpGet;
 //import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 //import org.apache.hc.client5.http.impl.classic.HttpClients;
+
+
+
 import org.json.*;
 
 
@@ -164,8 +170,9 @@ public class StockBrokeringWebService {
             // XXXTODO Handle exception
             java.util.logging.Logger.getLogger("global").log(java.util.logging.Level.SEVERE, null, ex); //NOI18N
         }
-        
-        return allCompanies.getCompanyList();
+        List<Company> list = convertCurrencies(allCompanies.getCompanyList(), "GBP");
+        //return allCompanies.getCompanyList();
+        return list;
     }
     
     void overwriteCompanyData(List<Company> companies)
@@ -255,14 +262,72 @@ public class StockBrokeringWebService {
 
     private List<Company> convertCurrencies(List<Company> companies, String currencyType)
     {
-        if (!currencyType.equals(baseCurrencyRate))
+
+        JSONArray arr = new JSONArray();
+        for (Company company: companies)
         {
-            for (Company company: companies)
+            if (!company.getSharePrice().getCurrency().equals(currencyType))
             {
-                if (company.getSharePrice().getCurrency() != currencyType)
-                {
-                    //TODO: Create JSON object for request
+                JSONObject obj = new JSONObject();
+                //obj.append("base_currency", company.getSharePrice().getCurrency());
+                //obj.append("value", company.getSharePrice().getValue());
+                
+                obj.put("base_currency", company.getSharePrice().getCurrency());
+                obj.put("value", company.getSharePrice().getValue());
+                
+                //obj.
+                
+                arr.put(obj);
+            }
+        }
+
+        if (arr.length() > 0)
+        {
+            try {
+               
+                URL url = new URL ("http://127.0.0.1:5000/convert");
+                HttpURLConnection con = (HttpURLConnection)url.openConnection();
+                con.setRequestMethod("POST");
+                
+                con.setRequestProperty("Content-Type", "application/json; utf-8");
+                
+                con.setRequestProperty("Accept", "application/json");
+
+                con.setDoOutput(true);
+
+                try(OutputStream os = con.getOutputStream()) {
+                    byte[] input = arr.toString().getBytes("utf-8");
+                    os.write(input, 0, input.length);			
                 }
+                
+                String response = ""; 
+                try(BufferedReader br = new BufferedReader(
+                    new InputStreamReader(con.getInputStream(), "utf-8"))) {
+                      StringBuilder responseBuilder = new StringBuilder();
+                      String responseLine = null;
+                      while ((responseLine = br.readLine()) != null) {
+                          responseBuilder.append(responseLine.trim());
+                      }
+                    System.out.println(responseBuilder.toString());
+                }
+                
+                JSONObject responseObj = new JSONObject(response);
+                JSONArray responseArray = responseObj.getJSONArray("values");
+                
+                for (int i = 0; i < responseArray.length(); i++)
+                {
+                    Company company = companies.get(i);
+                    Company.SharePrice newSharePrice = new Company.SharePrice();
+                    
+                    newSharePrice.setCurrency(currencyType);
+                    newSharePrice.setValue(responseArray.getFloat(i));
+                    company.setSharePrice(newSharePrice);
+                }
+                
+            } catch (MalformedURLException ex) {
+                Logger.getLogger(StockBrokeringWebService.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(StockBrokeringWebService.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         
