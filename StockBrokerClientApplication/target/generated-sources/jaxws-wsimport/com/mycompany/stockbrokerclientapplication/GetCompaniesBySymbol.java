@@ -18,6 +18,8 @@ import javax.xml.bind.annotation.XmlType;
  *       &lt;sequence>
  *         &lt;element name="symbol" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="currency" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="arg2" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="order" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -29,12 +31,16 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "GetCompaniesBySymbol", propOrder = {
     "symbol",
-    "currency"
+    "currency",
+    "arg2",
+    "order"
 })
 public class GetCompaniesBySymbol {
 
     protected String symbol;
     protected String currency;
+    protected String arg2;
+    protected String order;
 
     /**
      * Gets the value of the symbol property.
@@ -82,6 +88,54 @@ public class GetCompaniesBySymbol {
      */
     public void setCurrency(String value) {
         this.currency = value;
+    }
+
+    /**
+     * Gets the value of the arg2 property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getArg2() {
+        return arg2;
+    }
+
+    /**
+     * Sets the value of the arg2 property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setArg2(String value) {
+        this.arg2 = value;
+    }
+
+    /**
+     * Gets the value of the order property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getOrder() {
+        return order;
+    }
+
+    /**
+     * Sets the value of the order property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setOrder(String value) {
+        this.order = value;
     }
 
 }

@@ -47,7 +47,9 @@ public interface StockBrokeringWebService {
     /**
      * 
      * @param symbol
+     * @param arg2
      * @param currency
+     * @param order
      * @return
      *     returns java.util.List<com.mycompany.stockbrokerclientapplication.Company>
      */
@@ -60,7 +62,11 @@ public interface StockBrokeringWebService {
         @WebParam(name = "symbol", targetNamespace = "")
         String symbol,
         @WebParam(name = "currency", targetNamespace = "")
-        String currency);
+        String currency,
+        @WebParam(name = "arg2", targetNamespace = "")
+        String arg2,
+        @WebParam(name = "order", targetNamespace = "")
+        String order);
 
     /**
      * 
@@ -81,8 +87,10 @@ public interface StockBrokeringWebService {
 
     /**
      * 
+     * @param arg2
      * @param name
      * @param currency
+     * @param order
      * @return
      *     returns java.util.List<com.mycompany.stockbrokerclientapplication.Company>
      */
@@ -95,7 +103,11 @@ public interface StockBrokeringWebService {
         @WebParam(name = "name", targetNamespace = "")
         String name,
         @WebParam(name = "currency", targetNamespace = "")
-        String currency);
+        String currency,
+        @WebParam(name = "arg2", targetNamespace = "")
+        String arg2,
+        @WebParam(name = "order", targetNamespace = "")
+        String order);
 
     /**
      * 
@@ -141,9 +153,9 @@ public interface StockBrokeringWebService {
 
     /**
      * 
-     * @param offset
-     * @param limit
+     * @param orderBy
      * @param currency
+     * @param order
      * @return
      *     returns java.util.List<com.mycompany.stockbrokerclientapplication.Company>
      */
@@ -153,11 +165,11 @@ public interface StockBrokeringWebService {
     @ResponseWrapper(localName = "getCompanyDataResponse", targetNamespace = "http://StockBrokeringWebService/", className = "com.mycompany.stockbrokerclientapplication.GetCompanyDataResponse")
     @Action(input = "http://StockBrokeringWebService/StockBrokeringWebService/getCompanyDataRequest", output = "http://StockBrokeringWebService/StockBrokeringWebService/getCompanyDataResponse")
     public List<Company> getCompanyData(
-        @WebParam(name = "Limit", targetNamespace = "")
-        int limit,
-        @WebParam(name = "Offset", targetNamespace = "")
-        int offset,
         @WebParam(name = "currency", targetNamespace = "")
-        String currency);
+        String currency,
+        @WebParam(name = "orderBy", targetNamespace = "")
+        String orderBy,
+        @WebParam(name = "order", targetNamespace = "")
+        String order);
 
 }

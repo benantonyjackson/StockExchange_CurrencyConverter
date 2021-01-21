@@ -131,7 +131,7 @@ public class StockBrokeringWebService {
      * Web service operation
      */
     @WebMethod(operationName = "getCompanyData")
-    public java.util.List<Company> getCompanyData(@WebParam(name = "Limit") int Limit, @WebParam(name = "Offset") int Offset, @WebParam(name = "currency") String currency) {
+    public java.util.List<Company> getCompanyData(@WebParam(name = "currency") String currency, @WebParam(name = "orderBy") String orderBy, @WebParam(name = "order") String order) {
         
         CompanyList allCompanies = new CompanyList();
         
@@ -186,7 +186,7 @@ public class StockBrokeringWebService {
     @WebMethod(operationName = "buyShare")
     public Company buyShare(@WebParam(name = "Symbol") String Symbol, @WebParam(name = "NumberOfShares") int NumberOfShares) {
         Company company = null;
-        java.util.List<Company> Companies = getCompanyData(1000, 0, baseCurrencyRate);
+        java.util.List<Company> Companies = getCompanyData(baseCurrencyRate, "", "");
         for (Company c: Companies)
         {
             if (c.getCompanySymbol().equals(Symbol))
@@ -207,8 +207,8 @@ public class StockBrokeringWebService {
      * Web service operation
      */
     @WebMethod(operationName = "GetCompaniesBySymbol")
-    public List<Company> GetCompaniesBySymbol(@WebParam(name = "symbol") String symbol, @WebParam(name = "currency") String currency) {
-        java.util.List<Company> allCompanies = getCompanyData(1000, 0, currency);
+    public List<Company> GetCompaniesBySymbol(@WebParam(name = "symbol") String symbol, @WebParam(name = "currency") String currency, String orderBy, @WebParam(name = "order") String order) {
+        java.util.List<Company> allCompanies = getCompanyData(currency, orderBy, order);
         List<Company> filteredCompanies = new ArrayList<Company>();
         
         for (Company company: allCompanies)
@@ -226,8 +226,8 @@ public class StockBrokeringWebService {
      * Web service operation
      */
     @WebMethod(operationName = "getCompaniesByName")
-    public List<Company> getCompaniesByName(@WebParam(name = "name") String name, @WebParam(name = "currency") String currency) {
-        java.util.List<Company> allCompanies = getCompanyData(1000, 0, currency);
+    public List<Company> getCompaniesByName(@WebParam(name = "name") String name, @WebParam(name = "currency") String currency, String orderBy, @WebParam(name = "order") String order) {
+        java.util.List<Company> allCompanies = getCompanyData(currency, orderBy, order);
         List<Company> filteredCompanies = new ArrayList<Company>();
         
         for (Company company: allCompanies)

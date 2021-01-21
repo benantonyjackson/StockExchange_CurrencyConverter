@@ -68,6 +68,8 @@
 <xs:sequence>
 <xs:element name="name" type="xs:string" minOccurs="0"/>
 <xs:element name="currency" type="xs:string" minOccurs="0"/>
+<xs:element name="arg2" type="xs:string" minOccurs="0"/>
+<xs:element name="order" type="xs:string" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -122,9 +124,9 @@
 
 <xs:complexType name="getCompanyData">
 <xs:sequence>
-<xs:element name="Limit" type="xs:int"/>
-<xs:element name="Offset" type="xs:int"/>
 <xs:element name="currency" type="xs:string" minOccurs="0"/>
+<xs:element name="orderBy" type="xs:string" minOccurs="0"/>
+<xs:element name="order" type="xs:string" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -138,6 +140,8 @@
 <xs:sequence>
 <xs:element name="symbol" type="xs:string" minOccurs="0"/>
 <xs:element name="currency" type="xs:string" minOccurs="0"/>
+<xs:element name="arg2" type="xs:string" minOccurs="0"/>
+<xs:element name="order" type="xs:string" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
