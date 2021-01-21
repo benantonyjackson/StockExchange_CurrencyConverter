@@ -254,42 +254,27 @@ public class MainMenu extends javax.swing.JFrame {
 
     private void btnFilterByNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilterByNameActionPerformed
         
-        /*try { // Call Web Service Operation
+        try { // Call Web Service Operation
             StockBrokeringWebService_Service service = new StockBrokeringWebService_Service();
             StockBrokeringWebService port = service.getStockBrokeringWebServicePort();
 
             java.lang.String name = txtFilterByName.getText();
-            java.util.List<Company> companies = port.getCompaniesByName(name);
+            java.util.List<Company> companies = port.getCompaniesByName(name, cmbCurrency.getSelectedItem().toString());
             
             populateCompayView(companies);
             
         } catch (Exception ex) {
             // TODO handle custom exceptions here
-        }*/
+        }
 
     }//GEN-LAST:event_btnFilterByNameActionPerformed
 
     private void cmbCurrencyItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbCurrencyItemStateChanged
-        // TODO add your handling code here:
-        /*try {
-            if (evt.getStateChange() == ItemEvent.SELECTED) {
-                StockBrokeringWebService_Service service = new StockBrokeringWebService_Service();
-                StockBrokeringWebService port = service.getStockBrokeringWebServicePort();
-                // TODO initialize WS operation arguments here
-                java.lang.String currencyType = cmbCurrency.getSelectedItem().toString();
-                // TODO process result here
-                java.util.List<Company> result = port.convertCurrencies(listOfCompanies, currencyType);
 
-                populateCompayView(result);
-            }
-
-        } catch (NullPointerException ex) {
-        } catch (Exception ex) {
-        }*/
     }//GEN-LAST:event_cmbCurrencyItemStateChanged
 
     private void btnConvertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConvertActionPerformed
-         listOfCompanies = convertDisplayedCurrecnies(listOfCompanies);
+        listOfCompanies = convertDisplayedCurrecnies(listOfCompanies);
         populateCompayView(listOfCompanies);
     }//GEN-LAST:event_btnConvertActionPerformed
     
