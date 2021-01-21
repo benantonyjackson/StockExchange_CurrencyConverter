@@ -15,6 +15,7 @@ import com.mycompany.stockbrokerclientapplication.StockBrokeringWebService_Servi
 import com.mycompany.stockbrokerclientapplication.StockBrokeringWebService;
 import com.mycompany.stockbrokerclientapplication.Company;
 import com.mycompany.stockbrokerclientapplication.Pair;
+import java.awt.Dialog;
 import java.awt.event.ItemEvent;
 import java.net.ConnectException;
 import javax.swing.BoxLayout;
@@ -137,10 +138,10 @@ public class MainMenu extends javax.swing.JFrame {
         cmbCurrency = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         btnConvert = new javax.swing.JButton();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
-        jRadioButton4 = new javax.swing.JRadioButton();
+        btnSymbolAsc = new javax.swing.JRadioButton();
+        btnSymbolDesc = new javax.swing.JRadioButton();
+        btnNameDesc = new javax.swing.JRadioButton();
+        btnNameAsc = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -177,7 +178,7 @@ public class MainMenu extends javax.swing.JFrame {
 
         jLabel3.setText("Currency");
 
-        btnConvert.setText("jButton1");
+        btnConvert.setText("Convert");
         btnConvert.setActionCommand("Convert");
         btnConvert.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -185,17 +186,37 @@ public class MainMenu extends javax.swing.JFrame {
             }
         });
 
-        orderButtonGroup.add(jRadioButton1);
-        jRadioButton1.setText("Accending");
+        orderButtonGroup.add(btnSymbolAsc);
+        btnSymbolAsc.setText("Accending");
+        btnSymbolAsc.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                btnSymbolAscItemStateChanged(evt);
+            }
+        });
 
-        orderButtonGroup.add(jRadioButton2);
-        jRadioButton2.setText("Descending");
+        orderButtonGroup.add(btnSymbolDesc);
+        btnSymbolDesc.setText("Descending");
+        btnSymbolDesc.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                btnSymbolDescItemStateChanged(evt);
+            }
+        });
 
-        orderButtonGroup.add(jRadioButton3);
-        jRadioButton3.setText("Descending");
+        orderButtonGroup.add(btnNameDesc);
+        btnNameDesc.setText("Descending");
+        btnNameDesc.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                btnNameDescItemStateChanged(evt);
+            }
+        });
 
-        orderButtonGroup.add(jRadioButton4);
-        jRadioButton4.setText("Accending");
+        orderButtonGroup.add(btnNameAsc);
+        btnNameAsc.setText("Accending");
+        btnNameAsc.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                btnNameAscItemStateChanged(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -211,9 +232,9 @@ public class MainMenu extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(btnFilterBySymbol)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButton1)
+                        .addComponent(btnSymbolAsc)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jRadioButton2))
+                        .addComponent(btnSymbolDesc))
                     .addComponent(lblNumberOfResult)
                     .addComponent(jLabel1)
                     .addGroup(layout.createSequentialGroup()
@@ -221,9 +242,9 @@ public class MainMenu extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(btnFilterByName)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButton4)
+                        .addComponent(btnNameAsc)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jRadioButton3))
+                        .addComponent(btnNameDesc))
                     .addComponent(jLabel2))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -248,8 +269,8 @@ public class MainMenu extends javax.swing.JFrame {
                     .addComponent(txtFilterBySymbol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnFilterBySymbol)
                     .addComponent(cmbCurrency, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton2))
+                    .addComponent(btnSymbolAsc)
+                    .addComponent(btnSymbolDesc))
                 .addGap(8, 8, 8)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -259,8 +280,8 @@ public class MainMenu extends javax.swing.JFrame {
                     .addComponent(txtFilterByName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnFilterByName)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jRadioButton4)
-                        .addComponent(jRadioButton3)))
+                        .addComponent(btnNameAsc)
+                        .addComponent(btnNameDesc)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -311,6 +332,42 @@ public class MainMenu extends javax.swing.JFrame {
         listOfCompanies = convertDisplayedCurrecnies(listOfCompanies);
         populateCompayView(listOfCompanies);
     }//GEN-LAST:event_btnConvertActionPerformed
+
+    private void btnSymbolAscItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_btnSymbolAscItemStateChanged
+        if (evt.getStateChange() == ItemEvent.SELECTED)
+        {
+            orderBy = "symbol";
+            order = "ASC";
+            JOptionPane.showMessageDialog(this, order + "-" + orderBy);
+        }
+    }//GEN-LAST:event_btnSymbolAscItemStateChanged
+
+    private void btnSymbolDescItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_btnSymbolDescItemStateChanged
+        if (evt.getStateChange() == ItemEvent.SELECTED)
+        {
+            orderBy = "symbol";
+            order = "DESC";
+            JOptionPane.showMessageDialog(this, order + "-" + orderBy);
+        }
+    }//GEN-LAST:event_btnSymbolDescItemStateChanged
+
+    private void btnNameAscItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_btnNameAscItemStateChanged
+        if (evt.getStateChange() == ItemEvent.SELECTED)
+        {
+            orderBy = "name";
+            order = "ASC";
+            JOptionPane.showMessageDialog(this, order + "-" + orderBy);
+        }
+    }//GEN-LAST:event_btnNameAscItemStateChanged
+
+    private void btnNameDescItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_btnNameDescItemStateChanged
+        if (evt.getStateChange() == ItemEvent.SELECTED)
+        {
+            orderBy = "name";
+            order = "DESC";
+            JOptionPane.showMessageDialog(this, order + "-" + orderBy);
+        }
+    }//GEN-LAST:event_btnNameDescItemStateChanged
     
     
     List<Company> convertDisplayedCurrecnies(List companies) {
@@ -390,15 +447,15 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JButton btnConvert;
     private javax.swing.JButton btnFilterByName;
     private javax.swing.JButton btnFilterBySymbol;
+    private javax.swing.JRadioButton btnNameAsc;
+    private javax.swing.JRadioButton btnNameDesc;
     private javax.swing.JButton btnSearch;
+    private javax.swing.JRadioButton btnSymbolAsc;
+    private javax.swing.JRadioButton btnSymbolDesc;
     private javax.swing.JComboBox<String> cmbCurrency;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
-    private javax.swing.JRadioButton jRadioButton4;
     private javax.swing.JLabel lblNumberOfResult;
     private javax.swing.ButtonGroup orderButtonGroup;
     private javax.swing.JScrollPane scrlPnCompanyView;

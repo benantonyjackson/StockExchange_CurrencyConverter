@@ -37,9 +37,9 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="btnFilterBySymbol" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jRadioButton1" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnSymbolAsc" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
-                      <Component id="jRadioButton2" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnSymbolDesc" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="lblNumberOfResult" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -48,9 +48,9 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="btnFilterByName" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jRadioButton4" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnNameAsc" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
-                      <Component id="jRadioButton3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnNameDesc" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
@@ -81,8 +81,8 @@
                   <Component id="txtFilterBySymbol" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnFilterBySymbol" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="cmbCurrency" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jRadioButton1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jRadioButton2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnSymbolAsc" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnSymbolDesc" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -94,8 +94,8 @@
                   <Component id="txtFilterByName" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnFilterByName" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Group type="103" alignment="3" groupAlignment="3" attributes="0">
-                      <Component id="jRadioButton4" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jRadioButton3" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnNameAsc" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnNameDesc" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
@@ -176,44 +176,56 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnConvert">
       <Properties>
-        <Property name="text" type="java.lang.String" value="jButton1"/>
+        <Property name="text" type="java.lang.String" value="Convert"/>
         <Property name="actionCommand" type="java.lang.String" value="Convert"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnConvertActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JRadioButton" name="jRadioButton1">
+    <Component class="javax.swing.JRadioButton" name="btnSymbolAsc">
       <Properties>
         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
           <ComponentRef name="orderButtonGroup"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Accending"/>
       </Properties>
+      <Events>
+        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="btnSymbolAscItemStateChanged"/>
+      </Events>
     </Component>
-    <Component class="javax.swing.JRadioButton" name="jRadioButton2">
+    <Component class="javax.swing.JRadioButton" name="btnSymbolDesc">
       <Properties>
         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
           <ComponentRef name="orderButtonGroup"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Descending"/>
       </Properties>
+      <Events>
+        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="btnSymbolDescItemStateChanged"/>
+      </Events>
     </Component>
-    <Component class="javax.swing.JRadioButton" name="jRadioButton3">
+    <Component class="javax.swing.JRadioButton" name="btnNameDesc">
       <Properties>
         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
           <ComponentRef name="orderButtonGroup"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Descending"/>
       </Properties>
+      <Events>
+        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="btnNameDescItemStateChanged"/>
+      </Events>
     </Component>
-    <Component class="javax.swing.JRadioButton" name="jRadioButton4">
+    <Component class="javax.swing.JRadioButton" name="btnNameAsc">
       <Properties>
         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
           <ComponentRef name="orderButtonGroup"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Accending"/>
       </Properties>
+      <Events>
+        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="btnNameAscItemStateChanged"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
