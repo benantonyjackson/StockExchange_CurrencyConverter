@@ -67,6 +67,7 @@
 <xs:complexType name="getCompaniesByName">
 <xs:sequence>
 <xs:element name="name" type="xs:string" minOccurs="0"/>
+<xs:element name="currency" type="xs:string" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -93,6 +94,19 @@
 </xs:sequence>
 </xs:complexType>
 
+<xs:complexType name="convertCurrencies">
+<xs:sequence>
+<xs:element name="companies" type="tns:Company" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="currencyType" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="convertCurrenciesResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:anyType" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
 <xs:complexType name="buyShare">
 <xs:sequence>
 <xs:element name="Symbol" type="xs:string" minOccurs="0"/>
@@ -110,6 +124,7 @@
 <xs:sequence>
 <xs:element name="Limit" type="xs:int"/>
 <xs:element name="Offset" type="xs:int"/>
+<xs:element name="currency" type="xs:string" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -119,16 +134,16 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="convertCurrencies">
+<xs:complexType name="GetCompaniesBySymbol">
 <xs:sequence>
-<xs:element name="companies" type="tns:Company" minOccurs="0" maxOccurs="unbounded"/>
-<xs:element name="currencyType" type="xs:string" minOccurs="0"/>
+<xs:element name="symbol" type="xs:string" minOccurs="0"/>
+<xs:element name="currency" type="xs:string" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="convertCurrenciesResponse">
+<xs:complexType name="GetCompaniesBySymbolResponse">
 <xs:sequence>
-<xs:element name="return" type="xs:anyType" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="return" type="tns:Company" minOccurs="0" maxOccurs="unbounded"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -137,18 +152,6 @@
 </xs:complexType>
 
 <xs:complexType name="genorateRandomCompanyDataResponse">
-<xs:sequence>
-<xs:element name="return" type="tns:Company" minOccurs="0" maxOccurs="unbounded"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="GetCompaniesBySymbol">
-<xs:sequence>
-<xs:element name="symbol" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="GetCompaniesBySymbolResponse">
 <xs:sequence>
 <xs:element name="return" type="tns:Company" minOccurs="0" maxOccurs="unbounded"/>
 </xs:sequence>

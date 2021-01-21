@@ -131,7 +131,7 @@ public class StockBrokeringWebService {
      * Web service operation
      */
     @WebMethod(operationName = "getCompanyData")
-    public java.util.List<Company> getCompanyData(@WebParam(name = "Limit") int Limit, @WebParam(name = "Offset") int Offset) {
+    public java.util.List<Company> getCompanyData(@WebParam(name = "Limit") int Limit, @WebParam(name = "Offset") int Offset, @WebParam(name = "currency") String currency) {
         
         CompanyList allCompanies = new CompanyList();
         
@@ -151,12 +151,12 @@ public class StockBrokeringWebService {
             // XXXTODO Handle exception
             java.util.logging.Logger.getLogger("global").log(java.util.logging.Level.SEVERE, null, ex); //NOI18N
         }
-        //List<Company> list = convertCurrencies(allCompanies.getCompanyList(), "GBP");
-        return allCompanies.getCompanyList();
+        return convertCurrencies(allCompanies.getCompanyList(), currency);
+        //return allCompanies.getCompanyList();
         //return list;
     }
     
-    void overwriteCompanyData(List<Company> companies)
+    private void overwriteCompanyData(List<Company> companies)
     {
         CompanyList allCompanies = new CompanyList();
         
@@ -186,7 +186,7 @@ public class StockBrokeringWebService {
     @WebMethod(operationName = "buyShare")
     public Company buyShare(@WebParam(name = "Symbol") String Symbol, @WebParam(name = "NumberOfShares") int NumberOfShares) {
         Company company = null;
-        java.util.List<Company> Companies = getCompanyData(1000, 0);
+        java.util.List<Company> Companies = getCompanyData(1000, 0, baseCurrencyRate);
         for (Company c: Companies)
         {
             if (c.getCompanySymbol().equals(Symbol))
@@ -207,8 +207,8 @@ public class StockBrokeringWebService {
      * Web service operation
      */
     @WebMethod(operationName = "GetCompaniesBySymbol")
-    public List<Company> GetCompaniesBySymbol(@WebParam(name = "symbol") String symbol) {
-        java.util.List<Company> allCompanies = getCompanyData(1000, 0);
+    public List<Company> GetCompaniesBySymbol(@WebParam(name = "symbol") String symbol, @WebParam(name = "currency") String currency) {
+        java.util.List<Company> allCompanies = getCompanyData(1000, 0, currency);
         List<Company> filteredCompanies = new ArrayList<Company>();
         
         for (Company company: allCompanies)
@@ -226,8 +226,8 @@ public class StockBrokeringWebService {
      * Web service operation
      */
     @WebMethod(operationName = "getCompaniesByName")
-    public List<Company> getCompaniesByName(@WebParam(name = "name") String name) {
-        java.util.List<Company> allCompanies = getCompanyData(1000, 0);
+    public List<Company> getCompaniesByName(@WebParam(name = "name") String name, @WebParam(name = "currency") String currency) {
+        java.util.List<Company> allCompanies = getCompanyData(1000, 0, currency);
         List<Company> filteredCompanies = new ArrayList<Company>();
         
         for (Company company: allCompanies)
@@ -378,6 +378,11 @@ public class StockBrokeringWebService {
      */
     @WebMethod(operationName = "convertCurrencies")
     public List convertCurrencies(@WebParam(name = "companies") List<Company> companies, @WebParam(name = "currencyType") String currencyType) {
+        if (currencyType.length() == 0)
+        {
+            return companies;
+        }
+        
         JSONArray arr = new JSONArray();
         System.out.println("Size of companies list" + companies.size());
         for (Company company: companies)

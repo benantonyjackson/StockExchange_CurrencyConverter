@@ -73,7 +73,7 @@ public class MainMenu extends javax.swing.JFrame {
             int limit = 100;
             int offset = 0;
             // TODO process result here
-            populateCompayView(port.getCompanyData(limit, offset));
+            populateCompayView(port.getCompanyData(limit, offset, cmbCurrency.getSelectedItem().toString()));
         
         } 
         /*catch (java.net.ConnectException ex) 
@@ -91,7 +91,7 @@ public class MainMenu extends javax.swing.JFrame {
     
     void populateCompayView(List<Company> companies)
     {
-        companies = convertDisplayedCurrecnies(companies);
+        //companies = convertDisplayedCurrecnies(companies);
         listOfCompanies = companies;
         
         JPanel jp = new JPanel();
@@ -243,7 +243,7 @@ public class MainMenu extends javax.swing.JFrame {
             // TODO initialize WS operation arguments here
             java.lang.String symbol = txtFilterBySymbol.getText();
             // TODO process result here
-            java.util.List<Company> companies = port.getCompaniesBySymbol(symbol);
+            java.util.List<Company> companies = port.getCompaniesBySymbol(symbol, cmbCurrency.getSelectedItem().toString());
             
             populateCompayView(companies);
             
@@ -289,6 +289,7 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_cmbCurrencyItemStateChanged
 
     private void btnConvertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConvertActionPerformed
+         listOfCompanies = convertDisplayedCurrecnies(listOfCompanies);
         populateCompayView(listOfCompanies);
     }//GEN-LAST:event_btnConvertActionPerformed
     
@@ -380,6 +381,5 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JTextField txtFilterByName;
     private javax.swing.JTextField txtFilterBySymbol;
     // End of variables declaration//GEN-END:variables
-
 
 }

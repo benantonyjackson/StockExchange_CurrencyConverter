@@ -19,6 +19,7 @@ import javax.xml.bind.annotation.XmlType;
  *       &lt;sequence>
  *         &lt;element name="Limit" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="Offset" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         &lt;element name="currency" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -30,7 +31,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "getCompanyData", propOrder = {
     "limit",
-    "offset"
+    "offset",
+    "currency"
 })
 public class GetCompanyData {
 
@@ -38,6 +40,7 @@ public class GetCompanyData {
     protected int limit;
     @XmlElement(name = "Offset")
     protected int offset;
+    protected String currency;
 
     /**
      * Gets the value of the limit property.
@@ -69,6 +72,30 @@ public class GetCompanyData {
      */
     public void setOffset(int value) {
         this.offset = value;
+    }
+
+    /**
+     * Gets the value of the currency property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getCurrency() {
+        return currency;
+    }
+
+    /**
+     * Sets the value of the currency property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setCurrency(String value) {
+        this.currency = value;
     }
 
 }

@@ -156,7 +156,7 @@ public class CompanyView extends javax.swing.JPanel {
             
             java.lang.String symbol = txtSymbol.getText();
             
-            updateView(port.buyShare(symbol, numberOfShares));
+            txtShares.setText("" + port.buyShare(symbol, numberOfShares).getNumberOfShares());
             
         } catch (Exception ex) {
             // TODO handle custom exceptions here
