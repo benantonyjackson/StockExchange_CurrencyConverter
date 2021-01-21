@@ -10,6 +10,10 @@
 
 <xs:element name="buyShareResponse" type="tns:buyShareResponse"/>
 
+<xs:element name="convertCurrencies" type="tns:convertCurrencies"/>
+
+<xs:element name="convertCurrenciesResponse" type="tns:convertCurrenciesResponse"/>
+
 <xs:element name="genorateRandomCompanyData" type="tns:genorateRandomCompanyData"/>
 
 <xs:element name="genorateRandomCompanyDataResponse" type="tns:genorateRandomCompanyDataResponse"/>
@@ -89,6 +93,19 @@
 </xs:sequence>
 </xs:complexType>
 
+<xs:complexType name="buyShare">
+<xs:sequence>
+<xs:element name="Symbol" type="xs:string" minOccurs="0"/>
+<xs:element name="NumberOfShares" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="buyShareResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:Company" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
 <xs:complexType name="getCompanyData">
 <xs:sequence>
 <xs:element name="Limit" type="xs:int"/>
@@ -102,16 +119,16 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="buyShare">
+<xs:complexType name="convertCurrencies">
 <xs:sequence>
-<xs:element name="Symbol" type="xs:string" minOccurs="0"/>
-<xs:element name="NumberOfShares" type="xs:int"/>
+<xs:element name="companies" type="tns:Company" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="currencyType" type="xs:string" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="buyShareResponse">
+<xs:complexType name="convertCurrenciesResponse">
 <xs:sequence>
-<xs:element name="return" type="tns:Company" minOccurs="0"/>
+<xs:element name="return" type="xs:anyType" minOccurs="0" maxOccurs="unbounded"/>
 </xs:sequence>
 </xs:complexType>
 

@@ -168,7 +168,7 @@ public class CompanyView extends javax.swing.JPanel {
     {
         txtSymbol.setText(c.getCompanySymbol());
         txtName.setText(c.getCompanyName());
-        txtPrice.setText("" + c.getSharePrice().getValue());
+        txtPrice.setText("" + c.getSharePrice().getValue() + " " + c.getSharePrice().getCurrency());
         txtShares.setText("" + c.getNumberOfShares());
         txtLastUpdated.setText("" + c.getLastUpdated());
     }

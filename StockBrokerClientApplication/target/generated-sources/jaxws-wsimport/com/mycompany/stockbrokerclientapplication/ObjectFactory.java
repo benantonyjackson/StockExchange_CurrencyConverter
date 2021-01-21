@@ -30,9 +30,11 @@ public class ObjectFactory {
     private final static QName _GetCompanyData_QNAME = new QName("http://StockBrokeringWebService/", "getCompanyData");
     private final static QName _GetCompaniesByNameResponse_QNAME = new QName("http://StockBrokeringWebService/", "getCompaniesByNameResponse");
     private final static QName _BuyShareResponse_QNAME = new QName("http://StockBrokeringWebService/", "buyShareResponse");
+    private final static QName _ConvertCurrenciesResponse_QNAME = new QName("http://StockBrokeringWebService/", "convertCurrenciesResponse");
     private final static QName _GetCompanyNamesAndSymbolsResponse_QNAME = new QName("http://StockBrokeringWebService/", "getCompanyNamesAndSymbolsResponse");
     private final static QName _GetCompaniesByName_QNAME = new QName("http://StockBrokeringWebService/", "getCompaniesByName");
     private final static QName _GetCompanyDataResponse_QNAME = new QName("http://StockBrokeringWebService/", "getCompanyDataResponse");
+    private final static QName _ConvertCurrencies_QNAME = new QName("http://StockBrokeringWebService/", "convertCurrencies");
     private final static QName _GetCompaniesBySymbol_QNAME = new QName("http://StockBrokeringWebService/", "GetCompaniesBySymbol");
     private final static QName _GenorateRandomCompanyData_QNAME = new QName("http://StockBrokeringWebService/", "genorateRandomCompanyData");
     private final static QName _GetCurrenciesResponse_QNAME = new QName("http://StockBrokeringWebService/", "getCurrenciesResponse");
@@ -53,6 +55,14 @@ public class ObjectFactory {
      */
     public Company createCompany() {
         return new Company();
+    }
+
+    /**
+     * Create an instance of {@link ConvertCurrencies }
+     * 
+     */
+    public ConvertCurrencies createConvertCurrencies() {
+        return new ConvertCurrencies();
     }
 
     /**
@@ -168,6 +178,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ConvertCurrenciesResponse }
+     * 
+     */
+    public ConvertCurrenciesResponse createConvertCurrenciesResponse() {
+        return new ConvertCurrenciesResponse();
+    }
+
+    /**
      * Create an instance of {@link GetCompanyNamesAndSymbolsResponse }
      * 
      */
@@ -246,6 +264,15 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ConvertCurrenciesResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://StockBrokeringWebService/", name = "convertCurrenciesResponse")
+    public JAXBElement<ConvertCurrenciesResponse> createConvertCurrenciesResponse(ConvertCurrenciesResponse value) {
+        return new JAXBElement<ConvertCurrenciesResponse>(_ConvertCurrenciesResponse_QNAME, ConvertCurrenciesResponse.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link GetCompanyNamesAndSymbolsResponse }{@code >}}
      * 
      */
@@ -270,6 +297,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://StockBrokeringWebService/", name = "getCompanyDataResponse")
     public JAXBElement<GetCompanyDataResponse> createGetCompanyDataResponse(GetCompanyDataResponse value) {
         return new JAXBElement<GetCompanyDataResponse>(_GetCompanyDataResponse_QNAME, GetCompanyDataResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ConvertCurrencies }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://StockBrokeringWebService/", name = "convertCurrencies")
+    public JAXBElement<ConvertCurrencies> createConvertCurrencies(ConvertCurrencies value) {
+        return new JAXBElement<ConvertCurrencies>(_ConvertCurrencies_QNAME, ConvertCurrencies.class, null, value);
     }
 
     /**

@@ -42,11 +42,16 @@ def get_default_response(body):
 
 @app.route("/convert", methods=["GET", "POST"])
 def convert():
+    print("Point a")
     allRates = requests.get("http://127.0.0.1:5000/rates")
+    print("Point b")
     allRatesJson = allRates.json()
-
+    print("Point c")
+    print(allRatesJson)
     json_data = flask.request.json
-
+    print("Point d")
+    print(json_data)
+    print("Point e")
     return_data = {"message": allRatesJson['message'], "values": []}
 
     for value_to_convert in json_data:

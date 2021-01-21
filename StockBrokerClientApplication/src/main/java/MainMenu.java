@@ -15,6 +15,7 @@ import com.mycompany.stockbrokerclientapplication.StockBrokeringWebService_Servi
 import com.mycompany.stockbrokerclientapplication.StockBrokeringWebService;
 import com.mycompany.stockbrokerclientapplication.Company;
 import com.mycompany.stockbrokerclientapplication.Pair;
+import java.awt.event.ItemEvent;
 import java.net.ConnectException;
 import javax.swing.BoxLayout;
 import javax.swing.JOptionPane;
@@ -35,7 +36,9 @@ import javax.xml.ws.http.HTTPException;
 
 
 public class MainMenu extends javax.swing.JFrame {
-
+    
+    private List listOfCompanies = null; 
+    
     /**
      * Creates new form MainMenu
      */
@@ -44,7 +47,7 @@ public class MainMenu extends javax.swing.JFrame {
         System.out.println("Appliction started");
         scrlPnCompanyView.getVerticalScrollBar().setUnitIncrement(20);
         
-        
+        //Load list of currencies 
         try { // Call Web Service Operation
             StockBrokeringWebService_Service service = new StockBrokeringWebService_Service();
             StockBrokeringWebService port = service.getStockBrokeringWebServicePort();
@@ -61,7 +64,7 @@ public class MainMenu extends javax.swing.JFrame {
             // TODO handle custom exceptions here
         }
 
-        
+        //Load company data 
         try 
         { 
             StockBrokeringWebService_Service service = new StockBrokeringWebService_Service();
@@ -88,6 +91,8 @@ public class MainMenu extends javax.swing.JFrame {
     
     void populateCompayView(List<Company> companies)
     {
+        listOfCompanies = companies;
+        
         JPanel jp = new JPanel();
         jp.setLayout(new BoxLayout(jp, BoxLayout.PAGE_AXIS));
         jp.setMaximumSize(scrlPnCompanyView.getSize());
@@ -126,6 +131,7 @@ public class MainMenu extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         cmbCurrency = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
+        btnConvert = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -154,7 +160,20 @@ public class MainMenu extends javax.swing.JFrame {
         jLabel2.setText("Filter by name");
         jLabel2.setToolTipText("");
 
+        cmbCurrency.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbCurrencyItemStateChanged(evt);
+            }
+        });
+
         jLabel3.setText("Currency");
+
+        btnConvert.setText("jButton1");
+        btnConvert.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConvertActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -180,7 +199,8 @@ public class MainMenu extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cmbCurrency, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
+                    .addComponent(jLabel3)
+                    .addComponent(btnConvert))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -198,8 +218,10 @@ public class MainMenu extends javax.swing.JFrame {
                     .addComponent(txtFilterBySymbol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnFilterBySymbol)
                     .addComponent(cmbCurrency, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(12, 12, 12)
-                .addComponent(jLabel2)
+                .addGap(8, 8, 8)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(btnConvert))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtFilterByName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -246,6 +268,46 @@ public class MainMenu extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnFilterByNameActionPerformed
 
+    private void cmbCurrencyItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbCurrencyItemStateChanged
+        // TODO add your handling code here:
+        /*try {
+            if (evt.getStateChange() == ItemEvent.SELECTED) {
+                StockBrokeringWebService_Service service = new StockBrokeringWebService_Service();
+                StockBrokeringWebService port = service.getStockBrokeringWebServicePort();
+                // TODO initialize WS operation arguments here
+                java.lang.String currencyType = cmbCurrency.getSelectedItem().toString();
+                // TODO process result here
+                java.util.List<Company> result = port.convertCurrencies(listOfCompanies, currencyType);
+
+                populateCompayView(result);
+            }
+
+        } catch (NullPointerException ex) {
+        } catch (Exception ex) {
+        }*/
+    }//GEN-LAST:event_cmbCurrencyItemStateChanged
+
+    private void btnConvertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConvertActionPerformed
+        try {
+            
+                StockBrokeringWebService_Service service = new StockBrokeringWebService_Service();
+                StockBrokeringWebService port = service.getStockBrokeringWebServicePort();
+                // TODO initialize WS operation arguments here
+                java.lang.String currencyType = cmbCurrency.getSelectedItem().toString();
+                // TODO process result here
+                System.out.println(listOfCompanies.size());
+                java.util.List<Company> result = port.convertCurrencies(listOfCompanies, currencyType);
+
+                populateCompayView(result);
+            
+
+        } catch (NullPointerException ex) {
+            System.out.println(ex.toString());
+        } catch (Exception ex) {
+            System.out.println(ex.toString());
+        }
+    }//GEN-LAST:event_btnConvertActionPerformed
+
     
     /**
      * @param args the command line arguments
@@ -283,6 +345,7 @@ public class MainMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnConvert;
     private javax.swing.JButton btnFilterByName;
     private javax.swing.JButton btnFilterBySymbol;
     private javax.swing.JButton btnSearch;

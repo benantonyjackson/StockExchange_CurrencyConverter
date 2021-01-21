@@ -240,8 +240,9 @@ public class StockBrokeringWebService {
         
         return filteredCompanies;
     }
-
-    private List<Company> convertCurrencies(List<Company> companies, String currencyType)
+    
+    
+    /*private List<Company> convertCurrencies(List<Company> companies, String currencyType)
     {
 
         JSONArray arr = new JSONArray();
@@ -290,7 +291,7 @@ public class StockBrokeringWebService {
         }
         
         return companies;
-    }
+    }*/
     
     private String makeRequest(String uri, String MethodType)
     {
@@ -303,7 +304,7 @@ public class StockBrokeringWebService {
         URL url = null;
         
         boolean bodyIsEmpty = (input.length == 0);
-        
+        System.out.println("Body is empty: " + bodyIsEmpty);
         try {
             url = new URL(uri);
         } catch (MalformedURLException ex) {
@@ -326,7 +327,7 @@ public class StockBrokeringWebService {
         con.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11");
         con.setRequestProperty("Accept", "application/json");
 
-        con.setDoOutput(bodyIsEmpty);
+        con.setDoOutput(!bodyIsEmpty);
         
         if (!bodyIsEmpty)
         {
@@ -370,6 +371,62 @@ public class StockBrokeringWebService {
         List currencies = arr.toList();
         
         return currencies;
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "convertCurrencies")
+    public List convertCurrencies(@WebParam(name = "companies") List<Company> companies, @WebParam(name = "currencyType") String currencyType) {
+        JSONArray arr = new JSONArray();
+        System.out.println("Size of companies list" + companies.size());
+        for (Company company: companies)
+        {
+            if (!company.getSharePrice().getCurrency().equals(currencyType))
+            {
+                JSONObject obj = new JSONObject();
+                
+                obj.put("from", company.getSharePrice().getCurrency());
+                obj.put("to", currencyType);
+                obj.put("value", company.getSharePrice().getValue());
+                
+                arr.put(obj);
+            }
+        }
+        
+        System.out.println(arr.toString());
+        
+        if (arr.length() > 0)
+        {
+                String response = "";
+            try {
+                response = makeRequest(
+                        "http://127.0.0.1:5000/convert", "POST",
+                        arr.toString().getBytes("utf-8"));
+            } catch (UnsupportedEncodingException ex) {
+                Logger.getLogger(StockBrokeringWebService.class.getName()).log(Level.SEVERE, null, ex);
+            }
+                
+                JSONObject responseObj = new JSONObject(response);
+                JSONArray responseArray = responseObj.getJSONArray("values");
+                
+                for (int i = 0; i < responseArray.length(); i++)
+                {
+                    Company company = companies.get(i);
+                    Company.SharePrice newSharePrice = new Company.SharePrice();
+                    
+                    newSharePrice.setCurrency(currencyType);
+                    newSharePrice.setValue(responseArray.getBigDecimal(i).floatValue());
+                    company.setSharePrice(newSharePrice);
+                    
+                    System.out.println(newSharePrice.getCurrency());
+                    System.out.println(newSharePrice.getValue());
+                    
+                    companies.set(i, company);
+                }
+        }
+        
+        return companies;
     }
 
 }
