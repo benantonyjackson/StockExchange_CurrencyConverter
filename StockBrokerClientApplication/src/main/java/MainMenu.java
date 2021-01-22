@@ -21,6 +21,7 @@ import java.net.ConnectException;
 import javax.swing.BoxLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.xml.ws.http.HTTPException;
 
 /*
@@ -52,6 +53,10 @@ public class MainMenu extends javax.swing.JFrame {
         scrlPnCompanyView.getVerticalScrollBar().setUnitIncrement(20);
         
         String selectedCurrency = "";
+        
+        btnPriceGreaterThan.setActionCommand("greater");
+        btnPriceLessThan.setActionCommand("less");
+        btnPriceEqualTo.setActionCommand("equal");
         
         //Loads list of currencies 
         try { 
@@ -123,7 +128,7 @@ public class MainMenu extends javax.swing.JFrame {
     private void initComponents() {
 
         orderButtonGroup = new javax.swing.ButtonGroup();
-        fitlerPriceButtonGroup = new javax.swing.ButtonGroup();
+        filterPriceButtonGroup = new javax.swing.ButtonGroup();
         scrlPnCompanyView = new javax.swing.JScrollPane();
         lblNumberOfResult = new javax.swing.JLabel();
         txtFilterBySymbol = new javax.swing.JTextField();
@@ -145,8 +150,8 @@ public class MainMenu extends javax.swing.JFrame {
         btnFilterByPrice = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         btnPriceGreaterThan = new javax.swing.JRadioButton();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        btnPriceLessThan = new javax.swing.JRadioButton();
+        btnPriceEqualTo = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -240,14 +245,14 @@ public class MainMenu extends javax.swing.JFrame {
         jLabel4.setText("Filter by price");
         jLabel4.setToolTipText("");
 
-        fitlerPriceButtonGroup.add(btnPriceGreaterThan);
+        filterPriceButtonGroup.add(btnPriceGreaterThan);
         btnPriceGreaterThan.setText("Greater Than");
 
-        fitlerPriceButtonGroup.add(jRadioButton1);
-        jRadioButton1.setText("Less Than");
+        filterPriceButtonGroup.add(btnPriceLessThan);
+        btnPriceLessThan.setText("Less Than");
 
-        fitlerPriceButtonGroup.add(jRadioButton2);
-        jRadioButton2.setText("Equal to");
+        filterPriceButtonGroup.add(btnPriceEqualTo);
+        btnPriceEqualTo.setText("Equal to");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -299,9 +304,9 @@ public class MainMenu extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnPriceGreaterThan)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jRadioButton1)
+                                .addComponent(btnPriceLessThan)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jRadioButton2)))
+                                .addComponent(btnPriceEqualTo)))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
@@ -346,8 +351,8 @@ public class MainMenu extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnPriceGreaterThan)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton2))
+                    .addComponent(btnPriceLessThan)
+                    .addComponent(btnPriceEqualTo))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -454,7 +459,31 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPriceAscItemStateChanged
 
     private void btnFilterByPriceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilterByPriceActionPerformed
-        // TODO add your handling code here:
+     
+        try { // Call Web Service Operation
+            StockBrokeringWebService_Service service = new StockBrokeringWebService_Service();
+            StockBrokeringWebService port = service.getStockBrokeringWebServicePort();
+            // TODO initialize WS operation arguments here
+            float value = Float.valueOf(txtFilterByPrice.getText());
+            //String operator = ((JRadioButton)filterPriceButtonGroup.getSelection()).getText();
+            
+            String operator = filterPriceButtonGroup.getSelection().getActionCommand();
+            
+            System.out.println("Operator" + operator);
+
+            String currency = "";
+            try {
+                currency = cmbCurrency.getSelectedItem().toString();
+            } catch (Exception ex) {
+            }
+            // TODO process result here
+            List<Company> companies = port.filterByPrice(value, operator, currency, orderBy, order);
+            
+            populateCompayView(companies);
+        } catch (Exception ex) {
+           System.out.println("Error: " + ex.getMessage());
+        }
+
     }//GEN-LAST:event_btnFilterByPriceActionPerformed
     
     
@@ -558,17 +587,17 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JRadioButton btnNameDesc;
     private javax.swing.JRadioButton btnPriceAsc;
     private javax.swing.JRadioButton btnPriceDesc;
+    private javax.swing.JRadioButton btnPriceEqualTo;
     private javax.swing.JRadioButton btnPriceGreaterThan;
+    private javax.swing.JRadioButton btnPriceLessThan;
     private javax.swing.JRadioButton btnSymbolAsc;
     private javax.swing.JRadioButton btnSymbolDesc;
     private javax.swing.JComboBox<String> cmbCurrency;
-    private javax.swing.ButtonGroup fitlerPriceButtonGroup;
+    private javax.swing.ButtonGroup filterPriceButtonGroup;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JLabel lblNumberOfResult;
     private javax.swing.ButtonGroup orderButtonGroup;
     private javax.swing.JScrollPane scrlPnCompanyView;

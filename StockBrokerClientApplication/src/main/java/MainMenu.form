@@ -4,7 +4,7 @@
   <NonVisualComponents>
     <Component class="javax.swing.ButtonGroup" name="orderButtonGroup">
     </Component>
-    <Component class="javax.swing.ButtonGroup" name="fitlerPriceButtonGroup">
+    <Component class="javax.swing.ButtonGroup" name="filterPriceButtonGroup">
     </Component>
   </NonVisualComponents>
   <Properties>
@@ -81,9 +81,9 @@
                           <Group type="102" attributes="0">
                               <Component id="btnPriceGreaterThan" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jRadioButton1" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnPriceLessThan" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jRadioButton2" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnPriceEqualTo" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
@@ -143,8 +143,8 @@
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnPriceGreaterThan" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jRadioButton1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jRadioButton2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnPriceLessThan" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnPriceEqualTo" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -305,23 +305,23 @@
     <Component class="javax.swing.JRadioButton" name="btnPriceGreaterThan">
       <Properties>
         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-          <ComponentRef name="fitlerPriceButtonGroup"/>
+          <ComponentRef name="filterPriceButtonGroup"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Greater Than"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JRadioButton" name="jRadioButton1">
+    <Component class="javax.swing.JRadioButton" name="btnPriceLessThan">
       <Properties>
         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-          <ComponentRef name="fitlerPriceButtonGroup"/>
+          <ComponentRef name="filterPriceButtonGroup"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Less Than"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JRadioButton" name="jRadioButton2">
+    <Component class="javax.swing.JRadioButton" name="btnPriceEqualTo">
       <Properties>
         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-          <ComponentRef name="fitlerPriceButtonGroup"/>
+          <ComponentRef name="filterPriceButtonGroup"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Equal to"/>
       </Properties>

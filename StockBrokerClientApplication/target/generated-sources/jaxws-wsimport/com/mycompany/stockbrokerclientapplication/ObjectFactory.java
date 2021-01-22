@@ -26,6 +26,7 @@ public class ObjectFactory {
 
     private final static QName _GetCompanyNamesAndSymbols_QNAME = new QName("http://StockBrokeringWebService/", "getCompanyNamesAndSymbols");
     private final static QName _GetCurrencies_QNAME = new QName("http://StockBrokeringWebService/", "getCurrencies");
+    private final static QName _FilterByPrice_QNAME = new QName("http://StockBrokeringWebService/", "filterByPrice");
     private final static QName _OrderCompaniesResponse_QNAME = new QName("http://StockBrokeringWebService/", "orderCompaniesResponse");
     private final static QName _BuyShare_QNAME = new QName("http://StockBrokeringWebService/", "buyShare");
     private final static QName _GetCompanyData_QNAME = new QName("http://StockBrokeringWebService/", "getCompanyData");
@@ -34,6 +35,7 @@ public class ObjectFactory {
     private final static QName _ConvertCurrenciesResponse_QNAME = new QName("http://StockBrokeringWebService/", "convertCurrenciesResponse");
     private final static QName _GetCompanyNamesAndSymbolsResponse_QNAME = new QName("http://StockBrokeringWebService/", "getCompanyNamesAndSymbolsResponse");
     private final static QName _OrderCompanies_QNAME = new QName("http://StockBrokeringWebService/", "orderCompanies");
+    private final static QName _FilterByPriceResponse_QNAME = new QName("http://StockBrokeringWebService/", "filterByPriceResponse");
     private final static QName _GetCompaniesByName_QNAME = new QName("http://StockBrokeringWebService/", "getCompaniesByName");
     private final static QName _GetCompanyDataResponse_QNAME = new QName("http://StockBrokeringWebService/", "getCompanyDataResponse");
     private final static QName _ConvertCurrencies_QNAME = new QName("http://StockBrokeringWebService/", "convertCurrencies");
@@ -172,11 +174,27 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link FilterByPrice }
+     * 
+     */
+    public FilterByPrice createFilterByPrice() {
+        return new FilterByPrice();
+    }
+
+    /**
      * Create an instance of {@link OrderCompaniesResponse }
      * 
      */
     public OrderCompaniesResponse createOrderCompaniesResponse() {
         return new OrderCompaniesResponse();
+    }
+
+    /**
+     * Create an instance of {@link FilterByPriceResponse }
+     * 
+     */
+    public FilterByPriceResponse createFilterByPriceResponse() {
+        return new FilterByPriceResponse();
     }
 
     /**
@@ -243,6 +261,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://StockBrokeringWebService/", name = "getCurrencies")
     public JAXBElement<GetCurrencies> createGetCurrencies(GetCurrencies value) {
         return new JAXBElement<GetCurrencies>(_GetCurrencies_QNAME, GetCurrencies.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link FilterByPrice }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://StockBrokeringWebService/", name = "filterByPrice")
+    public JAXBElement<FilterByPrice> createFilterByPrice(FilterByPrice value) {
+        return new JAXBElement<FilterByPrice>(_FilterByPrice_QNAME, FilterByPrice.class, null, value);
     }
 
     /**
@@ -315,6 +342,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://StockBrokeringWebService/", name = "orderCompanies")
     public JAXBElement<OrderCompanies> createOrderCompanies(OrderCompanies value) {
         return new JAXBElement<OrderCompanies>(_OrderCompanies_QNAME, OrderCompanies.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link FilterByPriceResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://StockBrokeringWebService/", name = "filterByPriceResponse")
+    public JAXBElement<FilterByPriceResponse> createFilterByPriceResponse(FilterByPriceResponse value) {
+        return new JAXBElement<FilterByPriceResponse>(_FilterByPriceResponse_QNAME, FilterByPriceResponse.class, null, value);
     }
 
     /**

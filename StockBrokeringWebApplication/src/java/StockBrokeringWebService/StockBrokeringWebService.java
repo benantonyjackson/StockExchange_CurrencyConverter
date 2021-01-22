@@ -425,5 +425,43 @@ public class StockBrokeringWebService {
         return sortedUsers;
     }
 
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "filterByPrice")
+    public List<Company> filterByPrice(@WebParam(name = "value") float value, @WebParam(name = "operator") String operator, @WebParam(name = "currency") String currency, @WebParam(name = "orderBy") String orderBy, @WebParam(name = "order") String order) {
+        List<Company> allCompanies = getCompanyData(currency, orderBy, order);
+        List<Company> filteredCompanies = new ArrayList<Company>();
+        
+        for (Company company: allCompanies)
+        {
+            if (compair(company.getSharePrice().getValue(), value, operator))
+            {
+                filteredCompanies.add(company);
+            }
+        }
+        
+        return filteredCompanies;
+    }
+    
+    private static boolean compair(float x, float y, String operator)
+    {
+        if (operator.toLowerCase().equals("less"))
+        {
+            return (x < y);
+        }
+        
+        if (operator.toLowerCase().equals("greater"))
+        {
+            return (x > y);
+        }
+        
+        if (operator.toLowerCase().equals("equal"))
+        {
+            return (x == y);
+        }
+        
+        return false;
+    }
 
 }
