@@ -74,9 +74,9 @@
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="btnFilterByPrice" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="btnNameAsc1" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnPriceAsc" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="btnNameDesc1" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnPriceDesc" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
                               <Component id="btnPriceGreaterThan" min="-2" max="-2" attributes="0"/>
@@ -132,8 +132,8 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                      <Component id="btnNameAsc1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnNameDesc1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnPriceAsc" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnPriceDesc" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                       <Component id="txtFilterByPrice" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -203,9 +203,6 @@
           <StringArray count="0"/>
         </Property>
       </Properties>
-      <Events>
-        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="cmbCurrencyItemStateChanged"/>
-      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
@@ -267,7 +264,7 @@
         <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="btnNameAscItemStateChanged"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JRadioButton" name="btnNameDesc1">
+    <Component class="javax.swing.JRadioButton" name="btnPriceDesc">
       <Properties>
         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
           <ComponentRef name="orderButtonGroup"/>
@@ -275,10 +272,10 @@
         <Property name="text" type="java.lang.String" value="Descending"/>
       </Properties>
       <Events>
-        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="btnNameDesc1ItemStateChanged"/>
+        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="btnPriceDescItemStateChanged"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JRadioButton" name="btnNameAsc1">
+    <Component class="javax.swing.JRadioButton" name="btnPriceAsc">
       <Properties>
         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
           <ComponentRef name="orderButtonGroup"/>
@@ -286,7 +283,7 @@
         <Property name="text" type="java.lang.String" value="Accending"/>
       </Properties>
       <Events>
-        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="btnNameAsc1ItemStateChanged"/>
+        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="btnPriceAscItemStateChanged"/>
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtFilterByPrice">

@@ -139,8 +139,8 @@ public class MainMenu extends javax.swing.JFrame {
         btnSymbolDesc = new javax.swing.JRadioButton();
         btnNameDesc = new javax.swing.JRadioButton();
         btnNameAsc = new javax.swing.JRadioButton();
-        btnNameDesc1 = new javax.swing.JRadioButton();
-        btnNameAsc1 = new javax.swing.JRadioButton();
+        btnPriceDesc = new javax.swing.JRadioButton();
+        btnPriceAsc = new javax.swing.JRadioButton();
         txtFilterByPrice = new javax.swing.JTextField();
         btnFilterByPrice = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
@@ -172,12 +172,6 @@ public class MainMenu extends javax.swing.JFrame {
 
         jLabel2.setText("Filter by name");
         jLabel2.setToolTipText("");
-
-        cmbCurrency.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                cmbCurrencyItemStateChanged(evt);
-            }
-        });
 
         jLabel3.setText("Currency");
 
@@ -220,19 +214,19 @@ public class MainMenu extends javax.swing.JFrame {
             }
         });
 
-        orderButtonGroup.add(btnNameDesc1);
-        btnNameDesc1.setText("Descending");
-        btnNameDesc1.addItemListener(new java.awt.event.ItemListener() {
+        orderButtonGroup.add(btnPriceDesc);
+        btnPriceDesc.setText("Descending");
+        btnPriceDesc.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                btnNameDesc1ItemStateChanged(evt);
+                btnPriceDescItemStateChanged(evt);
             }
         });
 
-        orderButtonGroup.add(btnNameAsc1);
-        btnNameAsc1.setText("Accending");
-        btnNameAsc1.addItemListener(new java.awt.event.ItemListener() {
+        orderButtonGroup.add(btnPriceAsc);
+        btnPriceAsc.setText("Accending");
+        btnPriceAsc.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                btnNameAsc1ItemStateChanged(evt);
+                btnPriceAscItemStateChanged(evt);
             }
         });
 
@@ -299,9 +293,9 @@ public class MainMenu extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(btnFilterByPrice)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnNameAsc1)
+                                .addComponent(btnPriceAsc)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnNameDesc1))
+                                .addComponent(btnPriceDesc))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnPriceGreaterThan)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -344,8 +338,8 @@ public class MainMenu extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnNameAsc1)
-                        .addComponent(btnNameDesc1))
+                        .addComponent(btnPriceAsc)
+                        .addComponent(btnPriceDesc))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(txtFilterByPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnFilterByPrice)))
@@ -394,10 +388,6 @@ public class MainMenu extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnFilterByNameActionPerformed
 
-    private void cmbCurrencyItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbCurrencyItemStateChanged
-
-    }//GEN-LAST:event_cmbCurrencyItemStateChanged
-
     private void btnConvertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConvertActionPerformed
         listOfCompanies = convertDisplayedCurrecnies(listOfCompanies);
         populateCompayView(listOfCompanies);
@@ -443,13 +433,25 @@ public class MainMenu extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnNameDescItemStateChanged
 
-    private void btnNameDesc1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_btnNameDesc1ItemStateChanged
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnNameDesc1ItemStateChanged
+    private void btnPriceDescItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_btnPriceDescItemStateChanged
+        if (evt.getStateChange() == ItemEvent.SELECTED)
+        {
+            orderBy = "price";
+            order = "DESC";
+            
+            orderCompanies(listOfCompanies, orderBy, order);
+        }
+    }//GEN-LAST:event_btnPriceDescItemStateChanged
 
-    private void btnNameAsc1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_btnNameAsc1ItemStateChanged
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnNameAsc1ItemStateChanged
+    private void btnPriceAscItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_btnPriceAscItemStateChanged
+        if (evt.getStateChange() == ItemEvent.SELECTED)
+        {
+            orderBy = "price";
+            order = "ASC";
+            
+            orderCompanies(listOfCompanies, orderBy, order);
+        }
+    }//GEN-LAST:event_btnPriceAscItemStateChanged
 
     private void btnFilterByPriceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilterByPriceActionPerformed
         // TODO add your handling code here:
@@ -553,9 +555,9 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JButton btnFilterByPrice;
     private javax.swing.JButton btnFilterBySymbol;
     private javax.swing.JRadioButton btnNameAsc;
-    private javax.swing.JRadioButton btnNameAsc1;
     private javax.swing.JRadioButton btnNameDesc;
-    private javax.swing.JRadioButton btnNameDesc1;
+    private javax.swing.JRadioButton btnPriceAsc;
+    private javax.swing.JRadioButton btnPriceDesc;
     private javax.swing.JRadioButton btnPriceGreaterThan;
     private javax.swing.JRadioButton btnSymbolAsc;
     private javax.swing.JRadioButton btnSymbolDesc;

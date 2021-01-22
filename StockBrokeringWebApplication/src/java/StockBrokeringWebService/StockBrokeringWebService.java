@@ -5,7 +5,9 @@
  */
 package StockBrokeringWebService;
 
+import comparitors.SharePriceComparitor;
 import generated.Company;
+import generated.Company.SharePrice;
 import generated.CompanyList;
 import java.io.BufferedReader;
 import java.io.File;
@@ -394,6 +396,7 @@ public class StockBrokeringWebService {
     public List<Company> orderCompanies(@WebParam(name = "companies") List<Company> companies, @WebParam(name = "orderBy") String orderBy, @WebParam(name = "order") String order) {
         List<Company> sortedUsers = new ArrayList<Company>();
         
+        //https://www.codebyamir.com/blog/sort-list-of-objects-by-field-java
         if (orderBy.toLowerCase().equals("name"))
         {
             sortedUsers = companies.stream()
@@ -406,6 +409,12 @@ public class StockBrokeringWebService {
             sortedUsers = companies.stream()
             .sorted(Comparator.comparing(Company::getCompanySymbol, String.CASE_INSENSITIVE_ORDER))
             .collect(Collectors.toList());
+        }
+        
+        if (orderBy.toLowerCase().equals("price"))
+        {
+            sortedUsers = companies;
+            Collections.sort(sortedUsers, new SharePriceComparitor());
         }
         
         if (order.toLowerCase().equals("desc"))
