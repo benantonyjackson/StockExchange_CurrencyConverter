@@ -123,9 +123,9 @@ public class MainMenu extends javax.swing.JFrame {
     private void initComponents() {
 
         orderButtonGroup = new javax.swing.ButtonGroup();
+        fitlerPriceButtonGroup = new javax.swing.ButtonGroup();
         scrlPnCompanyView = new javax.swing.JScrollPane();
         lblNumberOfResult = new javax.swing.JLabel();
-        btnSearch = new javax.swing.JButton();
         txtFilterBySymbol = new javax.swing.JTextField();
         btnFilterBySymbol = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -139,14 +139,20 @@ public class MainMenu extends javax.swing.JFrame {
         btnSymbolDesc = new javax.swing.JRadioButton();
         btnNameDesc = new javax.swing.JRadioButton();
         btnNameAsc = new javax.swing.JRadioButton();
+        btnNameDesc1 = new javax.swing.JRadioButton();
+        btnNameAsc1 = new javax.swing.JRadioButton();
+        txtFilterByPrice = new javax.swing.JTextField();
+        btnFilterByPrice = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        btnPriceGreaterThan = new javax.swing.JRadioButton();
+        jRadioButton1 = new javax.swing.JRadioButton();
+        jRadioButton2 = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         scrlPnCompanyView.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         lblNumberOfResult.setText("Results: 0");
-
-        btnSearch.setText("Search");
 
         btnFilterBySymbol.setText("Search");
         btnFilterBySymbol.addActionListener(new java.awt.event.ActionListener() {
@@ -214,6 +220,41 @@ public class MainMenu extends javax.swing.JFrame {
             }
         });
 
+        orderButtonGroup.add(btnNameDesc1);
+        btnNameDesc1.setText("Descending");
+        btnNameDesc1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                btnNameDesc1ItemStateChanged(evt);
+            }
+        });
+
+        orderButtonGroup.add(btnNameAsc1);
+        btnNameAsc1.setText("Accending");
+        btnNameAsc1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                btnNameAsc1ItemStateChanged(evt);
+            }
+        });
+
+        btnFilterByPrice.setText("Search");
+        btnFilterByPrice.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFilterByPriceActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setText("Filter by price");
+        jLabel4.setToolTipText("");
+
+        fitlerPriceButtonGroup.add(btnPriceGreaterThan);
+        btnPriceGreaterThan.setText("Greater Than");
+
+        fitlerPriceButtonGroup.add(jRadioButton1);
+        jRadioButton1.setText("Less Than");
+
+        fitlerPriceButtonGroup.add(jRadioButton2);
+        jRadioButton2.setText("Equal to");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -224,31 +265,50 @@ public class MainMenu extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtFilterBySymbol, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtFilterBySymbol, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnFilterBySymbol)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnSymbolAsc)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnSymbolDesc))
+                            .addComponent(lblNumberOfResult)
+                            .addComponent(jLabel1)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtFilterByName, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnFilterByName)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnNameAsc)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnNameDesc))
+                            .addComponent(jLabel2))
                         .addGap(18, 18, 18)
-                        .addComponent(btnFilterBySymbol)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnSymbolAsc)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnSymbolDesc))
-                    .addComponent(lblNumberOfResult)
-                    .addComponent(jLabel1)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cmbCurrency, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3)
+                            .addComponent(btnConvert))
+                        .addGap(33, 33, 33))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtFilterByName, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnFilterByName)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnNameAsc)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnNameDesc))
-                    .addComponent(jLabel2))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cmbCurrency, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3)
-                    .addComponent(btnConvert))
-                .addContainerGap())
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtFilterByPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnFilterByPrice)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnNameAsc1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnNameDesc1))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnPriceGreaterThan)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jRadioButton1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jRadioButton2)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -279,9 +339,22 @@ public class MainMenu extends javax.swing.JFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(txtFilterByName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnFilterByName)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(18, 18, 18)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnNameAsc1)
+                        .addComponent(btnNameDesc1))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtFilterByPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnFilterByPrice)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnPriceGreaterThan)
+                    .addComponent(jRadioButton1)
+                    .addComponent(jRadioButton2))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -369,6 +442,18 @@ public class MainMenu extends javax.swing.JFrame {
             orderCompanies(listOfCompanies, orderBy, order);
         }
     }//GEN-LAST:event_btnNameDescItemStateChanged
+
+    private void btnNameDesc1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_btnNameDesc1ItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnNameDesc1ItemStateChanged
+
+    private void btnNameAsc1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_btnNameAsc1ItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnNameAsc1ItemStateChanged
+
+    private void btnFilterByPriceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilterByPriceActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnFilterByPriceActionPerformed
     
     
     List<Company> convertDisplayedCurrecnies(List companies) {
@@ -465,20 +550,28 @@ public class MainMenu extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnConvert;
     private javax.swing.JButton btnFilterByName;
+    private javax.swing.JButton btnFilterByPrice;
     private javax.swing.JButton btnFilterBySymbol;
     private javax.swing.JRadioButton btnNameAsc;
+    private javax.swing.JRadioButton btnNameAsc1;
     private javax.swing.JRadioButton btnNameDesc;
-    private javax.swing.JButton btnSearch;
+    private javax.swing.JRadioButton btnNameDesc1;
+    private javax.swing.JRadioButton btnPriceGreaterThan;
     private javax.swing.JRadioButton btnSymbolAsc;
     private javax.swing.JRadioButton btnSymbolDesc;
     private javax.swing.JComboBox<String> cmbCurrency;
+    private javax.swing.ButtonGroup fitlerPriceButtonGroup;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JLabel lblNumberOfResult;
     private javax.swing.ButtonGroup orderButtonGroup;
     private javax.swing.JScrollPane scrlPnCompanyView;
     private javax.swing.JTextField txtFilterByName;
+    private javax.swing.JTextField txtFilterByPrice;
     private javax.swing.JTextField txtFilterBySymbol;
     // End of variables declaration//GEN-END:variables
 

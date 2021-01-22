@@ -332,7 +332,8 @@ public class StockBrokeringWebService {
         if (currencyType == null) {
             return companies;
         }
-
+        
+        //Construct JSON body for request
         JSONArray arr = new JSONArray();
         System.out.println("Size of companies list" + companies.size());
         for (Company company : companies) {
