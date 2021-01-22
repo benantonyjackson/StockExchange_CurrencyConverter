@@ -396,14 +396,14 @@ public class StockBrokeringWebService {
         if (orderBy.toLowerCase().equals("name"))
         {
             sortedUsers = companies.stream()
-            .sorted(Comparator.comparing(Company::getCompanyName))
+            .sorted(Comparator.comparing(Company::getCompanyName, String.CASE_INSENSITIVE_ORDER))
             .collect(Collectors.toList());
         }
         
         if (orderBy.toLowerCase().equals("symbol"))
         {
             sortedUsers = companies.stream()
-            .sorted(Comparator.comparing(Company::getCompanySymbol))
+            .sorted(Comparator.comparing(Company::getCompanySymbol, String.CASE_INSENSITIVE_ORDER))
             .collect(Collectors.toList());
         }
         
