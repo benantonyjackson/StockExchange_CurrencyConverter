@@ -34,6 +34,10 @@
 
 <xs:element name="getCurrenciesResponse" type="tns:getCurrenciesResponse"/>
 
+<xs:element name="orderCompanies" type="tns:orderCompanies"/>
+
+<xs:element name="orderCompaniesResponse" type="tns:orderCompaniesResponse"/>
+
 <xs:complexType name="getCompanyNamesAndSymbols">
 <xs:sequence/>
 </xs:complexType>
@@ -109,19 +113,6 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="buyShare">
-<xs:sequence>
-<xs:element name="Symbol" type="xs:string" minOccurs="0"/>
-<xs:element name="NumberOfShares" type="xs:int"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="buyShareResponse">
-<xs:sequence>
-<xs:element name="return" type="tns:Company" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
 <xs:complexType name="getCompanyData">
 <xs:sequence>
 <xs:element name="currency" type="xs:string" minOccurs="0"/>
@@ -133,6 +124,19 @@
 <xs:complexType name="getCompanyDataResponse">
 <xs:sequence>
 <xs:element name="return" type="tns:Company" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="buyShare">
+<xs:sequence>
+<xs:element name="Symbol" type="xs:string" minOccurs="0"/>
+<xs:element name="NumberOfShares" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="buyShareResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:Company" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -156,6 +160,20 @@
 </xs:complexType>
 
 <xs:complexType name="genorateRandomCompanyDataResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:Company" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="orderCompanies">
+<xs:sequence>
+<xs:element name="companies" type="tns:Company" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="orderBy" type="xs:string" minOccurs="0"/>
+<xs:element name="order" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="orderCompaniesResponse">
 <xs:sequence>
 <xs:element name="return" type="tns:Company" minOccurs="0" maxOccurs="unbounded"/>
 </xs:sequence>

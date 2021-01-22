@@ -26,12 +26,14 @@ public class ObjectFactory {
 
     private final static QName _GetCompanyNamesAndSymbols_QNAME = new QName("http://StockBrokeringWebService/", "getCompanyNamesAndSymbols");
     private final static QName _GetCurrencies_QNAME = new QName("http://StockBrokeringWebService/", "getCurrencies");
+    private final static QName _OrderCompaniesResponse_QNAME = new QName("http://StockBrokeringWebService/", "orderCompaniesResponse");
     private final static QName _BuyShare_QNAME = new QName("http://StockBrokeringWebService/", "buyShare");
     private final static QName _GetCompanyData_QNAME = new QName("http://StockBrokeringWebService/", "getCompanyData");
     private final static QName _GetCompaniesByNameResponse_QNAME = new QName("http://StockBrokeringWebService/", "getCompaniesByNameResponse");
     private final static QName _BuyShareResponse_QNAME = new QName("http://StockBrokeringWebService/", "buyShareResponse");
     private final static QName _ConvertCurrenciesResponse_QNAME = new QName("http://StockBrokeringWebService/", "convertCurrenciesResponse");
     private final static QName _GetCompanyNamesAndSymbolsResponse_QNAME = new QName("http://StockBrokeringWebService/", "getCompanyNamesAndSymbolsResponse");
+    private final static QName _OrderCompanies_QNAME = new QName("http://StockBrokeringWebService/", "orderCompanies");
     private final static QName _GetCompaniesByName_QNAME = new QName("http://StockBrokeringWebService/", "getCompaniesByName");
     private final static QName _GetCompanyDataResponse_QNAME = new QName("http://StockBrokeringWebService/", "getCompanyDataResponse");
     private final static QName _ConvertCurrencies_QNAME = new QName("http://StockBrokeringWebService/", "convertCurrencies");
@@ -170,6 +172,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link OrderCompaniesResponse }
+     * 
+     */
+    public OrderCompaniesResponse createOrderCompaniesResponse() {
+        return new OrderCompaniesResponse();
+    }
+
+    /**
      * Create an instance of {@link BuyShareResponse }
      * 
      */
@@ -191,6 +201,14 @@ public class ObjectFactory {
      */
     public GetCompanyNamesAndSymbolsResponse createGetCompanyNamesAndSymbolsResponse() {
         return new GetCompanyNamesAndSymbolsResponse();
+    }
+
+    /**
+     * Create an instance of {@link OrderCompanies }
+     * 
+     */
+    public OrderCompanies createOrderCompanies() {
+        return new OrderCompanies();
     }
 
     /**
@@ -225,6 +243,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://StockBrokeringWebService/", name = "getCurrencies")
     public JAXBElement<GetCurrencies> createGetCurrencies(GetCurrencies value) {
         return new JAXBElement<GetCurrencies>(_GetCurrencies_QNAME, GetCurrencies.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link OrderCompaniesResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://StockBrokeringWebService/", name = "orderCompaniesResponse")
+    public JAXBElement<OrderCompaniesResponse> createOrderCompaniesResponse(OrderCompaniesResponse value) {
+        return new JAXBElement<OrderCompaniesResponse>(_OrderCompaniesResponse_QNAME, OrderCompaniesResponse.class, null, value);
     }
 
     /**
@@ -279,6 +306,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://StockBrokeringWebService/", name = "getCompanyNamesAndSymbolsResponse")
     public JAXBElement<GetCompanyNamesAndSymbolsResponse> createGetCompanyNamesAndSymbolsResponse(GetCompanyNamesAndSymbolsResponse value) {
         return new JAXBElement<GetCompanyNamesAndSymbolsResponse>(_GetCompanyNamesAndSymbolsResponse_QNAME, GetCompanyNamesAndSymbolsResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link OrderCompanies }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://StockBrokeringWebService/", name = "orderCompanies")
+    public JAXBElement<OrderCompanies> createOrderCompanies(OrderCompanies value) {
+        return new JAXBElement<OrderCompanies>(_OrderCompanies_QNAME, OrderCompanies.class, null, value);
     }
 
     /**

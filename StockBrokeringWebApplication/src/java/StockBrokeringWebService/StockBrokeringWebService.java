@@ -241,58 +241,6 @@ public class StockBrokeringWebService {
         return filteredCompanies;
     }
     
-    
-    /*private List<Company> convertCurrencies(List<Company> companies, String currencyType)
-    {
-
-        JSONArray arr = new JSONArray();
-        for (Company company: companies)
-        {
-            if (!company.getSharePrice().getCurrency().equals(currencyType))
-            {
-                JSONObject obj = new JSONObject();
-                
-                obj.put("from", company.getSharePrice().getCurrency());
-                obj.put("to", currencyType);
-                obj.put("value", company.getSharePrice().getValue());
-                
-                arr.put(obj);
-            }
-        }
-
-        if (arr.length() > 0)
-        {
-                String response = "";
-            try {
-                response = makeRequest(
-                        "http://127.0.0.1:5000/convert", "POST",
-                        arr.toString().getBytes("utf-8"));
-            } catch (UnsupportedEncodingException ex) {
-                Logger.getLogger(StockBrokeringWebService.class.getName()).log(Level.SEVERE, null, ex);
-            }
-                
-                JSONObject responseObj = new JSONObject(response);
-                JSONArray responseArray = responseObj.getJSONArray("values");
-                
-                for (int i = 0; i < responseArray.length(); i++)
-                {
-                    Company company = companies.get(i);
-                    Company.SharePrice newSharePrice = new Company.SharePrice();
-                    
-                    newSharePrice.setCurrency(currencyType);
-                    newSharePrice.setValue(responseArray.getBigDecimal(i).floatValue());
-                    company.setSharePrice(newSharePrice);
-                    
-                    System.out.println(newSharePrice.getCurrency());
-                    System.out.println(newSharePrice.getValue());
-                    
-                    companies.set(i, company);
-                }
-        }
-        
-        return companies;
-    }*/
-    
     private String makeRequest(String uri, String MethodType)
     {
         byte[] arr = "".getBytes();
@@ -304,23 +252,23 @@ public class StockBrokeringWebService {
         URL url = null;
         
         boolean bodyIsEmpty = (input.length == 0);
-        System.out.println("Body is empty: " + bodyIsEmpty);
+        
         try {
             url = new URL(uri);
         } catch (MalformedURLException ex) {
-            Logger.getLogger(StockBrokeringWebService.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("An error occured " + ex.getMessage());
         }
         
         HttpURLConnection con = null;
         try {
             con = (HttpURLConnection) url.openConnection();
         } catch (IOException ex) {
-            Logger.getLogger(StockBrokeringWebService.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("An error occured " + ex.getMessage());
         }
         try {
             con.setRequestMethod(MethodType);
         } catch (ProtocolException ex) {
-            Logger.getLogger(StockBrokeringWebService.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("An error occured " + ex.getMessage());
         }
 
         con.setRequestProperty("Content-Type", "application/json; utf-8");
@@ -334,7 +282,7 @@ public class StockBrokeringWebService {
             try (OutputStream os = con.getOutputStream()) {
                 os.write(input, 0, input.length);
             } catch (IOException ex) {
-                Logger.getLogger(StockBrokeringWebService.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("An error occured " + ex.getMessage());
             }
         }
         
@@ -350,7 +298,7 @@ public class StockBrokeringWebService {
             System.out.println(responseBuilder.toString());
             response = responseBuilder.toString();
         } catch (IOException ex) {
-            Logger.getLogger(StockBrokeringWebService.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("An error occured " + ex.getMessage());
         }
 
         return response;
@@ -378,32 +326,28 @@ public class StockBrokeringWebService {
      */
     @WebMethod(operationName = "convertCurrencies")
     public List convertCurrencies(@WebParam(name = "companies") List<Company> companies, @WebParam(name = "currencyType") String currencyType) {
-        if (currencyType.length() == 0)
-        {
+        if (currencyType == null) {
             return companies;
         }
-        
+
         JSONArray arr = new JSONArray();
         System.out.println("Size of companies list" + companies.size());
-        for (Company company: companies)
-        {
-            if (!company.getSharePrice().getCurrency().equals(currencyType))
-            {
+        for (Company company : companies) {
+            if (!company.getSharePrice().getCurrency().equals(currencyType)) {
                 JSONObject obj = new JSONObject();
-                
+
                 obj.put("from", company.getSharePrice().getCurrency());
                 obj.put("to", currencyType);
                 obj.put("value", company.getSharePrice().getValue());
-                
+
                 arr.put(obj);
             }
         }
-        
+
         System.out.println(arr.toString());
-        
-        if (arr.length() > 0)
-        {
-                String response = "";
+
+        if (arr.length() > 0) {
+            String response = "";
             try {
                 response = makeRequest(
                         "http://127.0.0.1:5000/convert", "POST",
@@ -411,27 +355,42 @@ public class StockBrokeringWebService {
             } catch (UnsupportedEncodingException ex) {
                 Logger.getLogger(StockBrokeringWebService.class.getName()).log(Level.SEVERE, null, ex);
             }
-                
+
+            System.out.println("Response message " + response);
+
+            try {
                 JSONObject responseObj = new JSONObject(response);
                 JSONArray responseArray = responseObj.getJSONArray("values");
-                
-                for (int i = 0; i < responseArray.length(); i++)
-                {
+
+                for (int i = 0; i < responseArray.length(); i++) {
                     Company company = companies.get(i);
                     Company.SharePrice newSharePrice = new Company.SharePrice();
-                    
+
                     newSharePrice.setCurrency(currencyType);
                     newSharePrice.setValue(responseArray.getBigDecimal(i).floatValue());
                     company.setSharePrice(newSharePrice);
-                    
+
                     System.out.println(newSharePrice.getCurrency());
                     System.out.println(newSharePrice.getValue());
-                    
+
                     companies.set(i, company);
                 }
+            } catch (org.json.JSONException ex) {
+                
+            }
         }
-        
+
         return companies;
     }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "orderCompanies")
+    public List<Company> orderCompanies(@WebParam(name = "companies") List<Company> companies, @WebParam(name = "orderBy") String orderBy, @WebParam(name = "order") String order) {
+        //TODO write your implementation code here:
+        return companies;
+    }
+
 
 }

@@ -51,7 +51,9 @@ public class MainMenu extends javax.swing.JFrame {
         System.out.println("Appliction started");
         scrlPnCompanyView.getVerticalScrollBar().setUnitIncrement(20);
         
-        //Load list of currencies 
+        String selectedCurrency = "";
+        
+        //Loads list of currencies 
         try { 
             StockBrokeringWebService_Service service = new StockBrokeringWebService_Service();
             StockBrokeringWebService port = service.getStockBrokeringWebServicePort();
@@ -64,31 +66,26 @@ public class MainMenu extends javax.swing.JFrame {
             }
             cmbCurrency.setSelectedItem("EUR");
             
+            selectedCurrency = "EUR";
+            
         } catch (Exception ex) {
-            // TODO handle custom exceptions here
+            JOptionPane.showMessageDialog(this, "An error occured when attempting to fetch the list of currencies \n"
+            + "For this session, all share prices will be displayed in Euros\n\n");
         }
 
-        //Load company data 
+        //Load company data
         try 
         { 
             StockBrokeringWebService_Service service = new StockBrokeringWebService_Service();
             StockBrokeringWebService port = service.getStockBrokeringWebServicePort();
-            // TODO initialize WS operation arguments here
-            int limit = 100;
-            int offset = 0;
-            // TODO process result here
-            populateCompayView(port.getCompanyData(cmbCurrency.getSelectedItem().toString(), orderBy, order));
-        
-        } 
-        /*catch (java.net.ConnectException ex) 
-        {
-            System.out.println("Could not connect to web service");
-        }*/
+
+            populateCompayView(port.getCompanyData(selectedCurrency, orderBy, order));
+        }
         catch (Exception ex) 
         {
-            JOptionPane.showMessageDialog(this, "Sorry, an error occured when "
-                    + "trying to connect to the web service\n\n"
-                    + "Full error message: " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Sorry, an error occured when"
+                    + "trying to connect to the web service\n\n" + 
+                    "Full error message: " + ex.getMessage());
         }
 
     }
@@ -179,7 +176,6 @@ public class MainMenu extends javax.swing.JFrame {
         jLabel3.setText("Currency");
 
         btnConvert.setText("Convert");
-        btnConvert.setActionCommand("Convert");
         btnConvert.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnConvertActionPerformed(evt);
@@ -276,12 +272,13 @@ public class MainMenu extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(btnConvert))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtFilterByName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnFilterByName)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnNameAsc)
-                        .addComponent(btnNameDesc)))
+                        .addComponent(btnNameDesc))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtFilterByName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnFilterByName)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
