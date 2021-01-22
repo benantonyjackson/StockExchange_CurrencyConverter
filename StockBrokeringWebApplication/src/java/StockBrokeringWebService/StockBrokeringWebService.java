@@ -24,10 +24,13 @@ import java.net.URLConnection;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import javafx.util.Pair;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
@@ -388,8 +391,28 @@ public class StockBrokeringWebService {
      */
     @WebMethod(operationName = "orderCompanies")
     public List<Company> orderCompanies(@WebParam(name = "companies") List<Company> companies, @WebParam(name = "orderBy") String orderBy, @WebParam(name = "order") String order) {
-        //TODO write your implementation code here:
-        return companies;
+        List<Company> sortedUsers = new ArrayList<Company>();
+        
+        if (orderBy.toLowerCase().equals("name"))
+        {
+            sortedUsers = companies.stream()
+            .sorted(Comparator.comparing(Company::getCompanyName))
+            .collect(Collectors.toList());
+        }
+        
+        if (orderBy.toLowerCase().equals("symbol"))
+        {
+            sortedUsers = companies.stream()
+            .sorted(Comparator.comparing(Company::getCompanySymbol))
+            .collect(Collectors.toList());
+        }
+        
+        if (order.toLowerCase().equals("desc"))
+        {
+            Collections.reverse(sortedUsers);
+        }
+        
+        return sortedUsers;
     }
 
 

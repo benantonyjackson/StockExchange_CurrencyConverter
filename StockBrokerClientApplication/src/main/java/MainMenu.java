@@ -335,7 +335,8 @@ public class MainMenu extends javax.swing.JFrame {
         {
             orderBy = "symbol";
             order = "ASC";
-            JOptionPane.showMessageDialog(this, order + "-" + orderBy);
+            
+            orderCompanies(listOfCompanies, orderBy, order);
         }
     }//GEN-LAST:event_btnSymbolAscItemStateChanged
 
@@ -344,7 +345,8 @@ public class MainMenu extends javax.swing.JFrame {
         {
             orderBy = "symbol";
             order = "DESC";
-            JOptionPane.showMessageDialog(this, order + "-" + orderBy);
+            
+            orderCompanies(listOfCompanies, orderBy, order);
         }
     }//GEN-LAST:event_btnSymbolDescItemStateChanged
 
@@ -353,7 +355,8 @@ public class MainMenu extends javax.swing.JFrame {
         {
             orderBy = "name";
             order = "ASC";
-            JOptionPane.showMessageDialog(this, order + "-" + orderBy);
+            
+            orderCompanies(listOfCompanies, orderBy, order);
         }
     }//GEN-LAST:event_btnNameAscItemStateChanged
 
@@ -362,7 +365,8 @@ public class MainMenu extends javax.swing.JFrame {
         {
             orderBy = "name";
             order = "DESC";
-            JOptionPane.showMessageDialog(this, order + "-" + orderBy);
+            
+            orderCompanies(listOfCompanies, orderBy, order);
         }
     }//GEN-LAST:event_btnNameDescItemStateChanged
     
@@ -403,6 +407,24 @@ public class MainMenu extends javax.swing.JFrame {
         return companies;
     }
     
+    
+    List<Company> orderCompanies(List<Company> companies, String orderBy, String order)
+    {
+        
+        try { 
+            StockBrokeringWebService_Service service = new StockBrokeringWebService_Service();
+            StockBrokeringWebService port = service.getStockBrokeringWebServicePort();
+            
+            
+            List<Company> response = port.orderCompanies(companies, orderBy, order);
+            
+            populateCompayView(response);
+            
+        } catch (Exception ex) {
+            // TODO handle custom exceptions here
+        }
+        return companies;
+    }
     
     
     /**
