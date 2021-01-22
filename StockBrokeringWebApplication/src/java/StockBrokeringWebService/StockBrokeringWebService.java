@@ -156,9 +156,10 @@ public class StockBrokeringWebService {
             // XXXTODO Handle exception
             java.util.logging.Logger.getLogger("global").log(java.util.logging.Level.SEVERE, null, ex); //NOI18N
         }
-        return convertCurrencies(allCompanies.getCompanyList(), currency);
-        //return allCompanies.getCompanyList();
-        //return list;
+        List<Company > companies = convertCurrencies(allCompanies.getCompanyList(), currency);
+        companies = orderCompanies(companies, orderBy, order);
+        
+        return companies;
     }
     
     private void overwriteCompanyData(List<Company> companies)
@@ -331,7 +332,7 @@ public class StockBrokeringWebService {
      */
     @WebMethod(operationName = "convertCurrencies")
     public List convertCurrencies(@WebParam(name = "companies") List<Company> companies, @WebParam(name = "currencyType") String currencyType) {
-        if (currencyType == null) {
+        if (currencyType.length() == 0) {
             return companies;
         }
         
@@ -394,35 +395,59 @@ public class StockBrokeringWebService {
      */
     @WebMethod(operationName = "orderCompanies")
     public List<Company> orderCompanies(@WebParam(name = "companies") List<Company> companies, @WebParam(name = "orderBy") String orderBy, @WebParam(name = "order") String order) {
-        List<Company> sortedUsers = new ArrayList<Company>();
+        List<Company> orderedCompanies = new ArrayList<Company>();
+        
+        switch (orderBy.toLowerCase())
+        {
+            case "name":
+                orderedCompanies = companies.stream()
+                .sorted(Comparator.comparing(Company::getCompanyName, String.CASE_INSENSITIVE_ORDER))
+                .collect(Collectors.toList());
+                break;
+            
+            case "symbol":
+                orderedCompanies = companies.stream()
+                .sorted(Comparator.comparing(Company::getCompanySymbol, String.CASE_INSENSITIVE_ORDER))
+                .collect(Collectors.toList());
+                break;
+            
+            case "price":
+                orderedCompanies = companies;
+                Collections.sort(orderedCompanies, new SharePriceComparitor());
+                break;
+            
+            default:
+                orderedCompanies = companies;
+        }
+        
         
         //https://www.codebyamir.com/blog/sort-list-of-objects-by-field-java
-        if (orderBy.toLowerCase().equals("name"))
+        /*if (orderBy.toLowerCase().equals("name"))
         {
-            sortedUsers = companies.stream()
+            orderedCompanies = companies.stream()
             .sorted(Comparator.comparing(Company::getCompanyName, String.CASE_INSENSITIVE_ORDER))
             .collect(Collectors.toList());
         }
         
         if (orderBy.toLowerCase().equals("symbol"))
         {
-            sortedUsers = companies.stream()
+            orderedCompanies = companies.stream()
             .sorted(Comparator.comparing(Company::getCompanySymbol, String.CASE_INSENSITIVE_ORDER))
             .collect(Collectors.toList());
         }
         
         if (orderBy.toLowerCase().equals("price"))
         {
-            sortedUsers = companies;
-            Collections.sort(sortedUsers, new SharePriceComparitor());
-        }
+            orderedCompanies = companies;
+            Collections.sort(orderedCompanies, new SharePriceComparitor());
+        }*/
         
         if (order.toLowerCase().equals("desc"))
         {
-            Collections.reverse(sortedUsers);
+            Collections.reverse(orderedCompanies);
         }
         
-        return sortedUsers;
+        return orderedCompanies;
     }
 
     /**
