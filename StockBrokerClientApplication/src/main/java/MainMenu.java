@@ -1,32 +1,15 @@
 
-import com.mycompany.stockbrokerclientapplication.Company;
-//import com.mycompany.stockbrokerclientapplication.CompanyList;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.ListIterator;
-import java.util.Vector;
 
 import com.mycompany.stockbrokerclientapplication.StockBrokeringWebService_Service;
 import com.mycompany.stockbrokerclientapplication.StockBrokeringWebService;
 import com.mycompany.stockbrokerclientapplication.Company;
-import com.mycompany.stockbrokerclientapplication.Pair;
-import java.awt.Dialog;
-import java.awt.TrayIcon;
-import java.awt.TrayIcon.MessageType;
 import java.awt.event.ItemEvent;
-import java.net.ConnectException;
 import java.util.ArrayList;
 import javax.swing.BoxLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JTextField;
-import javax.xml.ws.http.HTTPException;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -87,14 +70,14 @@ public class MainMenu extends javax.swing.JFrame {
         populateCompayView(getCompanyData(currency, orderBy, order));
     }
     
-    List<Company> getCompanyData(String currency, String orderBy, String order)
+    private List<Company> getCompanyData(String currency, String orderBy, String order)
     {
         try 
             { 
                 StockBrokeringWebService_Service service = new StockBrokeringWebService_Service();
                 StockBrokeringWebService port = service.getStockBrokeringWebServicePort();
 
-                return port.getCompanyData(this.currency, orderBy, order);
+                return port.getCompanyData(currency, orderBy, order);
             }
             catch (Exception ex) 
             {
@@ -106,7 +89,7 @@ public class MainMenu extends javax.swing.JFrame {
             }
     }
     
-    void populateCompayView(List<Company> companies)
+    private void populateCompayView(List<Company> companies)
     {
         listOfCompanies = companies;
         
@@ -493,7 +476,7 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnFilterByNameActionPerformed
 
     private void btnConvertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConvertActionPerformed
-        listOfCompanies = convertDisplayedCurrecnies(listOfCompanies, currency);
+        listOfCompanies = convertDisplayedCurrencies(listOfCompanies, currency);
         populateCompayView(listOfCompanies);
     }//GEN-LAST:event_btnConvertActionPerformed
 
@@ -588,7 +571,7 @@ public class MainMenu extends javax.swing.JFrame {
     private void btnSharesDescItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_btnSharesDescItemStateChanged
         if (evt.getStateChange() == ItemEvent.SELECTED)
         {
-            orderBy = "sharesAvailible";
+            orderBy = "shares_availible";
             order = "DESC";
             
             orderCompanies(listOfCompanies, orderBy, order);
@@ -598,7 +581,7 @@ public class MainMenu extends javax.swing.JFrame {
     private void btnSharesAscItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_btnSharesAscItemStateChanged
         if (evt.getStateChange() == ItemEvent.SELECTED)
         {
-            orderBy = "sharesAvailible";
+            orderBy = "shares_availible";
             order = "ASC";
             
             orderCompanies(listOfCompanies, orderBy, order);
@@ -633,13 +616,10 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClearActionPerformed
     
     
-    List<Company> convertDisplayedCurrecnies(List companies, String currency) {
-
-        for (Object obj : companies) {
-            Company c = (Company) obj;
+    List<Company> convertDisplayedCurrencies(List<Company> companies, String currency) {
+        for (Company c : companies) {
             if (!c.getSharePrice().getCurrency().equals(currency)) {
                 try {
-
                     StockBrokeringWebService_Service service = new StockBrokeringWebService_Service();
                     StockBrokeringWebService port = service.getStockBrokeringWebServicePort();
                     
@@ -659,7 +639,6 @@ public class MainMenu extends javax.swing.JFrame {
     
     List<Company> orderCompanies(List<Company> companies, String orderBy, String order)
     {
-        
         try { 
             StockBrokeringWebService_Service service = new StockBrokeringWebService_Service();
             StockBrokeringWebService port = service.getStockBrokeringWebServicePort();
@@ -765,5 +744,6 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JTextField txtFilterByShares;
     private javax.swing.JTextField txtFilterBySymbol;
     // End of variables declaration//GEN-END:variables
+
 
 }

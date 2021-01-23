@@ -7,12 +7,10 @@ package StockBrokeringWebService;
 
 import comparitors.SharePriceComparitor;
 import generated.Company;
-import generated.Company.SharePrice;
 import generated.CompanyList;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
@@ -22,14 +20,11 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
-import java.net.URLConnection;
-import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -38,7 +33,6 @@ import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.ejb.Stateless;
-import javax.enterprise.context.RequestScoped;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar; 
@@ -64,25 +58,20 @@ public class StockBrokeringWebService {
     
     public List<Pair<String, String>> getCompanyNamesAndSymbols() throws IOException
     {
-        List<Pair<String, String>> namesAndSymbols = new ArrayList<Pair<String, String>>();
+        List<Pair<String, String>> namesAndSymbols = new ArrayList<>();
         
-        byte[] arr = "".getBytes();
         String response = makeRequest("http://api.marketstack.com/v1/tickers?access_key=" + access_key, "GET");
-
-        java.util.logging.Logger.getLogger("global").log(java.util.logging.Level.INFO, null, "Request output" + response);
         
         JSONObject obj = new JSONObject(response); 
 
         JSONArray companies = obj.getJSONArray("data");
-
-        String ret = "";
 
         for (int i = 0; i < companies.length(); i++)
         {
             String symbol = ((JSONObject)companies.get(i)).get("symbol").toString();
             String name = ((JSONObject)companies.get(i)).get("name").toString();
 
-            namesAndSymbols.add(new Pair<String, String>(symbol, name));
+            namesAndSymbols.add(new Pair<>(symbol, name));
         }
 
         return namesAndSymbols;
@@ -90,7 +79,7 @@ public class StockBrokeringWebService {
     
     public List<Company> genorateRandomCompanyData()
     {
-        List<Company> allCompanies = new ArrayList<Company>();
+        List<Company> allCompanies = new ArrayList<>();
         List<Pair<String, String>> symbolsAndNames;
         try {
             symbolsAndNames = getCompanyNamesAndSymbols();
@@ -137,9 +126,7 @@ public class StockBrokeringWebService {
      */
     @WebMethod(operationName = "getCompanyData")
     public java.util.List<Company> getCompanyData(@WebParam(name = "currency") String currency, @WebParam(name = "orderBy") String orderBy, @WebParam(name = "order") String order) {
-        
         CompanyList allCompanies = new CompanyList();
-        
         
         File file = new File(allCompaniesFile);
         
@@ -156,7 +143,8 @@ public class StockBrokeringWebService {
             // XXXTODO Handle exception
             java.util.logging.Logger.getLogger("global").log(java.util.logging.Level.SEVERE, null, ex); //NOI18N
         }
-        List<Company > companies = convertCurrencies(allCompanies.getCompanyList(), currency);
+        
+        List<Company> companies = convertCurrencies(allCompanies.getCompanyList(), currency);
         companies = orderCompanies(companies, orderBy, order);
         
         return companies;
@@ -181,8 +169,8 @@ public class StockBrokeringWebService {
             marshaller.marshal(allCompanies, file);
             
         } catch (javax.xml.bind.JAXBException ex) {
-            // XXXTODO Handle exception
-            java.util.logging.Logger.getLogger("global").log(java.util.logging.Level.SEVERE, null, ex); //NOI18N
+            //TODO Handle exception
+            java.util.logging.Logger.getLogger("global").log(java.util.logging.Level.SEVERE, null, ex);
         } 
     }
 
@@ -190,7 +178,7 @@ public class StockBrokeringWebService {
      * Web service operation
      */
     @WebMethod(operationName = "buyShare")
-    public Company buyShare(@WebParam(name = "Symbol") String Symbol, @WebParam(name = "NumberOfShares") int NumberOfShares) {
+    public Company buyShare(@WebParam(name = "Symbol") String Symbol, @WebParam(name = "NumberOfShares") int numberOfShares) {
         Company company = null;
         java.util.List<Company> Companies = getCompanyData(baseCurrencyRate, "", "");
         for (Company c: Companies)
@@ -202,7 +190,9 @@ public class StockBrokeringWebService {
             }
         }
         
-        company.setNumberOfShares(company.getNumberOfShares() - NumberOfShares);
+        //TODO
+        
+        company.setNumberOfShares(company.getNumberOfShares() - numberOfShares);
         
         overwriteCompanyData(Companies);
         
@@ -215,7 +205,7 @@ public class StockBrokeringWebService {
     @WebMethod(operationName = "GetCompaniesBySymbol")
     public List<Company> GetCompaniesBySymbol(@WebParam(name = "symbol") String symbol, @WebParam(name = "currency") String currency, String orderBy, @WebParam(name = "order") String order) {
         java.util.List<Company> allCompanies = getCompanyData(currency, orderBy, order);
-        List<Company> filteredCompanies = new ArrayList<Company>();
+        List<Company> filteredCompanies = new ArrayList<>();
         
         for (Company company: allCompanies)
         {
@@ -234,7 +224,7 @@ public class StockBrokeringWebService {
     @WebMethod(operationName = "getCompaniesByName")
     public List<Company> getCompaniesByName(@WebParam(name = "name") String name, @WebParam(name = "currency") String currency, String orderBy, @WebParam(name = "order") String order) {
         java.util.List<Company> allCompanies = getCompanyData(currency, orderBy, order);
-        List<Company> filteredCompanies = new ArrayList<Company>();
+        List<Company> filteredCompanies = new ArrayList<>();
         
         for (Company company: allCompanies)
         {
@@ -249,8 +239,7 @@ public class StockBrokeringWebService {
     
     private String makeRequest(String uri, String MethodType)
     {
-        byte[] arr = "".getBytes();
-        return makeRequest(uri, MethodType, arr);
+        return makeRequest(uri, MethodType, "".getBytes());
     }
     
     private String makeRequest(String uri, String MethodType, byte[] input)
@@ -314,9 +303,7 @@ public class StockBrokeringWebService {
      * Web service operation
      */
     @WebMethod(operationName = "getCurrencies")
-    public List<String> getCurrencies() {
-        //List currencies = new ArrayList<String>();
-        
+    public List<String> getCurrencies() {        
         String response = makeRequest("http://127.0.0.1:5000/currencies", "GET");
         
         JSONObject obj = new JSONObject(response);
@@ -331,14 +318,14 @@ public class StockBrokeringWebService {
      * Web service operation
      */
     @WebMethod(operationName = "convertCurrencies")
-    public List convertCurrencies(@WebParam(name = "companies") List<Company> companies, @WebParam(name = "currencyType") String currencyType) {
+    public List<Company> convertCurrencies(@WebParam(name = "companies") List<Company> companies, @WebParam(name = "currencyType") String currencyType) {
         if (currencyType.length() == 0) {
             return companies;
         }
         
         //Construct JSON body for request
         JSONArray arr = new JSONArray();
-        System.out.println("Size of companies list" + companies.size());
+        
         for (Company company : companies) {
             if (!company.getSharePrice().getCurrency().equals(currencyType)) {
                 JSONObject obj = new JSONObject();
@@ -351,9 +338,7 @@ public class StockBrokeringWebService {
             }
         }
 
-        System.out.println(arr.toString());
-
-        if (arr.length() > 0) {
+        if (!arr.isEmpty()) {
             String response = "";
             try {
                 response = makeRequest(
@@ -362,8 +347,6 @@ public class StockBrokeringWebService {
             } catch (UnsupportedEncodingException ex) {
                 Logger.getLogger(StockBrokeringWebService.class.getName()).log(Level.SEVERE, null, ex);
             }
-
-            System.out.println("Response message " + response);
 
             try {
                 JSONObject responseObj = new JSONObject(response);
@@ -377,13 +360,10 @@ public class StockBrokeringWebService {
                     newSharePrice.setValue(responseArray.getBigDecimal(i).floatValue());
                     company.setSharePrice(newSharePrice);
 
-                    System.out.println(newSharePrice.getCurrency());
-                    System.out.println(newSharePrice.getValue());
-
                     companies.set(i, company);
                 }
             } catch (org.json.JSONException ex) {
-                
+                //TODO
             }
         }
 
@@ -395,7 +375,7 @@ public class StockBrokeringWebService {
      */
     @WebMethod(operationName = "orderCompanies")
     public List<Company> orderCompanies(@WebParam(name = "companies") List<Company> companies, @WebParam(name = "orderBy") String orderBy, @WebParam(name = "order") String order) {
-        List<Company> orderedCompanies = new ArrayList<Company>();
+        List<Company> orderedCompanies = new ArrayList<>();
         
         //https://www.codebyamir.com/blog/sort-list-of-objects-by-field-java
         switch (orderBy.toLowerCase())
@@ -417,9 +397,10 @@ public class StockBrokeringWebService {
                 Collections.sort(orderedCompanies, new SharePriceComparitor());
                 break;
             
-            case "sharesAvailible":
-                orderedCompanies = companies;
-                Collections.sort(orderedCompanies, new SharePriceComparitor());
+            case "shares_availible":
+                orderedCompanies = companies.stream()
+                .sorted(Comparator.comparing(Company::getNumberOfShares))
+                .collect(Collectors.toList());
                 break;
             
             default:
@@ -440,11 +421,11 @@ public class StockBrokeringWebService {
     @WebMethod(operationName = "filterByPrice")
     public List<Company> filterByPrice(@WebParam(name = "value") float value, @WebParam(name = "operator") String operator, @WebParam(name = "currency") String currency, @WebParam(name = "orderBy") String orderBy, @WebParam(name = "order") String order) {
         List<Company> allCompanies = getCompanyData(currency, orderBy, order);
-        List<Company> filteredCompanies = new ArrayList<Company>();
+        List<Company> filteredCompanies = new ArrayList<>();
         
         for (Company company: allCompanies)
         {
-            if (compair(company.getSharePrice().getValue(), value, operator))
+            if (compare(company.getSharePrice().getValue(), value, operator))
             {
                 filteredCompanies.add(company);
             }
@@ -453,7 +434,7 @@ public class StockBrokeringWebService {
         return filteredCompanies;
     }
     
-    private static boolean compair(float x, float y, String operator)
+    private static boolean compare(float x, float y, String operator)
     {
         if (operator.toLowerCase().equals("less"))
         {
@@ -479,11 +460,11 @@ public class StockBrokeringWebService {
     @WebMethod(operationName = "filterByAvailibleShares")
     public List<Company> filterByAvailibleShares(@WebParam(name = "value") float value, @WebParam(name = "operator") String operator, @WebParam(name = "currency") String currency, @WebParam(name = "orderBy") String orderBy, @WebParam(name = "order") String order) {
         List<Company> allCompanies = getCompanyData(currency, orderBy, order);
-        List<Company> filteredCompanies = new ArrayList<Company>();
+        List<Company> filteredCompanies = new ArrayList<>();
         
         for (Company company: allCompanies)
         {
-            if (compair(company.getNumberOfShares(), value, operator))
+            if (compare(company.getNumberOfShares(), value, operator))
             {
                 filteredCompanies.add(company);
             }
