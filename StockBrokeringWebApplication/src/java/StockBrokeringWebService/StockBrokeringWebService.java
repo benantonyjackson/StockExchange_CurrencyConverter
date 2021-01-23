@@ -397,6 +397,7 @@ public class StockBrokeringWebService {
     public List<Company> orderCompanies(@WebParam(name = "companies") List<Company> companies, @WebParam(name = "orderBy") String orderBy, @WebParam(name = "order") String order) {
         List<Company> orderedCompanies = new ArrayList<Company>();
         
+        //https://www.codebyamir.com/blog/sort-list-of-objects-by-field-java
         switch (orderBy.toLowerCase())
         {
             case "name":
@@ -419,28 +420,6 @@ public class StockBrokeringWebService {
             default:
                 orderedCompanies = companies;
         }
-        
-        
-        //https://www.codebyamir.com/blog/sort-list-of-objects-by-field-java
-        /*if (orderBy.toLowerCase().equals("name"))
-        {
-            orderedCompanies = companies.stream()
-            .sorted(Comparator.comparing(Company::getCompanyName, String.CASE_INSENSITIVE_ORDER))
-            .collect(Collectors.toList());
-        }
-        
-        if (orderBy.toLowerCase().equals("symbol"))
-        {
-            orderedCompanies = companies.stream()
-            .sorted(Comparator.comparing(Company::getCompanySymbol, String.CASE_INSENSITIVE_ORDER))
-            .collect(Collectors.toList());
-        }
-        
-        if (orderBy.toLowerCase().equals("price"))
-        {
-            orderedCompanies = companies;
-            Collections.sort(orderedCompanies, new SharePriceComparitor());
-        }*/
         
         if (order.toLowerCase().equals("desc"))
         {

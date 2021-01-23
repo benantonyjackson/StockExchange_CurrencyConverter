@@ -478,7 +478,7 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnFilterByPriceActionPerformed
 
     private void cmbCurrencyItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbCurrencyItemStateChanged
-        if (evt.getID() == ItemEvent.SELECTED)
+        if (evt.getStateChange() == ItemEvent.SELECTED)
         {
             currecny = cmbCurrency.getSelectedItem().toString();
         }
