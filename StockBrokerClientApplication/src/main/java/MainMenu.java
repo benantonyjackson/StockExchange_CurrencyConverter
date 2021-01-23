@@ -57,6 +57,10 @@ public class MainMenu extends javax.swing.JFrame {
         btnPriceLessThan.setActionCommand("less");
         btnPriceEqualTo.setActionCommand("equal");
         
+        btnShareGreaterThan.setActionCommand("greater");
+        btnPriceLessThan.setActionCommand("less");
+        btnPriceEqualTo.setActionCommand("equal");
+        
         //Loads list of currencies 
         try { 
             StockBrokeringWebService_Service service = new StockBrokeringWebService_Service();
@@ -126,6 +130,7 @@ public class MainMenu extends javax.swing.JFrame {
 
         orderButtonGroup = new javax.swing.ButtonGroup();
         filterPriceButtonGroup = new javax.swing.ButtonGroup();
+        fitlerSharesButtonGroup = new javax.swing.ButtonGroup();
         scrlPnCompanyView = new javax.swing.JScrollPane();
         lblNumberOfResult = new javax.swing.JLabel();
         txtFilterBySymbol = new javax.swing.JTextField();
@@ -149,6 +154,14 @@ public class MainMenu extends javax.swing.JFrame {
         btnPriceGreaterThan = new javax.swing.JRadioButton();
         btnPriceLessThan = new javax.swing.JRadioButton();
         btnPriceEqualTo = new javax.swing.JRadioButton();
+        btnShareGreaterThan = new javax.swing.JRadioButton();
+        btnShareLessThan = new javax.swing.JRadioButton();
+        btnShareEqualTo = new javax.swing.JRadioButton();
+        btnSharesDesc = new javax.swing.JRadioButton();
+        btnSharesAsc = new javax.swing.JRadioButton();
+        txtFilterByShares = new javax.swing.JTextField();
+        btnFilterByShares = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -257,6 +270,41 @@ public class MainMenu extends javax.swing.JFrame {
         filterPriceButtonGroup.add(btnPriceEqualTo);
         btnPriceEqualTo.setText("Equal to");
 
+        filterPriceButtonGroup.add(btnShareGreaterThan);
+        btnShareGreaterThan.setText("Greater Than");
+
+        filterPriceButtonGroup.add(btnShareLessThan);
+        btnShareLessThan.setText("Less Than");
+
+        filterPriceButtonGroup.add(btnShareEqualTo);
+        btnShareEqualTo.setText("Equal to");
+
+        orderButtonGroup.add(btnSharesDesc);
+        btnSharesDesc.setText("Descending");
+        btnSharesDesc.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                btnSharesDescItemStateChanged(evt);
+            }
+        });
+
+        orderButtonGroup.add(btnSharesAsc);
+        btnSharesAsc.setText("Accending");
+        btnSharesAsc.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                btnSharesAscItemStateChanged(evt);
+            }
+        });
+
+        btnFilterByShares.setText("Search");
+        btnFilterByShares.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFilterBySharesActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setText("Filter By Shares Available");
+        jLabel5.setToolTipText("");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -309,7 +357,22 @@ public class MainMenu extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnPriceLessThan)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnPriceEqualTo)))
+                                .addComponent(btnPriceEqualTo))
+                            .addComponent(jLabel5)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtFilterByShares, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnFilterByShares)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnSharesAsc)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnSharesDesc))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnShareGreaterThan)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnShareLessThan)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnShareEqualTo)))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
@@ -356,6 +419,21 @@ public class MainMenu extends javax.swing.JFrame {
                     .addComponent(btnPriceGreaterThan)
                     .addComponent(btnPriceLessThan)
                     .addComponent(btnPriceEqualTo))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnSharesAsc)
+                        .addComponent(btnSharesDesc))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtFilterByShares, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnFilterByShares)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnShareGreaterThan)
+                    .addComponent(btnShareLessThan)
+                    .addComponent(btnShareEqualTo))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -483,6 +561,30 @@ public class MainMenu extends javax.swing.JFrame {
             currecny = cmbCurrency.getSelectedItem().toString();
         }
     }//GEN-LAST:event_cmbCurrencyItemStateChanged
+
+    private void btnSharesDescItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_btnSharesDescItemStateChanged
+        if (evt.getStateChange() == ItemEvent.SELECTED)
+        {
+            orderBy = "sharesAvailible";
+            order = "DESC";
+            
+            orderCompanies(listOfCompanies, orderBy, order);
+        }
+    }//GEN-LAST:event_btnSharesDescItemStateChanged
+
+    private void btnSharesAscItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_btnSharesAscItemStateChanged
+        if (evt.getStateChange() == ItemEvent.SELECTED)
+        {
+            orderBy = "sharesAvailible";
+            order = "ASC";
+            
+            orderCompanies(listOfCompanies, orderBy, order);
+        }
+    }//GEN-LAST:event_btnSharesAscItemStateChanged
+
+    private void btnFilterBySharesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilterBySharesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnFilterBySharesActionPerformed
     
     
     List<Company> convertDisplayedCurrecnies(List companies, String currency) {
@@ -568,6 +670,7 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JButton btnConvert;
     private javax.swing.JButton btnFilterByName;
     private javax.swing.JButton btnFilterByPrice;
+    private javax.swing.JButton btnFilterByShares;
     private javax.swing.JButton btnFilterBySymbol;
     private javax.swing.JRadioButton btnNameAsc;
     private javax.swing.JRadioButton btnNameDesc;
@@ -576,19 +679,27 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JRadioButton btnPriceEqualTo;
     private javax.swing.JRadioButton btnPriceGreaterThan;
     private javax.swing.JRadioButton btnPriceLessThan;
+    private javax.swing.JRadioButton btnShareEqualTo;
+    private javax.swing.JRadioButton btnShareGreaterThan;
+    private javax.swing.JRadioButton btnShareLessThan;
+    private javax.swing.JRadioButton btnSharesAsc;
+    private javax.swing.JRadioButton btnSharesDesc;
     private javax.swing.JRadioButton btnSymbolAsc;
     private javax.swing.JRadioButton btnSymbolDesc;
     private javax.swing.JComboBox<String> cmbCurrency;
     private javax.swing.ButtonGroup filterPriceButtonGroup;
+    private javax.swing.ButtonGroup fitlerSharesButtonGroup;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel lblNumberOfResult;
     private javax.swing.ButtonGroup orderButtonGroup;
     private javax.swing.JScrollPane scrlPnCompanyView;
     private javax.swing.JTextField txtFilterByName;
     private javax.swing.JTextField txtFilterByPrice;
+    private javax.swing.JTextField txtFilterByShares;
     private javax.swing.JTextField txtFilterBySymbol;
     // End of variables declaration//GEN-END:variables
 

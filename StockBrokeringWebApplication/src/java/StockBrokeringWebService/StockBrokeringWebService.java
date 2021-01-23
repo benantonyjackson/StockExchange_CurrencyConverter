@@ -417,6 +417,11 @@ public class StockBrokeringWebService {
                 Collections.sort(orderedCompanies, new SharePriceComparitor());
                 break;
             
+            case "sharesAvailible":
+                orderedCompanies = companies;
+                Collections.sort(orderedCompanies, new SharePriceComparitor());
+                break;
+            
             default:
                 orderedCompanies = companies;
         }
@@ -468,4 +473,25 @@ public class StockBrokeringWebService {
         return false;
     }
 
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "filterByAvailibleShares")
+    public List filterByAvailibleShares(@WebParam(name = "value") float value, @WebParam(name = "operator") String operator, @WebParam(name = "currency") String currency, @WebParam(name = "orderBy") String orderBy, @WebParam(name = "order") String order) {
+        List<Company> allCompanies = getCompanyData(currency, orderBy, order);
+        List<Company> filteredCompanies = new ArrayList<Company>();
+        
+        for (Company company: allCompanies)
+        {
+            if (compair(company.getNumberOfShares(), value, operator))
+            {
+                filteredCompanies.add(company);
+            }
+        }
+        
+        return filteredCompanies;
+    }
+    
+    
+    
 }
