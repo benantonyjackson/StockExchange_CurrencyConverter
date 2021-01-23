@@ -104,6 +104,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="btnShareEqualTo" min="-2" max="-2" attributes="0"/>
                           </Group>
+                          <Component id="btnClear" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
@@ -184,6 +185,8 @@
                   <Component id="btnShareLessThan" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnShareEqualTo" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
+              <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+              <Component id="btnClear" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -428,6 +431,14 @@
         <Property name="text" type="java.lang.String" value="Filter By Shares Available"/>
         <Property name="toolTipText" type="java.lang.String" value=""/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnClear">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Clear"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnClearActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

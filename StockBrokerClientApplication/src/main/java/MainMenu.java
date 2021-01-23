@@ -82,20 +82,26 @@ public class MainMenu extends javax.swing.JFrame {
         }
 
         //Load company data
+        populateCompayView(getCompanyData(currecny, orderBy, order));
+    }
+    
+    List<Company> getCompanyData(String currency, String orderBy, String order)
+    {
         try 
-        { 
-            StockBrokeringWebService_Service service = new StockBrokeringWebService_Service();
-            StockBrokeringWebService port = service.getStockBrokeringWebServicePort();
+            { 
+                StockBrokeringWebService_Service service = new StockBrokeringWebService_Service();
+                StockBrokeringWebService port = service.getStockBrokeringWebServicePort();
 
-            populateCompayView(port.getCompanyData(currecny, orderBy, order));
-        }
-        catch (Exception ex) 
-        {
-            JOptionPane.showMessageDialog(this, "Sorry, an error occured when"
-                    + "trying to connect to the web service\n\n" + 
-                    "Full error message: " + ex.getMessage());
-        }
-
+                return port.getCompanyData(currecny, orderBy, order);
+            }
+            catch (Exception ex) 
+            {
+                JOptionPane.showMessageDialog(this, "Sorry, an error occured when"
+                        + "trying to connect to the web service\n\n" + 
+                        "Full error message: " + ex.getMessage());
+                
+                return listOfCompanies;
+            }
     }
     
     void populateCompayView(List<Company> companies)
@@ -162,6 +168,7 @@ public class MainMenu extends javax.swing.JFrame {
         txtFilterByShares = new javax.swing.JTextField();
         btnFilterByShares = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
+        btnClear = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -305,6 +312,13 @@ public class MainMenu extends javax.swing.JFrame {
         jLabel5.setText("Filter By Shares Available");
         jLabel5.setToolTipText("");
 
+        btnClear.setText("Clear");
+        btnClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClearActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -372,7 +386,8 @@ public class MainMenu extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnShareLessThan)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnShareEqualTo)))
+                                .addComponent(btnShareEqualTo))
+                            .addComponent(btnClear))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
@@ -434,6 +449,8 @@ public class MainMenu extends javax.swing.JFrame {
                     .addComponent(btnShareGreaterThan)
                     .addComponent(btnShareLessThan)
                     .addComponent(btnShareEqualTo))
+                .addGap(32, 32, 32)
+                .addComponent(btnClear)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -596,6 +613,10 @@ public class MainMenu extends javax.swing.JFrame {
            System.out.println("Error: " + ex.getMessage());
         }
     }//GEN-LAST:event_btnFilterBySharesActionPerformed
+
+    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
+        populateCompayView(getCompanyData(currecny, orderBy, order));
+    }//GEN-LAST:event_btnClearActionPerformed
     
     
     List<Company> convertDisplayedCurrecnies(List companies, String currency) {
@@ -678,6 +699,7 @@ public class MainMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnClear;
     private javax.swing.JButton btnConvert;
     private javax.swing.JButton btnFilterByName;
     private javax.swing.JButton btnFilterByPrice;
