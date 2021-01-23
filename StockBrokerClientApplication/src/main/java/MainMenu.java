@@ -16,6 +16,8 @@ import com.mycompany.stockbrokerclientapplication.StockBrokeringWebService;
 import com.mycompany.stockbrokerclientapplication.Company;
 import com.mycompany.stockbrokerclientapplication.Pair;
 import java.awt.Dialog;
+import java.awt.TrayIcon;
+import java.awt.TrayIcon.MessageType;
 import java.awt.event.ItemEvent;
 import java.net.ConnectException;
 import java.util.ArrayList;
@@ -78,7 +80,7 @@ public class MainMenu extends javax.swing.JFrame {
             
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "An error occured when attempting to fetch the list of currencies \n"
-            + "For this session, currecny conversion will not be availible\n\n");
+            + "For this session, currecny conversion will not be availible\n\n", "An error occured", JOptionPane.ERROR_MESSAGE);
         }
 
         //Load company data
@@ -98,7 +100,7 @@ public class MainMenu extends javax.swing.JFrame {
             {
                 JOptionPane.showMessageDialog(this, "Sorry, an error occured when"
                         + "trying to connect to the web service\n\n" + 
-                        "Full error message: " + ex.getMessage());
+                        "Full error message: " + ex.getMessage(), "An error occured", JOptionPane.ERROR_MESSAGE);
                 
                 return listOfCompanies;
             }
@@ -469,7 +471,7 @@ public class MainMenu extends javax.swing.JFrame {
             populateCompayView(companies);
             
         } catch (Exception ex) {
-            // TODO handle custom exceptions here
+            JOptionPane.showMessageDialog(this, "An error occured when trying to fetch stock data.", "An error occured", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnFilterBySymbolActionPerformed
 
@@ -485,7 +487,7 @@ public class MainMenu extends javax.swing.JFrame {
             populateCompayView(companies);
             
         } catch (Exception ex) {
-            // TODO handle custom exceptions here
+            JOptionPane.showMessageDialog(this, "An error occured when trying to fetch stock data.", "An error occured", JOptionPane.ERROR_MESSAGE);
         }
 
     }//GEN-LAST:event_btnFilterByNameActionPerformed
@@ -566,8 +568,12 @@ public class MainMenu extends javax.swing.JFrame {
             
             List<Company> companies = port.filterByPrice(value, operator, currency, orderBy, order);
             populateCompayView(companies);
-        } catch (Exception ex) {
-           //TODO handle exeption
+        } 
+        catch (NumberFormatException ex)  {
+            JOptionPane.showMessageDialog(this, "Price filter only accepts numerical values", "Warning", JOptionPane.WARNING_MESSAGE);
+        }
+        catch (Exception ex) {
+           JOptionPane.showMessageDialog(this, "An error occured when trying to fetch stock data.", "An error occured", JOptionPane.ERROR_MESSAGE);
         }
 
     }//GEN-LAST:event_btnFilterByPriceActionPerformed
@@ -610,9 +616,13 @@ public class MainMenu extends javax.swing.JFrame {
             
             List<Company> companies = port.filterByAvailibleShares(value, operator, currency, orderBy, order);
             populateCompayView(companies);
-        } catch (Exception ex) {
-           //TODO handle exeption
-           System.out.println("Error: " + ex.getMessage());
+            
+        } 
+        catch (NumberFormatException ex)  {
+            JOptionPane.showMessageDialog(this, "Price filter only accepts numerical values", "Warning", JOptionPane.WARNING_MESSAGE);
+        }
+        catch (Exception ex) {
+           JOptionPane.showMessageDialog(this, "An error occured when trying to fetch stock data.", "An error occured", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnFilterBySharesActionPerformed
 
@@ -633,13 +643,12 @@ public class MainMenu extends javax.swing.JFrame {
                     StockBrokeringWebService_Service service = new StockBrokeringWebService_Service();
                     StockBrokeringWebService port = service.getStockBrokeringWebServicePort();
                     
-                    java.lang.String currencyType = cmbCurrency.getSelectedItem().toString();
-                    
-                    return port.convertCurrencies(companies, currencyType);
-                } catch (NullPointerException ex) {
-                    //TODO
-                } catch (Exception ex) {
-                    //TODO
+                    return port.convertCurrencies(companies, currency);
+                } 
+                catch (Exception ex) 
+                {
+                    JOptionPane.showMessageDialog(this, "An error occured when trying to convert currency data", "An error occured", JOptionPane.ERROR_MESSAGE);
+                    break;
                 }
             }
         }
@@ -661,7 +670,7 @@ public class MainMenu extends javax.swing.JFrame {
             populateCompayView(response);
             
         } catch (Exception ex) {
-            // TODO handle custom exceptions here
+            JOptionPane.showMessageDialog(this, "An error occured when trying to sort companies", "An error occured", JOptionPane.ERROR_MESSAGE);
         }
         return companies;
     }
