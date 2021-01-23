@@ -233,12 +233,14 @@ public class StockBrokeringWebService {
      */
     @WebMethod(operationName = "getCompaniesByName")
     public List<Company> getCompaniesByName(@WebParam(name = "name") String name, @WebParam(name = "currency") String currency, String orderBy, @WebParam(name = "order") String order) {
+        System.out.println("Point a");
         java.util.List<Company> allCompanies = getCompanyData(currency, orderBy, order);
+        System.out.println("Point b");
         List<Company> filteredCompanies = new ArrayList<Company>();
         
         for (Company company: allCompanies)
         {
-            if (company.getCompanyName().equals(name))
+            if (company.getCompanyName().toLowerCase().contains(name.toLowerCase()))
             {
                 filteredCompanies.add(company);
             }

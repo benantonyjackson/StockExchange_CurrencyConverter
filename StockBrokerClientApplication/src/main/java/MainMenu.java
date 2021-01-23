@@ -42,6 +42,7 @@ public class MainMenu extends javax.swing.JFrame {
     private List listOfCompanies = null; 
     public String orderBy = "";
     public String order = "";
+    public String currecny = "";
 
     
     /**
@@ -177,6 +178,12 @@ public class MainMenu extends javax.swing.JFrame {
 
         jLabel2.setText("Filter by name");
         jLabel2.setToolTipText("");
+
+        cmbCurrency.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbCurrencyItemStateChanged(evt);
+            }
+        });
 
         jLabel3.setText("Currency");
 
@@ -381,9 +388,11 @@ public class MainMenu extends javax.swing.JFrame {
         try { // Call Web Service Operation
             StockBrokeringWebService_Service service = new StockBrokeringWebService_Service();
             StockBrokeringWebService port = service.getStockBrokeringWebServicePort();
-
+            
+            
+            
             java.lang.String name = txtFilterByName.getText();
-            java.util.List<Company> companies = port.getCompaniesByName(name, cmbCurrency.getSelectedItem().toString(), orderBy, order);
+            java.util.List<Company> companies = port.getCompaniesByName(name, currecny, orderBy, order);
             
             populateCompayView(companies);
             
@@ -485,6 +494,13 @@ public class MainMenu extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_btnFilterByPriceActionPerformed
+
+    private void cmbCurrencyItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbCurrencyItemStateChanged
+        if (evt.getID() == ItemEvent.SELECTED)
+        {
+            currecny = cmbCurrency.getSelectedItem().toString();
+        }
+    }//GEN-LAST:event_cmbCurrencyItemStateChanged
     
     
     List<Company> convertDisplayedCurrecnies(List companies) {
