@@ -53,8 +53,6 @@ public class MainMenu extends javax.swing.JFrame {
         System.out.println("Appliction started");
         scrlPnCompanyView.getVerticalScrollBar().setUnitIncrement(20);
         
-        String selectedCurrency = "";
-        
         btnPriceGreaterThan.setActionCommand("greater");
         btnPriceLessThan.setActionCommand("less");
         btnPriceEqualTo.setActionCommand("equal");
@@ -72,11 +70,11 @@ public class MainMenu extends javax.swing.JFrame {
             }
             cmbCurrency.setSelectedItem("EUR");
             
-            selectedCurrency = "EUR";
+            currecny = "EUR";
             
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "An error occured when attempting to fetch the list of currencies \n"
-            + "For this session, all share prices will be displayed in Euros\n\n");
+            + "For this session, currecny conversion will not be availible\n\n");
         }
 
         //Load company data
@@ -85,7 +83,7 @@ public class MainMenu extends javax.swing.JFrame {
             StockBrokeringWebService_Service service = new StockBrokeringWebService_Service();
             StockBrokeringWebService port = service.getStockBrokeringWebServicePort();
 
-            populateCompayView(port.getCompanyData(selectedCurrency, orderBy, order));
+            populateCompayView(port.getCompanyData(currecny, orderBy, order));
         }
         catch (Exception ex) 
         {
@@ -98,7 +96,6 @@ public class MainMenu extends javax.swing.JFrame {
     
     void populateCompayView(List<Company> companies)
     {
-        //companies = convertDisplayedCurrecnies(companies);
         listOfCompanies = companies;
         
         JPanel jp = new JPanel();
@@ -113,7 +110,6 @@ public class MainMenu extends javax.swing.JFrame {
             
             jp.add(cv);
         }
-        
         
         scrlPnCompanyView.setViewportView(jp);
         lblNumberOfResult.setText("Results: " + companies.size());
@@ -368,14 +364,13 @@ public class MainMenu extends javax.swing.JFrame {
 
     private void btnFilterBySymbolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilterBySymbolActionPerformed
         
-        try { // Call Web Service Operation
+        try { 
             StockBrokeringWebService_Service service = new StockBrokeringWebService_Service();
             StockBrokeringWebService port = service.getStockBrokeringWebServicePort();
-            // TODO initialize WS operation arguments here
-            java.lang.String symbol = txtFilterBySymbol.getText();
-            // TODO process result here
-            java.util.List<Company> companies = port.getCompaniesBySymbol(symbol, cmbCurrency.getSelectedItem().toString(), orderBy, order);
             
+            java.lang.String symbol = txtFilterBySymbol.getText();
+            
+            java.util.List<Company> companies = port.getCompaniesBySymbol(symbol, currecny, orderBy, order);
             populateCompayView(companies);
             
         } catch (Exception ex) {
@@ -389,11 +384,9 @@ public class MainMenu extends javax.swing.JFrame {
             StockBrokeringWebService_Service service = new StockBrokeringWebService_Service();
             StockBrokeringWebService port = service.getStockBrokeringWebServicePort();
             
-            
-            
             java.lang.String name = txtFilterByName.getText();
-            java.util.List<Company> companies = port.getCompaniesByName(name, currecny, orderBy, order);
             
+            java.util.List<Company> companies = port.getCompaniesByName(name, currecny, orderBy, order);
             populateCompayView(companies);
             
         } catch (Exception ex) {
@@ -403,7 +396,7 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnFilterByNameActionPerformed
 
     private void btnConvertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConvertActionPerformed
-        listOfCompanies = convertDisplayedCurrecnies(listOfCompanies);
+        listOfCompanies = convertDisplayedCurrecnies(listOfCompanies, currecny);
         populateCompayView(listOfCompanies);
     }//GEN-LAST:event_btnConvertActionPerformed
 
@@ -469,28 +462,17 @@ public class MainMenu extends javax.swing.JFrame {
 
     private void btnFilterByPriceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilterByPriceActionPerformed
      
-        try { // Call Web Service Operation
+        try {
             StockBrokeringWebService_Service service = new StockBrokeringWebService_Service();
             StockBrokeringWebService port = service.getStockBrokeringWebServicePort();
-            // TODO initialize WS operation arguments here
-            float value = Float.valueOf(txtFilterByPrice.getText());
-            //String operator = ((JRadioButton)filterPriceButtonGroup.getSelection()).getText();
             
+            float value = Float.valueOf(txtFilterByPrice.getText());
             String operator = filterPriceButtonGroup.getSelection().getActionCommand();
             
-            System.out.println("Operator" + operator);
-
-            String currency = "";
-            try {
-                currency = cmbCurrency.getSelectedItem().toString();
-            } catch (Exception ex) {
-            }
-            // TODO process result here
-            List<Company> companies = port.filterByPrice(value, operator, currency, orderBy, order);
-            
+            List<Company> companies = port.filterByPrice(value, operator, currecny, orderBy, order);
             populateCompayView(companies);
         } catch (Exception ex) {
-           System.out.println("Error: " + ex.getMessage());
+           //TODO handle exeption
         }
 
     }//GEN-LAST:event_btnFilterByPriceActionPerformed
@@ -503,35 +485,23 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_cmbCurrencyItemStateChanged
     
     
-    List<Company> convertDisplayedCurrecnies(List companies) {
-        String currentCurency = "";
-        try{
-            currentCurency = cmbCurrency.getSelectedItem().toString();
-        }
-        catch (NullPointerException ex)
-        {
-            System.out.println(ex.toString());
-        }
-        if (!currentCurency.equals("")) {
-            for (Object obj : companies) {
-                Company c = (Company) obj;
-                if (!c.getSharePrice().getCurrency().equals(currentCurency)) {
-                    try {
+    List<Company> convertDisplayedCurrecnies(List companies, String currency) {
 
-                        StockBrokeringWebService_Service service = new StockBrokeringWebService_Service();
-                        StockBrokeringWebService port = service.getStockBrokeringWebServicePort();
-                        // TODO initialize WS operation arguments here
-                        java.lang.String currencyType = cmbCurrency.getSelectedItem().toString();
-                        // TODO process result here
-                        //System.out.println(listOfCompanies.size());
-                        return port.convertCurrencies(companies, currencyType);
+        for (Object obj : companies) {
+            Company c = (Company) obj;
+            if (!c.getSharePrice().getCurrency().equals(currency)) {
+                try {
 
-                        //populateCompayView(result);
-                    } catch (NullPointerException ex) {
-                        System.out.println(ex.toString());
-                    } catch (Exception ex) {
-                        System.out.println(ex.toString());
-                    }
+                    StockBrokeringWebService_Service service = new StockBrokeringWebService_Service();
+                    StockBrokeringWebService port = service.getStockBrokeringWebServicePort();
+                    
+                    java.lang.String currencyType = cmbCurrency.getSelectedItem().toString();
+                    
+                    return port.convertCurrencies(companies, currencyType);
+                } catch (NullPointerException ex) {
+                    //TODO
+                } catch (Exception ex) {
+                    //TODO
                 }
             }
         }
