@@ -58,8 +58,8 @@ public class MainMenu extends javax.swing.JFrame {
         btnPriceEqualTo.setActionCommand("equal");
         
         btnShareGreaterThan.setActionCommand("greater");
-        btnPriceLessThan.setActionCommand("less");
-        btnPriceEqualTo.setActionCommand("equal");
+        btnShareLessThan.setActionCommand("less");
+        btnShareEqualTo.setActionCommand("equal");
         
         //Loads list of currencies 
         try { 
@@ -270,13 +270,13 @@ public class MainMenu extends javax.swing.JFrame {
         filterPriceButtonGroup.add(btnPriceEqualTo);
         btnPriceEqualTo.setText("Equal to");
 
-        filterPriceButtonGroup.add(btnShareGreaterThan);
+        fitlerSharesButtonGroup.add(btnShareGreaterThan);
         btnShareGreaterThan.setText("Greater Than");
 
-        filterPriceButtonGroup.add(btnShareLessThan);
+        fitlerSharesButtonGroup.add(btnShareLessThan);
         btnShareLessThan.setText("Less Than");
 
-        filterPriceButtonGroup.add(btnShareEqualTo);
+        fitlerSharesButtonGroup.add(btnShareEqualTo);
         btnShareEqualTo.setText("Equal to");
 
         orderButtonGroup.add(btnSharesDesc);
@@ -539,7 +539,6 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPriceAscItemStateChanged
 
     private void btnFilterByPriceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilterByPriceActionPerformed
-     
         try {
             StockBrokeringWebService_Service service = new StockBrokeringWebService_Service();
             StockBrokeringWebService port = service.getStockBrokeringWebServicePort();
@@ -583,7 +582,19 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSharesAscItemStateChanged
 
     private void btnFilterBySharesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilterBySharesActionPerformed
-        // TODO add your handling code here:
+        try {
+            StockBrokeringWebService_Service service = new StockBrokeringWebService_Service();
+            StockBrokeringWebService port = service.getStockBrokeringWebServicePort();
+            
+            float value = Float.valueOf(txtFilterByShares.getText());
+            String operator = fitlerSharesButtonGroup.getSelection().getActionCommand();
+            
+            List<Company> companies = port.filterByAvailibleShares(value, operator, currecny, orderBy, order);
+            populateCompayView(companies);
+        } catch (Exception ex) {
+           //TODO handle exeption
+           System.out.println("Error: " + ex.getMessage());
+        }
     }//GEN-LAST:event_btnFilterBySharesActionPerformed
     
     

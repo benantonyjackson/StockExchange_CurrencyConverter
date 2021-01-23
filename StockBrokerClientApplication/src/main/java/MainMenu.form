@@ -370,7 +370,7 @@
     <Component class="javax.swing.JRadioButton" name="btnShareGreaterThan">
       <Properties>
         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-          <ComponentRef name="filterPriceButtonGroup"/>
+          <ComponentRef name="fitlerSharesButtonGroup"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Greater Than"/>
       </Properties>
@@ -378,7 +378,7 @@
     <Component class="javax.swing.JRadioButton" name="btnShareLessThan">
       <Properties>
         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-          <ComponentRef name="filterPriceButtonGroup"/>
+          <ComponentRef name="fitlerSharesButtonGroup"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Less Than"/>
       </Properties>
@@ -386,7 +386,7 @@
     <Component class="javax.swing.JRadioButton" name="btnShareEqualTo">
       <Properties>
         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-          <ComponentRef name="filterPriceButtonGroup"/>
+          <ComponentRef name="fitlerSharesButtonGroup"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Equal to"/>
       </Properties>

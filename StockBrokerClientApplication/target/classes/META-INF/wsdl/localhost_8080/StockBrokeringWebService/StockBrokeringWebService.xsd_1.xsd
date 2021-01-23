@@ -14,6 +14,10 @@
 
 <xs:element name="convertCurrenciesResponse" type="tns:convertCurrenciesResponse"/>
 
+<xs:element name="filterByAvailibleShares" type="tns:filterByAvailibleShares"/>
+
+<xs:element name="filterByAvailibleSharesResponse" type="tns:filterByAvailibleSharesResponse"/>
+
 <xs:element name="filterByPrice" type="tns:filterByPrice"/>
 
 <xs:element name="filterByPriceResponse" type="tns:filterByPriceResponse"/>
@@ -160,16 +164,17 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="GetCompaniesBySymbol">
+<xs:complexType name="filterByAvailibleShares">
 <xs:sequence>
-<xs:element name="symbol" type="xs:string" minOccurs="0"/>
+<xs:element name="value" type="xs:float"/>
+<xs:element name="operator" type="xs:string" minOccurs="0"/>
 <xs:element name="currency" type="xs:string" minOccurs="0"/>
-<xs:element name="arg2" type="xs:string" minOccurs="0"/>
+<xs:element name="orderBy" type="xs:string" minOccurs="0"/>
 <xs:element name="order" type="xs:string" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="GetCompaniesBySymbolResponse">
+<xs:complexType name="filterByAvailibleSharesResponse">
 <xs:sequence>
 <xs:element name="return" type="tns:Company" minOccurs="0" maxOccurs="unbounded"/>
 </xs:sequence>
@@ -180,6 +185,21 @@
 </xs:complexType>
 
 <xs:complexType name="genorateRandomCompanyDataResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:Company" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="GetCompaniesBySymbol">
+<xs:sequence>
+<xs:element name="symbol" type="xs:string" minOccurs="0"/>
+<xs:element name="currency" type="xs:string" minOccurs="0"/>
+<xs:element name="arg2" type="xs:string" minOccurs="0"/>
+<xs:element name="order" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="GetCompaniesBySymbolResponse">
 <xs:sequence>
 <xs:element name="return" type="tns:Company" minOccurs="0" maxOccurs="unbounded"/>
 </xs:sequence>

@@ -4,17 +4,11 @@
 <xsd:import namespace="http://StockBrokeringWebService/" schemaLocation="http://localhost:8080/StockBrokeringWebService/StockBrokeringWebService?xsd=1"/>
 </xsd:schema>
 </types>
-<message name="GetCompaniesBySymbol">
-<part name="parameters" element="tns:GetCompaniesBySymbol"/>
+<message name="genorateRandomCompanyData">
+<part name="parameters" element="tns:genorateRandomCompanyData"/>
 </message>
-<message name="GetCompaniesBySymbolResponse">
-<part name="parameters" element="tns:GetCompaniesBySymbolResponse"/>
-</message>
-<message name="getCompaniesByName">
-<part name="parameters" element="tns:getCompaniesByName"/>
-</message>
-<message name="getCompaniesByNameResponse">
-<part name="parameters" element="tns:getCompaniesByNameResponse"/>
+<message name="genorateRandomCompanyDataResponse">
+<part name="parameters" element="tns:genorateRandomCompanyDataResponse"/>
 </message>
 <message name="convertCurrencies">
 <part name="parameters" element="tns:convertCurrencies"/>
@@ -31,35 +25,23 @@
 <message name="IOException">
 <part name="fault" element="tns:IOException"/>
 </message>
-<message name="genorateRandomCompanyData">
-<part name="parameters" element="tns:genorateRandomCompanyData"/>
+<message name="filterByAvailibleShares">
+<part name="parameters" element="tns:filterByAvailibleShares"/>
 </message>
-<message name="genorateRandomCompanyDataResponse">
-<part name="parameters" element="tns:genorateRandomCompanyDataResponse"/>
+<message name="filterByAvailibleSharesResponse">
+<part name="parameters" element="tns:filterByAvailibleSharesResponse"/>
 </message>
-<message name="orderCompanies">
-<part name="parameters" element="tns:orderCompanies"/>
+<message name="getCompaniesByName">
+<part name="parameters" element="tns:getCompaniesByName"/>
 </message>
-<message name="orderCompaniesResponse">
-<part name="parameters" element="tns:orderCompaniesResponse"/>
+<message name="getCompaniesByNameResponse">
+<part name="parameters" element="tns:getCompaniesByNameResponse"/>
 </message>
-<message name="buyShare">
-<part name="parameters" element="tns:buyShare"/>
+<message name="GetCompaniesBySymbol">
+<part name="parameters" element="tns:GetCompaniesBySymbol"/>
 </message>
-<message name="buyShareResponse">
-<part name="parameters" element="tns:buyShareResponse"/>
-</message>
-<message name="getCompanyData">
-<part name="parameters" element="tns:getCompanyData"/>
-</message>
-<message name="getCompanyDataResponse">
-<part name="parameters" element="tns:getCompanyDataResponse"/>
-</message>
-<message name="getCurrencies">
-<part name="parameters" element="tns:getCurrencies"/>
-</message>
-<message name="getCurrenciesResponse">
-<part name="parameters" element="tns:getCurrenciesResponse"/>
+<message name="GetCompaniesBySymbolResponse">
+<part name="parameters" element="tns:GetCompaniesBySymbolResponse"/>
 </message>
 <message name="filterByPrice">
 <part name="parameters" element="tns:filterByPrice"/>
@@ -67,14 +49,34 @@
 <message name="filterByPriceResponse">
 <part name="parameters" element="tns:filterByPriceResponse"/>
 </message>
+<message name="getCurrencies">
+<part name="parameters" element="tns:getCurrencies"/>
+</message>
+<message name="getCurrenciesResponse">
+<part name="parameters" element="tns:getCurrenciesResponse"/>
+</message>
+<message name="buyShare">
+<part name="parameters" element="tns:buyShare"/>
+</message>
+<message name="buyShareResponse">
+<part name="parameters" element="tns:buyShareResponse"/>
+</message>
+<message name="orderCompanies">
+<part name="parameters" element="tns:orderCompanies"/>
+</message>
+<message name="orderCompaniesResponse">
+<part name="parameters" element="tns:orderCompaniesResponse"/>
+</message>
+<message name="getCompanyData">
+<part name="parameters" element="tns:getCompanyData"/>
+</message>
+<message name="getCompanyDataResponse">
+<part name="parameters" element="tns:getCompanyDataResponse"/>
+</message>
 <portType name="StockBrokeringWebService">
-<operation name="GetCompaniesBySymbol">
-<input wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/GetCompaniesBySymbolRequest" message="tns:GetCompaniesBySymbol"/>
-<output wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/GetCompaniesBySymbolResponse" message="tns:GetCompaniesBySymbolResponse"/>
-</operation>
-<operation name="getCompaniesByName">
-<input wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/getCompaniesByNameRequest" message="tns:getCompaniesByName"/>
-<output wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/getCompaniesByNameResponse" message="tns:getCompaniesByNameResponse"/>
+<operation name="genorateRandomCompanyData">
+<input wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/genorateRandomCompanyDataRequest" message="tns:genorateRandomCompanyData"/>
+<output wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/genorateRandomCompanyDataResponse" message="tns:genorateRandomCompanyDataResponse"/>
 </operation>
 <operation name="convertCurrencies">
 <input wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/convertCurrenciesRequest" message="tns:convertCurrencies"/>
@@ -85,43 +87,42 @@
 <output wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/getCompanyNamesAndSymbolsResponse" message="tns:getCompanyNamesAndSymbolsResponse"/>
 <fault message="tns:IOException" name="IOException" wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/getCompanyNamesAndSymbols/Fault/IOException"/>
 </operation>
-<operation name="genorateRandomCompanyData">
-<input wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/genorateRandomCompanyDataRequest" message="tns:genorateRandomCompanyData"/>
-<output wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/genorateRandomCompanyDataResponse" message="tns:genorateRandomCompanyDataResponse"/>
+<operation name="filterByAvailibleShares">
+<input wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/filterByAvailibleSharesRequest" message="tns:filterByAvailibleShares"/>
+<output wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/filterByAvailibleSharesResponse" message="tns:filterByAvailibleSharesResponse"/>
 </operation>
-<operation name="orderCompanies">
-<input wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/orderCompaniesRequest" message="tns:orderCompanies"/>
-<output wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/orderCompaniesResponse" message="tns:orderCompaniesResponse"/>
+<operation name="getCompaniesByName">
+<input wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/getCompaniesByNameRequest" message="tns:getCompaniesByName"/>
+<output wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/getCompaniesByNameResponse" message="tns:getCompaniesByNameResponse"/>
 </operation>
-<operation name="buyShare">
-<input wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/buyShareRequest" message="tns:buyShare"/>
-<output wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/buyShareResponse" message="tns:buyShareResponse"/>
-</operation>
-<operation name="getCompanyData">
-<input wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/getCompanyDataRequest" message="tns:getCompanyData"/>
-<output wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/getCompanyDataResponse" message="tns:getCompanyDataResponse"/>
-</operation>
-<operation name="getCurrencies">
-<input wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/getCurrenciesRequest" message="tns:getCurrencies"/>
-<output wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/getCurrenciesResponse" message="tns:getCurrenciesResponse"/>
+<operation name="GetCompaniesBySymbol">
+<input wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/GetCompaniesBySymbolRequest" message="tns:GetCompaniesBySymbol"/>
+<output wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/GetCompaniesBySymbolResponse" message="tns:GetCompaniesBySymbolResponse"/>
 </operation>
 <operation name="filterByPrice">
 <input wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/filterByPriceRequest" message="tns:filterByPrice"/>
 <output wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/filterByPriceResponse" message="tns:filterByPriceResponse"/>
 </operation>
+<operation name="getCurrencies">
+<input wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/getCurrenciesRequest" message="tns:getCurrencies"/>
+<output wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/getCurrenciesResponse" message="tns:getCurrenciesResponse"/>
+</operation>
+<operation name="buyShare">
+<input wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/buyShareRequest" message="tns:buyShare"/>
+<output wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/buyShareResponse" message="tns:buyShareResponse"/>
+</operation>
+<operation name="orderCompanies">
+<input wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/orderCompaniesRequest" message="tns:orderCompanies"/>
+<output wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/orderCompaniesResponse" message="tns:orderCompaniesResponse"/>
+</operation>
+<operation name="getCompanyData">
+<input wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/getCompanyDataRequest" message="tns:getCompanyData"/>
+<output wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/getCompanyDataResponse" message="tns:getCompanyDataResponse"/>
+</operation>
 </portType>
 <binding name="StockBrokeringWebServicePortBinding" type="tns:StockBrokeringWebService">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
-<operation name="GetCompaniesBySymbol">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="getCompaniesByName">
+<operation name="genorateRandomCompanyData">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -151,7 +152,7 @@
 <soap:fault name="IOException" use="literal"/>
 </fault>
 </operation>
-<operation name="genorateRandomCompanyData">
+<operation name="filterByAvailibleShares">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -160,7 +161,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="orderCompanies">
+<operation name="getCompaniesByName">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -169,7 +170,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="buyShare">
+<operation name="GetCompaniesBySymbol">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -178,7 +179,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="getCompanyData">
+<operation name="filterByPrice">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -196,7 +197,25 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="filterByPrice">
+<operation name="buyShare">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="orderCompanies">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="getCompanyData">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>

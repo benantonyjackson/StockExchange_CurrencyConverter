@@ -39,10 +39,12 @@ public class ObjectFactory {
     private final static QName _GetCompaniesByName_QNAME = new QName("http://StockBrokeringWebService/", "getCompaniesByName");
     private final static QName _GetCompanyDataResponse_QNAME = new QName("http://StockBrokeringWebService/", "getCompanyDataResponse");
     private final static QName _ConvertCurrencies_QNAME = new QName("http://StockBrokeringWebService/", "convertCurrencies");
+    private final static QName _FilterByAvailibleShares_QNAME = new QName("http://StockBrokeringWebService/", "filterByAvailibleShares");
     private final static QName _GetCompaniesBySymbol_QNAME = new QName("http://StockBrokeringWebService/", "GetCompaniesBySymbol");
     private final static QName _GenorateRandomCompanyData_QNAME = new QName("http://StockBrokeringWebService/", "genorateRandomCompanyData");
     private final static QName _GetCurrenciesResponse_QNAME = new QName("http://StockBrokeringWebService/", "getCurrenciesResponse");
     private final static QName _GetCompaniesBySymbolResponse_QNAME = new QName("http://StockBrokeringWebService/", "GetCompaniesBySymbolResponse");
+    private final static QName _FilterByAvailibleSharesResponse_QNAME = new QName("http://StockBrokeringWebService/", "filterByAvailibleSharesResponse");
     private final static QName _GenorateRandomCompanyDataResponse_QNAME = new QName("http://StockBrokeringWebService/", "genorateRandomCompanyDataResponse");
     private final static QName _IOException_QNAME = new QName("http://StockBrokeringWebService/", "IOException");
 
@@ -70,6 +72,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link FilterByAvailibleShares }
+     * 
+     */
+    public FilterByAvailibleShares createFilterByAvailibleShares() {
+        return new FilterByAvailibleShares();
+    }
+
+    /**
      * Create an instance of {@link GetCompaniesByName }
      * 
      */
@@ -91,6 +101,14 @@ public class ObjectFactory {
      */
     public GetCompaniesBySymbolResponse createGetCompaniesBySymbolResponse() {
         return new GetCompaniesBySymbolResponse();
+    }
+
+    /**
+     * Create an instance of {@link FilterByAvailibleSharesResponse }
+     * 
+     */
+    public FilterByAvailibleSharesResponse createFilterByAvailibleSharesResponse() {
+        return new FilterByAvailibleSharesResponse();
     }
 
     /**
@@ -381,6 +399,15 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link FilterByAvailibleShares }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://StockBrokeringWebService/", name = "filterByAvailibleShares")
+    public JAXBElement<FilterByAvailibleShares> createFilterByAvailibleShares(FilterByAvailibleShares value) {
+        return new JAXBElement<FilterByAvailibleShares>(_FilterByAvailibleShares_QNAME, FilterByAvailibleShares.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link GetCompaniesBySymbol }{@code >}}
      * 
      */
@@ -414,6 +441,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://StockBrokeringWebService/", name = "GetCompaniesBySymbolResponse")
     public JAXBElement<GetCompaniesBySymbolResponse> createGetCompaniesBySymbolResponse(GetCompaniesBySymbolResponse value) {
         return new JAXBElement<GetCompaniesBySymbolResponse>(_GetCompaniesBySymbolResponse_QNAME, GetCompaniesBySymbolResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link FilterByAvailibleSharesResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://StockBrokeringWebService/", name = "filterByAvailibleSharesResponse")
+    public JAXBElement<FilterByAvailibleSharesResponse> createFilterByAvailibleSharesResponse(FilterByAvailibleSharesResponse value) {
+        return new JAXBElement<FilterByAvailibleSharesResponse>(_FilterByAvailibleSharesResponse_QNAME, FilterByAvailibleSharesResponse.class, null, value);
     }
 
     /**
