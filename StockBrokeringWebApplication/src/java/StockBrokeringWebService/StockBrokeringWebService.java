@@ -478,7 +478,6 @@ public class StockBrokeringWebService {
      */
     @WebMethod(operationName = "filterByAvailibleShares")
     public List<Company> filterByAvailibleShares(@WebParam(name = "value") float value, @WebParam(name = "operator") String operator, @WebParam(name = "currency") String currency, @WebParam(name = "orderBy") String orderBy, @WebParam(name = "order") String order) {
-        System.out.println("Point a");
         List<Company> allCompanies = getCompanyData(currency, orderBy, order);
         List<Company> filteredCompanies = new ArrayList<Company>();
         
@@ -489,10 +488,8 @@ public class StockBrokeringWebService {
                 filteredCompanies.add(company);
             }
         }
-        System.out.println("Point b");
+        
         return filteredCompanies;
     }
-    
-    
     
 }

@@ -18,10 +18,12 @@ import com.mycompany.stockbrokerclientapplication.Pair;
 import java.awt.Dialog;
 import java.awt.event.ItemEvent;
 import java.net.ConnectException;
+import java.util.ArrayList;
 import javax.swing.BoxLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JTextField;
 import javax.xml.ws.http.HTTPException;
 
 /*
@@ -35,14 +37,12 @@ import javax.xml.ws.http.HTTPException;
  * @author Ben
  */
 
-
-
 public class MainMenu extends javax.swing.JFrame {
     
     private List listOfCompanies = null; 
     public String orderBy = "";
     public String order = "";
-    public String currecny = "";
+    public String currency = "";
 
     
     /**
@@ -74,7 +74,7 @@ public class MainMenu extends javax.swing.JFrame {
             }
             cmbCurrency.setSelectedItem("EUR");
             
-            currecny = "EUR";
+            currency = "EUR";
             
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "An error occured when attempting to fetch the list of currencies \n"
@@ -82,7 +82,7 @@ public class MainMenu extends javax.swing.JFrame {
         }
 
         //Load company data
-        populateCompayView(getCompanyData(currecny, orderBy, order));
+        populateCompayView(getCompanyData(currency, orderBy, order));
     }
     
     List<Company> getCompanyData(String currency, String orderBy, String order)
@@ -92,7 +92,7 @@ public class MainMenu extends javax.swing.JFrame {
                 StockBrokeringWebService_Service service = new StockBrokeringWebService_Service();
                 StockBrokeringWebService port = service.getStockBrokeringWebServicePort();
 
-                return port.getCompanyData(currecny, orderBy, order);
+                return port.getCompanyData(this.currency, orderBy, order);
             }
             catch (Exception ex) 
             {
@@ -429,12 +429,12 @@ public class MainMenu extends javax.swing.JFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(txtFilterByPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnFilterByPrice)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnPriceGreaterThan)
                     .addComponent(btnPriceLessThan)
                     .addComponent(btnPriceEqualTo))
-                .addGap(18, 18, 18)
+                .addGap(25, 25, 25)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -444,12 +444,12 @@ public class MainMenu extends javax.swing.JFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(txtFilterByShares, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnFilterByShares)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnShareGreaterThan)
                     .addComponent(btnShareLessThan)
                     .addComponent(btnShareEqualTo))
-                .addGap(32, 32, 32)
+                .addGap(39, 39, 39)
                 .addComponent(btnClear)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -458,14 +458,14 @@ public class MainMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnFilterBySymbolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilterBySymbolActionPerformed
-        
+        clearSearchBoxes(txtFilterBySymbol);
         try { 
             StockBrokeringWebService_Service service = new StockBrokeringWebService_Service();
             StockBrokeringWebService port = service.getStockBrokeringWebServicePort();
             
             java.lang.String symbol = txtFilterBySymbol.getText();
             
-            java.util.List<Company> companies = port.getCompaniesBySymbol(symbol, currecny, orderBy, order);
+            java.util.List<Company> companies = port.getCompaniesBySymbol(symbol, currency, orderBy, order);
             populateCompayView(companies);
             
         } catch (Exception ex) {
@@ -474,14 +474,14 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnFilterBySymbolActionPerformed
 
     private void btnFilterByNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilterByNameActionPerformed
-        
+        clearSearchBoxes(txtFilterByName);
         try { // Call Web Service Operation
             StockBrokeringWebService_Service service = new StockBrokeringWebService_Service();
             StockBrokeringWebService port = service.getStockBrokeringWebServicePort();
             
             java.lang.String name = txtFilterByName.getText();
             
-            java.util.List<Company> companies = port.getCompaniesByName(name, currecny, orderBy, order);
+            java.util.List<Company> companies = port.getCompaniesByName(name, currency, orderBy, order);
             populateCompayView(companies);
             
         } catch (Exception ex) {
@@ -491,7 +491,7 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnFilterByNameActionPerformed
 
     private void btnConvertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConvertActionPerformed
-        listOfCompanies = convertDisplayedCurrecnies(listOfCompanies, currecny);
+        listOfCompanies = convertDisplayedCurrecnies(listOfCompanies, currency);
         populateCompayView(listOfCompanies);
     }//GEN-LAST:event_btnConvertActionPerformed
 
@@ -556,6 +556,7 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPriceAscItemStateChanged
 
     private void btnFilterByPriceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilterByPriceActionPerformed
+        clearSearchBoxes(txtFilterByPrice);
         try {
             StockBrokeringWebService_Service service = new StockBrokeringWebService_Service();
             StockBrokeringWebService port = service.getStockBrokeringWebServicePort();
@@ -563,7 +564,7 @@ public class MainMenu extends javax.swing.JFrame {
             float value = Float.valueOf(txtFilterByPrice.getText());
             String operator = filterPriceButtonGroup.getSelection().getActionCommand();
             
-            List<Company> companies = port.filterByPrice(value, operator, currecny, orderBy, order);
+            List<Company> companies = port.filterByPrice(value, operator, currency, orderBy, order);
             populateCompayView(companies);
         } catch (Exception ex) {
            //TODO handle exeption
@@ -574,7 +575,7 @@ public class MainMenu extends javax.swing.JFrame {
     private void cmbCurrencyItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbCurrencyItemStateChanged
         if (evt.getStateChange() == ItemEvent.SELECTED)
         {
-            currecny = cmbCurrency.getSelectedItem().toString();
+            currency = cmbCurrency.getSelectedItem().toString();
         }
     }//GEN-LAST:event_cmbCurrencyItemStateChanged
 
@@ -599,6 +600,7 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSharesAscItemStateChanged
 
     private void btnFilterBySharesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilterBySharesActionPerformed
+        clearSearchBoxes(txtFilterByShares);
         try {
             StockBrokeringWebService_Service service = new StockBrokeringWebService_Service();
             StockBrokeringWebService port = service.getStockBrokeringWebServicePort();
@@ -606,7 +608,7 @@ public class MainMenu extends javax.swing.JFrame {
             float value = Float.valueOf(txtFilterByShares.getText());
             String operator = fitlerSharesButtonGroup.getSelection().getActionCommand();
             
-            List<Company> companies = port.filterByAvailibleShares(value, operator, currecny, orderBy, order);
+            List<Company> companies = port.filterByAvailibleShares(value, operator, currency, orderBy, order);
             populateCompayView(companies);
         } catch (Exception ex) {
            //TODO handle exeption
@@ -615,7 +617,9 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnFilterBySharesActionPerformed
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
-        populateCompayView(getCompanyData(currecny, orderBy, order));
+        populateCompayView(getCompanyData(currency, orderBy, order));
+        
+        clearSearchBoxes(null);
     }//GEN-LAST:event_btnClearActionPerformed
     
     
@@ -662,6 +666,23 @@ public class MainMenu extends javax.swing.JFrame {
         return companies;
     }
     
+    private void clearSearchBoxes(JTextField exception)
+    {
+        List<JTextField> searchBoxes = new ArrayList<JTextField>();
+        
+        searchBoxes.add(txtFilterByName);
+        searchBoxes.add(txtFilterByPrice);
+        searchBoxes.add(txtFilterByShares);
+        searchBoxes.add(txtFilterBySymbol);
+        
+        for (JTextField box: searchBoxes)
+        {
+            if (!box.equals(exception))
+            {
+                box.setText("");
+            }
+        }
+    }
     
     /**
      * @param args the command line arguments
