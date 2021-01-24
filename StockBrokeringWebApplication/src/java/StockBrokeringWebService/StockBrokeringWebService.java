@@ -138,10 +138,10 @@ public class StockBrokeringWebService {
         try {
             javax.xml.bind.JAXBContext jaxbCtx = javax.xml.bind.JAXBContext.newInstance(allCompanies.getClass().getPackage().getName());
             javax.xml.bind.Unmarshaller unmarshaller = jaxbCtx.createUnmarshaller();
-            allCompanies = (CompanyList) unmarshaller.unmarshal(new java.io.File(allCompaniesFile)); //NOI18N
+            allCompanies = (CompanyList) unmarshaller.unmarshal(new java.io.File(allCompaniesFile));
         } catch (javax.xml.bind.JAXBException ex) {
             // XXXTODO Handle exception
-            java.util.logging.Logger.getLogger("global").log(java.util.logging.Level.SEVERE, null, ex); //NOI18N
+            java.util.logging.Logger.getLogger("global").log(java.util.logging.Level.SEVERE, null, ex);
         }
         
         List<Company> companies = convertCurrencies(allCompanies.getCompanyList(), currency);
@@ -189,8 +189,6 @@ public class StockBrokeringWebService {
                 break;
             }
         }
-        
-        //TODO
         
         company.setNumberOfShares(company.getNumberOfShares() - numberOfShares);
         

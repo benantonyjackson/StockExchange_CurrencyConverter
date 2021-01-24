@@ -35,9 +35,10 @@ public class MainMenu extends javax.swing.JFrame {
      */
     public MainMenu() {
         initComponents();
-        System.out.println("Appliction started");
+        
         scrlPnCompanyView.getVerticalScrollBar().setUnitIncrement(20);
         
+        //Used to determin which operator to use when filtering by a numberical value
         btnPriceGreaterThan.setActionCommand("greater");
         btnPriceLessThan.setActionCommand("less");
         btnPriceEqualTo.setActionCommand("equal");
@@ -51,14 +52,16 @@ public class MainMenu extends javax.swing.JFrame {
             StockBrokeringWebService_Service service = new StockBrokeringWebService_Service();
             StockBrokeringWebService port = service.getStockBrokeringWebServicePort();
             
-            java.util.List<java.lang.String> result = port.getCurrencies();
+            List<String> result = port.getCurrencies();
             
+            //Populates combo box with the list of currency codes
             for (String i: result)
             {
                 cmbCurrency.addItem(i);
             }
-            cmbCurrency.setSelectedItem("EUR");
             
+            //Sets defualt select currency
+            cmbCurrency.setSelectedItem("EUR");
             currency = "EUR";
             
         } catch (Exception ex) {
@@ -66,7 +69,7 @@ public class MainMenu extends javax.swing.JFrame {
             + "For this session, currecny conversion will not be availible\n\n", "An error occured", JOptionPane.ERROR_MESSAGE);
         }
 
-        //Load company data
+        //Loads and displays company data
         populateCompayView(getCompanyData(currency, orderBy, order));
     }
     
@@ -85,18 +88,22 @@ public class MainMenu extends javax.swing.JFrame {
                         + "trying to connect to the web service\n\n" + 
                         "Full error message: " + ex.getMessage(), "An error occured", JOptionPane.ERROR_MESSAGE);
                 
+                //Returns current list of loaded companies if new list cannot be loaded
                 return listOfCompanies;
             }
     }
     
     private void populateCompayView(List<Company> companies)
     {
+        //Updates list of displayed companies
         listOfCompanies = companies;
         
+        //Sets up components for scroll panel
         JPanel jp = new JPanel();
         jp.setLayout(new BoxLayout(jp, BoxLayout.PAGE_AXIS));
         jp.setMaximumSize(scrlPnCompanyView.getSize());
         
+        //Adds list of loaded companies to the window
         for (Company c: companies)
         {
             CompanyView cv = new CompanyView();
@@ -107,6 +114,8 @@ public class MainMenu extends javax.swing.JFrame {
         }
         
         scrlPnCompanyView.setViewportView(jp);
+        
+        //Updates number of results
         lblNumberOfResult.setText("Results: " + companies.size());
     }
     
@@ -443,14 +452,16 @@ public class MainMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnFilterBySymbolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilterBySymbolActionPerformed
+        //Clears other text boxes used for searching
         clearSearchBoxes(txtFilterBySymbol);
         try { 
             StockBrokeringWebService_Service service = new StockBrokeringWebService_Service();
             StockBrokeringWebService port = service.getStockBrokeringWebServicePort();
             
-            java.lang.String symbol = txtFilterBySymbol.getText();
+            String symbol = txtFilterBySymbol.getText();
             
-            java.util.List<Company> companies = port.getCompaniesBySymbol(symbol, currency, orderBy, order);
+            //Loads and displays filterd list
+            List<Company> companies = port.getCompaniesBySymbol(symbol, currency, orderBy, order);
             populateCompayView(companies);
             
         } catch (Exception ex) {
@@ -459,13 +470,15 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnFilterBySymbolActionPerformed
 
     private void btnFilterByNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilterByNameActionPerformed
+        //Clears other text boxes used for searching
         clearSearchBoxes(txtFilterByName);
-        try { // Call Web Service Operation
+        try {
             StockBrokeringWebService_Service service = new StockBrokeringWebService_Service();
             StockBrokeringWebService port = service.getStockBrokeringWebServicePort();
             
             java.lang.String name = txtFilterByName.getText();
             
+            //Loads and displays filterd list
             java.util.List<Company> companies = port.getCompaniesByName(name, currency, orderBy, order);
             populateCompayView(companies);
             
@@ -476,6 +489,7 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnFilterByNameActionPerformed
 
     private void btnConvertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConvertActionPerformed
+        //Converts currencies and updates view
         listOfCompanies = convertDisplayedCurrencies(listOfCompanies, currency);
         populateCompayView(listOfCompanies);
     }//GEN-LAST:event_btnConvertActionPerformed
@@ -486,7 +500,7 @@ public class MainMenu extends javax.swing.JFrame {
             orderBy = "symbol";
             order = "ASC";
             
-            orderCompanies(listOfCompanies, orderBy, order);
+            populateCompayView(orderCompanies(listOfCompanies, orderBy, order));
         }
     }//GEN-LAST:event_btnSymbolAscItemStateChanged
 
@@ -496,7 +510,7 @@ public class MainMenu extends javax.swing.JFrame {
             orderBy = "symbol";
             order = "DESC";
             
-            orderCompanies(listOfCompanies, orderBy, order);
+            populateCompayView(orderCompanies(listOfCompanies, orderBy, order));
         }
     }//GEN-LAST:event_btnSymbolDescItemStateChanged
 
@@ -506,7 +520,7 @@ public class MainMenu extends javax.swing.JFrame {
             orderBy = "name";
             order = "ASC";
             
-            orderCompanies(listOfCompanies, orderBy, order);
+            populateCompayView(orderCompanies(listOfCompanies, orderBy, order));
         }
     }//GEN-LAST:event_btnNameAscItemStateChanged
 
@@ -516,7 +530,7 @@ public class MainMenu extends javax.swing.JFrame {
             orderBy = "name";
             order = "DESC";
             
-            orderCompanies(listOfCompanies, orderBy, order);
+            populateCompayView(orderCompanies(listOfCompanies, orderBy, order));
         }
     }//GEN-LAST:event_btnNameDescItemStateChanged
 
@@ -526,7 +540,7 @@ public class MainMenu extends javax.swing.JFrame {
             orderBy = "price";
             order = "DESC";
             
-            orderCompanies(listOfCompanies, orderBy, order);
+            populateCompayView(orderCompanies(listOfCompanies, orderBy, order));
         }
     }//GEN-LAST:event_btnPriceDescItemStateChanged
 
@@ -536,11 +550,12 @@ public class MainMenu extends javax.swing.JFrame {
             orderBy = "price";
             order = "ASC";
             
-            orderCompanies(listOfCompanies, orderBy, order);
+            populateCompayView(orderCompanies(listOfCompanies, orderBy, order));
         }
     }//GEN-LAST:event_btnPriceAscItemStateChanged
 
     private void btnFilterByPriceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilterByPriceActionPerformed
+        //Clears other text boxes used for searching
         clearSearchBoxes(txtFilterByPrice);
         try {
             StockBrokeringWebService_Service service = new StockBrokeringWebService_Service();
@@ -549,10 +564,12 @@ public class MainMenu extends javax.swing.JFrame {
             float value = Float.valueOf(txtFilterByPrice.getText());
             String operator = filterPriceButtonGroup.getSelection().getActionCommand();
             
+            //Loads and displays filterd list
             List<Company> companies = port.filterByPrice(value, operator, currency, orderBy, order);
             populateCompayView(companies);
         } 
         catch (NumberFormatException ex)  {
+            //Ensures the user enters numerical data to filter numerical values
             JOptionPane.showMessageDialog(this, "Price filter only accepts numerical values", "Warning", JOptionPane.WARNING_MESSAGE);
         }
         catch (Exception ex) {
@@ -564,6 +581,7 @@ public class MainMenu extends javax.swing.JFrame {
     private void cmbCurrencyItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbCurrencyItemStateChanged
         if (evt.getStateChange() == ItemEvent.SELECTED)
         {
+            //Updates currently selected currency
             currency = cmbCurrency.getSelectedItem().toString();
         }
     }//GEN-LAST:event_cmbCurrencyItemStateChanged
@@ -574,7 +592,7 @@ public class MainMenu extends javax.swing.JFrame {
             orderBy = "shares_availible";
             order = "DESC";
             
-            orderCompanies(listOfCompanies, orderBy, order);
+            populateCompayView(orderCompanies(listOfCompanies, orderBy, order));
         }
     }//GEN-LAST:event_btnSharesDescItemStateChanged
 
@@ -584,11 +602,12 @@ public class MainMenu extends javax.swing.JFrame {
             orderBy = "shares_availible";
             order = "ASC";
             
-            orderCompanies(listOfCompanies, orderBy, order);
+            populateCompayView(orderCompanies(listOfCompanies, orderBy, order));
         }
     }//GEN-LAST:event_btnSharesAscItemStateChanged
 
     private void btnFilterBySharesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilterBySharesActionPerformed
+        //Clears other text boxes used for searching
         clearSearchBoxes(txtFilterByShares);
         try {
             StockBrokeringWebService_Service service = new StockBrokeringWebService_Service();
@@ -597,11 +616,13 @@ public class MainMenu extends javax.swing.JFrame {
             float value = Float.valueOf(txtFilterByShares.getText());
             String operator = fitlerSharesButtonGroup.getSelection().getActionCommand();
             
+            //Loads and displays filterd list
             List<Company> companies = port.filterByAvailibleShares(value, operator, currency, orderBy, order);
             populateCompayView(companies);
             
         } 
         catch (NumberFormatException ex)  {
+            //Ensures the user enters numerical data to filter numerical values
             JOptionPane.showMessageDialog(this, "Price filter only accepts numerical values", "Warning", JOptionPane.WARNING_MESSAGE);
         }
         catch (Exception ex) {
@@ -610,30 +631,26 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnFilterBySharesActionPerformed
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
+        //Loads unfiltered data
         populateCompayView(getCompanyData(currency, orderBy, order));
         
+        //Clears all text boxes used for searching
         clearSearchBoxes(null);
     }//GEN-LAST:event_btnClearActionPerformed
     
     
     List<Company> convertDisplayedCurrencies(List<Company> companies, String currency) {
-        for (Company c : companies) {
-            if (!c.getSharePrice().getCurrency().equals(currency)) {
-                try {
-                    StockBrokeringWebService_Service service = new StockBrokeringWebService_Service();
-                    StockBrokeringWebService port = service.getStockBrokeringWebServicePort();
-                    
-                    return port.convertCurrencies(companies, currency);
-                } 
-                catch (Exception ex) 
-                {
-                    JOptionPane.showMessageDialog(this, "An error occured when trying to convert currency data", "An error occured", JOptionPane.ERROR_MESSAGE);
-                    break;
-                }
-            }
-        }
-
-        return companies;
+        try {
+            StockBrokeringWebService_Service service = new StockBrokeringWebService_Service();
+            StockBrokeringWebService port = service.getStockBrokeringWebServicePort();
+            
+            //Returns convert currecny values
+            return port.convertCurrencies(companies, currency);
+        } catch (Exception ex) {
+            //If convert currencies cannot be fetched, current list of companies is returned instead
+            JOptionPane.showMessageDialog(this, "An error occured when trying to convert currency data", "An error occured", JOptionPane.ERROR_MESSAGE);
+            return companies;
+        }  
     }
     
     
@@ -643,26 +660,25 @@ public class MainMenu extends javax.swing.JFrame {
             StockBrokeringWebService_Service service = new StockBrokeringWebService_Service();
             StockBrokeringWebService port = service.getStockBrokeringWebServicePort();
             
-            
-            List<Company> response = port.orderCompanies(companies, orderBy, order);
-            
-            populateCompayView(response);
-            
+            //Returns sorted list of companies
+            return port.orderCompanies(companies, orderBy, order);
         } catch (Exception ex) {
+            //If sorted list could not be fetched, the current list is returned
             JOptionPane.showMessageDialog(this, "An error occured when trying to sort companies", "An error occured", JOptionPane.ERROR_MESSAGE);
+            return companies;
         }
-        return companies;
     }
     
     private void clearSearchBoxes(JTextField exception)
     {
+        //Hard coded a list of all text fields used for searching
         List<JTextField> searchBoxes = new ArrayList<JTextField>();
-        
         searchBoxes.add(txtFilterByName);
         searchBoxes.add(txtFilterByPrice);
         searchBoxes.add(txtFilterByShares);
         searchBoxes.add(txtFilterBySymbol);
         
+        //Loops through all search boxes and resets them if they are not the specified exception
         for (JTextField box: searchBoxes)
         {
             if (!box.equals(exception))
