@@ -30,6 +30,7 @@ public class ObjectFactory {
     private final static QName _OrderCompaniesResponse_QNAME = new QName("http://StockBrokeringWebService/", "orderCompaniesResponse");
     private final static QName _BuyShare_QNAME = new QName("http://StockBrokeringWebService/", "buyShare");
     private final static QName _GetCompanyData_QNAME = new QName("http://StockBrokeringWebService/", "getCompanyData");
+    private final static QName _DatatypeConfigurationException_QNAME = new QName("http://StockBrokeringWebService/", "DatatypeConfigurationException");
     private final static QName _GetCompaniesByNameResponse_QNAME = new QName("http://StockBrokeringWebService/", "getCompaniesByNameResponse");
     private final static QName _BuyShareResponse_QNAME = new QName("http://StockBrokeringWebService/", "buyShareResponse");
     private final static QName _ConvertCurrenciesResponse_QNAME = new QName("http://StockBrokeringWebService/", "convertCurrenciesResponse");
@@ -165,6 +166,14 @@ public class ObjectFactory {
      */
     public GetCompanyData createGetCompanyData() {
         return new GetCompanyData();
+    }
+
+    /**
+     * Create an instance of {@link DatatypeConfigurationException }
+     * 
+     */
+    public DatatypeConfigurationException createDatatypeConfigurationException() {
+        return new DatatypeConfigurationException();
     }
 
     /**
@@ -315,6 +324,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://StockBrokeringWebService/", name = "getCompanyData")
     public JAXBElement<GetCompanyData> createGetCompanyData(GetCompanyData value) {
         return new JAXBElement<GetCompanyData>(_GetCompanyData_QNAME, GetCompanyData.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link DatatypeConfigurationException }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://StockBrokeringWebService/", name = "DatatypeConfigurationException")
+    public JAXBElement<DatatypeConfigurationException> createDatatypeConfigurationException(DatatypeConfigurationException value) {
+        return new JAXBElement<DatatypeConfigurationException>(_DatatypeConfigurationException_QNAME, DatatypeConfigurationException.class, null, value);
     }
 
     /**

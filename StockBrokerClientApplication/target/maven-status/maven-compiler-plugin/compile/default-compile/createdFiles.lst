@@ -4,4 +4,6 @@ com\mycompany\stockbrokerclientapplication\OrderCompanies.class
 com\mycompany\stockbrokerclientapplication\OrderCompaniesResponse.class
 com\mycompany\stockbrokerclientapplication\IOException.class
 com\mycompany\stockbrokerclientapplication\FilterByPrice.class
+com\mycompany\stockbrokerclientapplication\DatatypeConfigurationException.class
 com\mycompany\stockbrokerclientapplication\FilterByPriceResponse.class
+com\mycompany\stockbrokerclientapplication\DatatypeConfigurationException_Exception.class

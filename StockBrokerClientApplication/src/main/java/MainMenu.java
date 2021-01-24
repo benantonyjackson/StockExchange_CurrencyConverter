@@ -73,24 +73,20 @@ public class MainMenu extends javax.swing.JFrame {
         populateCompayView(getCompanyData(currency, orderBy, order));
     }
     
-    private List<Company> getCompanyData(String currency, String orderBy, String order)
-    {
-        try 
-            { 
-                StockBrokeringWebService_Service service = new StockBrokeringWebService_Service();
-                StockBrokeringWebService port = service.getStockBrokeringWebServicePort();
+    private List<Company> getCompanyData(String currency, String orderBy, String order) {
+        try {
+            StockBrokeringWebService_Service service = new StockBrokeringWebService_Service();
+            StockBrokeringWebService port = service.getStockBrokeringWebServicePort();
 
-                return port.getCompanyData(currency, orderBy, order);
-            }
-            catch (Exception ex) 
-            {
-                JOptionPane.showMessageDialog(this, "Sorry, an error occured when"
-                        + "trying to connect to the web service\n\n" + 
-                        "Full error message: " + ex.getMessage(), "An error occured", JOptionPane.ERROR_MESSAGE);
-                
-                //Returns current list of loaded companies if new list cannot be loaded
-                return listOfCompanies;
-            }
+            return port.getCompanyData(currency, orderBy, order);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Sorry, an error occured when"
+                    + "trying to connect to the web service\n\n"
+                    + "Full error message: " + ex.getMessage(), "An error occured", JOptionPane.ERROR_MESSAGE);
+
+            //Returns current list of loaded companies if new list cannot be loaded
+            return listOfCompanies;
+        }
     }
     
     private void populateCompayView(List<Company> companies)

@@ -33,10 +33,12 @@ import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.ejb.Stateless;
+import javax.xml.bind.JAXBException;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar; 
-
+import java.lang.NullPointerException;
+import java.lang.Exception;
 
 import org.json.*;
 
@@ -77,11 +79,11 @@ public class StockBrokeringWebService {
         return namesAndSymbols;
     }
     
-    public List<Company> genorateRandomCompanyData()
+    public List<Company> genorateRandomCompanyData() throws DatatypeConfigurationException, IOException
     {
         List<Company> allCompanies = new ArrayList<>();
         List<Pair<String, String>> symbolsAndNames;
-        try {
+        
             symbolsAndNames = getCompanyNamesAndSymbols();
             for (Pair<String, String> nameAndSymbol: symbolsAndNames)
             {
@@ -110,11 +112,7 @@ public class StockBrokeringWebService {
                 
                 allCompanies.add(company);
             }
-        } catch (IOException ex) {
-            Logger.getLogger(StockBrokeringWebService.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (DatatypeConfigurationException ex) {
-            Logger.getLogger(StockBrokeringWebService.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
         
         return allCompanies;
     }
@@ -125,24 +123,28 @@ public class StockBrokeringWebService {
      * Web service operation
      */
     @WebMethod(operationName = "getCompanyData")
-    public java.util.List<Company> getCompanyData(@WebParam(name = "currency") String currency, @WebParam(name = "orderBy") String orderBy, @WebParam(name = "order") String order) {
+    public java.util.List<Company> getCompanyData(@WebParam(name = "currency") String currency, @WebParam(name = "orderBy") String orderBy, @WebParam(name = "order") String order) throws Exception  {
         CompanyList allCompanies = new CompanyList();
         
         File file = new File(allCompaniesFile);
         
         if (!file.exists())
         {
-            overwriteCompanyData(genorateRandomCompanyData());
+            try
+            {
+                overwriteCompanyData(genorateRandomCompanyData());
+            }
+            catch (Exception ex)
+            {
+                throw new Exception();
+            }
         }
         
-        try {
-            javax.xml.bind.JAXBContext jaxbCtx = javax.xml.bind.JAXBContext.newInstance(allCompanies.getClass().getPackage().getName());
-            javax.xml.bind.Unmarshaller unmarshaller = jaxbCtx.createUnmarshaller();
-            allCompanies = (CompanyList) unmarshaller.unmarshal(new java.io.File(allCompaniesFile));
-        } catch (javax.xml.bind.JAXBException ex) {
-            // XXXTODO Handle exception
-            java.util.logging.Logger.getLogger("global").log(java.util.logging.Level.SEVERE, null, ex);
-        }
+       
+        javax.xml.bind.JAXBContext jaxbCtx = javax.xml.bind.JAXBContext.newInstance(allCompanies.getClass().getPackage().getName());
+        javax.xml.bind.Unmarshaller unmarshaller = jaxbCtx.createUnmarshaller();
+        allCompanies = (CompanyList) unmarshaller.unmarshal(new java.io.File(allCompaniesFile));
+        
         
         List<Company> companies = convertCurrencies(allCompanies.getCompanyList(), currency);
         companies = orderCompanies(companies, orderBy, order);
@@ -178,7 +180,7 @@ public class StockBrokeringWebService {
      * Web service operation
      */
     @WebMethod(operationName = "buyShare")
-    public Company buyShare(@WebParam(name = "Symbol") String Symbol, @WebParam(name = "NumberOfShares") int numberOfShares) {
+    public Company buyShare(@WebParam(name = "Symbol") String Symbol, @WebParam(name = "NumberOfShares") int numberOfShares) throws NullPointerException, Exception {
         Company company = null;
         java.util.List<Company> Companies = getCompanyData(baseCurrencyRate, "", "");
         for (Company c: Companies)
@@ -188,6 +190,11 @@ public class StockBrokeringWebService {
                 company = c;
                 break;
             }
+        }
+        
+        if (company.equals(null))
+        {
+            throw new NullPointerException();
         }
         
         company.setNumberOfShares(company.getNumberOfShares() - numberOfShares);
@@ -201,7 +208,7 @@ public class StockBrokeringWebService {
      * Web service operation
      */
     @WebMethod(operationName = "GetCompaniesBySymbol")
-    public List<Company> GetCompaniesBySymbol(@WebParam(name = "symbol") String symbol, @WebParam(name = "currency") String currency, String orderBy, @WebParam(name = "order") String order) {
+    public List<Company> GetCompaniesBySymbol(@WebParam(name = "symbol") String symbol, @WebParam(name = "currency") String currency, String orderBy, @WebParam(name = "order") String order) throws Exception {
         java.util.List<Company> allCompanies = getCompanyData(currency, orderBy, order);
         List<Company> filteredCompanies = new ArrayList<>();
         
@@ -220,7 +227,7 @@ public class StockBrokeringWebService {
      * Web service operation
      */
     @WebMethod(operationName = "getCompaniesByName")
-    public List<Company> getCompaniesByName(@WebParam(name = "name") String name, @WebParam(name = "currency") String currency, String orderBy, @WebParam(name = "order") String order) {
+    public List<Company> getCompaniesByName(@WebParam(name = "name") String name, @WebParam(name = "currency") String currency, String orderBy, @WebParam(name = "order") String order) throws Exception {
         java.util.List<Company> allCompanies = getCompanyData(currency, orderBy, order);
         List<Company> filteredCompanies = new ArrayList<>();
         
@@ -417,7 +424,7 @@ public class StockBrokeringWebService {
      * Web service operation
      */
     @WebMethod(operationName = "filterByPrice")
-    public List<Company> filterByPrice(@WebParam(name = "value") float value, @WebParam(name = "operator") String operator, @WebParam(name = "currency") String currency, @WebParam(name = "orderBy") String orderBy, @WebParam(name = "order") String order) {
+    public List<Company> filterByPrice(@WebParam(name = "value") float value, @WebParam(name = "operator") String operator, @WebParam(name = "currency") String currency, @WebParam(name = "orderBy") String orderBy, @WebParam(name = "order") String order) throws Exception {
         List<Company> allCompanies = getCompanyData(currency, orderBy, order);
         List<Company> filteredCompanies = new ArrayList<>();
         
@@ -456,7 +463,7 @@ public class StockBrokeringWebService {
      * Web service operation
      */
     @WebMethod(operationName = "filterByAvailibleShares")
-    public List<Company> filterByAvailibleShares(@WebParam(name = "value") float value, @WebParam(name = "operator") String operator, @WebParam(name = "currency") String currency, @WebParam(name = "orderBy") String orderBy, @WebParam(name = "order") String order) {
+    public List<Company> filterByAvailibleShares(@WebParam(name = "value") float value, @WebParam(name = "operator") String operator, @WebParam(name = "currency") String currency, @WebParam(name = "orderBy") String orderBy, @WebParam(name = "order") String order) throws Exception {
         List<Company> allCompanies = getCompanyData(currency, orderBy, order);
         List<Company> filteredCompanies = new ArrayList<>();
         
