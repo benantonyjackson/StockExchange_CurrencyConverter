@@ -4,14 +4,17 @@
 <xsd:import namespace="http://StockBrokeringWebService/" schemaLocation="http://localhost:8080/StockBrokeringWebService/StockBrokeringWebService?xsd=1"/>
 </xsd:schema>
 </types>
-<message name="getCompanyNamesAndSymbols">
-<part name="parameters" element="tns:getCompanyNamesAndSymbols"/>
+<message name="convertCurrencies">
+<part name="parameters" element="tns:convertCurrencies"/>
 </message>
-<message name="getCompanyNamesAndSymbolsResponse">
-<part name="parameters" element="tns:getCompanyNamesAndSymbolsResponse"/>
+<message name="convertCurrenciesResponse">
+<part name="parameters" element="tns:convertCurrenciesResponse"/>
 </message>
-<message name="IOException">
-<part name="fault" element="tns:IOException"/>
+<message name="UnsupportedEncodingException">
+<part name="fault" element="tns:UnsupportedEncodingException"/>
+</message>
+<message name="CurrencyConversionException">
+<part name="fault" element="tns:CurrencyConversionException"/>
 </message>
 <message name="genorateRandomCompanyData">
 <part name="parameters" element="tns:genorateRandomCompanyData"/>
@@ -22,11 +25,8 @@
 <message name="DatatypeConfigurationException">
 <part name="fault" element="tns:DatatypeConfigurationException"/>
 </message>
-<message name="convertCurrencies">
-<part name="parameters" element="tns:convertCurrencies"/>
-</message>
-<message name="convertCurrenciesResponse">
-<part name="parameters" element="tns:convertCurrenciesResponse"/>
+<message name="IOException">
+<part name="fault" element="tns:IOException"/>
 </message>
 <message name="getCompaniesByName">
 <part name="parameters" element="tns:getCompaniesByName"/>
@@ -36,6 +36,12 @@
 </message>
 <message name="Exception">
 <part name="fault" element="tns:Exception"/>
+</message>
+<message name="getCompanyNamesAndSymbols">
+<part name="parameters" element="tns:getCompanyNamesAndSymbols"/>
+</message>
+<message name="getCompanyNamesAndSymbolsResponse">
+<part name="parameters" element="tns:getCompanyNamesAndSymbolsResponse"/>
 </message>
 <message name="filterByAvailibleShares">
 <part name="parameters" element="tns:filterByAvailibleShares"/>
@@ -49,23 +55,23 @@
 <message name="GetCompaniesBySymbolResponse">
 <part name="parameters" element="tns:GetCompaniesBySymbolResponse"/>
 </message>
+<message name="getCurrencies">
+<part name="parameters" element="tns:getCurrencies"/>
+</message>
+<message name="getCurrenciesResponse">
+<part name="parameters" element="tns:getCurrenciesResponse"/>
+</message>
 <message name="orderCompanies">
 <part name="parameters" element="tns:orderCompanies"/>
 </message>
 <message name="orderCompaniesResponse">
 <part name="parameters" element="tns:orderCompaniesResponse"/>
 </message>
-<message name="getCompanyData">
-<part name="parameters" element="tns:getCompanyData"/>
+<message name="NotSortableFieldException">
+<part name="fault" element="tns:NotSortableFieldException"/>
 </message>
-<message name="getCompanyDataResponse">
-<part name="parameters" element="tns:getCompanyDataResponse"/>
-</message>
-<message name="getCurrencies">
-<part name="parameters" element="tns:getCurrencies"/>
-</message>
-<message name="getCurrenciesResponse">
-<part name="parameters" element="tns:getCurrenciesResponse"/>
+<message name="InvalidOrderException">
+<part name="fault" element="tns:InvalidOrderException"/>
 </message>
 <message name="buyShare">
 <part name="parameters" element="tns:buyShare"/>
@@ -76,6 +82,24 @@
 <message name="CompanyNotFoundException">
 <part name="fault" element="tns:CompanyNotFoundException"/>
 </message>
+<message name="getCompanyData">
+<part name="parameters" element="tns:getCompanyData"/>
+</message>
+<message name="getCompanyDataResponse">
+<part name="parameters" element="tns:getCompanyDataResponse"/>
+</message>
+<message name="MarketStackAPIException">
+<part name="fault" element="tns:MarketStackAPIException"/>
+</message>
+<message name="OverwriteCompanyDataException">
+<part name="fault" element="tns:OverwriteCompanyDataException"/>
+</message>
+<message name="CompanyDataUnmarshellException">
+<part name="fault" element="tns:CompanyDataUnmarshellException"/>
+</message>
+<message name="CompanyDataGenerationException">
+<part name="fault" element="tns:CompanyDataGenerationException"/>
+</message>
 <message name="filterByPrice">
 <part name="parameters" element="tns:filterByPrice"/>
 </message>
@@ -83,10 +107,11 @@
 <part name="parameters" element="tns:filterByPriceResponse"/>
 </message>
 <portType name="StockBrokeringWebService">
-<operation name="getCompanyNamesAndSymbols">
-<input wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/getCompanyNamesAndSymbolsRequest" message="tns:getCompanyNamesAndSymbols"/>
-<output wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/getCompanyNamesAndSymbolsResponse" message="tns:getCompanyNamesAndSymbolsResponse"/>
-<fault message="tns:IOException" name="IOException" wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/getCompanyNamesAndSymbols/Fault/IOException"/>
+<operation name="convertCurrencies">
+<input wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/convertCurrenciesRequest" message="tns:convertCurrencies"/>
+<output wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/convertCurrenciesResponse" message="tns:convertCurrenciesResponse"/>
+<fault message="tns:UnsupportedEncodingException" name="UnsupportedEncodingException" wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/convertCurrencies/Fault/UnsupportedEncodingException"/>
+<fault message="tns:CurrencyConversionException" name="CurrencyConversionException" wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/convertCurrencies/Fault/CurrencyConversionException"/>
 </operation>
 <operation name="genorateRandomCompanyData">
 <input wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/genorateRandomCompanyDataRequest" message="tns:genorateRandomCompanyData"/>
@@ -94,14 +119,15 @@
 <fault message="tns:DatatypeConfigurationException" name="DatatypeConfigurationException" wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/genorateRandomCompanyData/Fault/DatatypeConfigurationException"/>
 <fault message="tns:IOException" name="IOException" wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/genorateRandomCompanyData/Fault/IOException"/>
 </operation>
-<operation name="convertCurrencies">
-<input wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/convertCurrenciesRequest" message="tns:convertCurrencies"/>
-<output wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/convertCurrenciesResponse" message="tns:convertCurrenciesResponse"/>
-</operation>
 <operation name="getCompaniesByName">
 <input wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/getCompaniesByNameRequest" message="tns:getCompaniesByName"/>
 <output wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/getCompaniesByNameResponse" message="tns:getCompaniesByNameResponse"/>
 <fault message="tns:Exception" name="Exception" wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/getCompaniesByName/Fault/Exception"/>
+</operation>
+<operation name="getCompanyNamesAndSymbols">
+<input wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/getCompanyNamesAndSymbolsRequest" message="tns:getCompanyNamesAndSymbols"/>
+<output wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/getCompanyNamesAndSymbolsResponse" message="tns:getCompanyNamesAndSymbolsResponse"/>
+<fault message="tns:IOException" name="IOException" wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/getCompanyNamesAndSymbols/Fault/IOException"/>
 </operation>
 <operation name="filterByAvailibleShares">
 <input wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/filterByAvailibleSharesRequest" message="tns:filterByAvailibleShares"/>
@@ -113,24 +139,33 @@
 <output wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/GetCompaniesBySymbolResponse" message="tns:GetCompaniesBySymbolResponse"/>
 <fault message="tns:Exception" name="Exception" wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/GetCompaniesBySymbol/Fault/Exception"/>
 </operation>
-<operation name="orderCompanies">
-<input wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/orderCompaniesRequest" message="tns:orderCompanies"/>
-<output wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/orderCompaniesResponse" message="tns:orderCompaniesResponse"/>
-</operation>
-<operation name="getCompanyData">
-<input wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/getCompanyDataRequest" message="tns:getCompanyData"/>
-<output wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/getCompanyDataResponse" message="tns:getCompanyDataResponse"/>
-<fault message="tns:Exception" name="Exception" wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/getCompanyData/Fault/Exception"/>
-</operation>
 <operation name="getCurrencies">
 <input wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/getCurrenciesRequest" message="tns:getCurrencies"/>
 <output wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/getCurrenciesResponse" message="tns:getCurrenciesResponse"/>
+</operation>
+<operation name="orderCompanies">
+<input wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/orderCompaniesRequest" message="tns:orderCompanies"/>
+<output wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/orderCompaniesResponse" message="tns:orderCompaniesResponse"/>
+<fault message="tns:NotSortableFieldException" name="NotSortableFieldException" wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/orderCompanies/Fault/NotSortableFieldException"/>
+<fault message="tns:InvalidOrderException" name="InvalidOrderException" wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/orderCompanies/Fault/InvalidOrderException"/>
 </operation>
 <operation name="buyShare">
 <input wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/buyShareRequest" message="tns:buyShare"/>
 <output wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/buyShareResponse" message="tns:buyShareResponse"/>
 <fault message="tns:CompanyNotFoundException" name="CompanyNotFoundException" wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/buyShare/Fault/CompanyNotFoundException"/>
 <fault message="tns:Exception" name="Exception" wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/buyShare/Fault/Exception"/>
+</operation>
+<operation name="getCompanyData">
+<input wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/getCompanyDataRequest" message="tns:getCompanyData"/>
+<output wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/getCompanyDataResponse" message="tns:getCompanyDataResponse"/>
+<fault message="tns:MarketStackAPIException" name="MarketStackAPIException" wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/getCompanyData/Fault/MarketStackAPIException"/>
+<fault message="tns:OverwriteCompanyDataException" name="OverwriteCompanyDataException" wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/getCompanyData/Fault/OverwriteCompanyDataException"/>
+<fault message="tns:NotSortableFieldException" name="NotSortableFieldException" wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/getCompanyData/Fault/NotSortableFieldException"/>
+<fault message="tns:CompanyDataUnmarshellException" name="CompanyDataUnmarshellException" wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/getCompanyData/Fault/CompanyDataUnmarshellException"/>
+<fault message="tns:CompanyDataGenerationException" name="CompanyDataGenerationException" wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/getCompanyData/Fault/CompanyDataGenerationException"/>
+<fault message="tns:InvalidOrderException" name="InvalidOrderException" wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/getCompanyData/Fault/InvalidOrderException"/>
+<fault message="tns:UnsupportedEncodingException" name="UnsupportedEncodingException" wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/getCompanyData/Fault/UnsupportedEncodingException"/>
+<fault message="tns:CurrencyConversionException" name="CurrencyConversionException" wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/getCompanyData/Fault/CurrencyConversionException"/>
 </operation>
 <operation name="filterByPrice">
 <input wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/filterByPriceRequest" message="tns:filterByPrice"/>
@@ -140,7 +175,7 @@
 </portType>
 <binding name="StockBrokeringWebServicePortBinding" type="tns:StockBrokeringWebService">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
-<operation name="getCompanyNamesAndSymbols">
+<operation name="convertCurrencies">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -148,8 +183,11 @@
 <output>
 <soap:body use="literal"/>
 </output>
-<fault name="IOException">
-<soap:fault name="IOException" use="literal"/>
+<fault name="UnsupportedEncodingException">
+<soap:fault name="UnsupportedEncodingException" use="literal"/>
+</fault>
+<fault name="CurrencyConversionException">
+<soap:fault name="CurrencyConversionException" use="literal"/>
 </fault>
 </operation>
 <operation name="genorateRandomCompanyData">
@@ -167,15 +205,6 @@
 <soap:fault name="IOException" use="literal"/>
 </fault>
 </operation>
-<operation name="convertCurrencies">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
 <operation name="getCompaniesByName">
 <soap:operation soapAction=""/>
 <input>
@@ -186,6 +215,18 @@
 </output>
 <fault name="Exception">
 <soap:fault name="Exception" use="literal"/>
+</fault>
+</operation>
+<operation name="getCompanyNamesAndSymbols">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+<fault name="IOException">
+<soap:fault name="IOException" use="literal"/>
 </fault>
 </operation>
 <operation name="filterByAvailibleShares">
@@ -212,27 +253,6 @@
 <soap:fault name="Exception" use="literal"/>
 </fault>
 </operation>
-<operation name="orderCompanies">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="getCompanyData">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-<fault name="Exception">
-<soap:fault name="Exception" use="literal"/>
-</fault>
-</operation>
 <operation name="getCurrencies">
 <soap:operation soapAction=""/>
 <input>
@@ -241,6 +261,21 @@
 <output>
 <soap:body use="literal"/>
 </output>
+</operation>
+<operation name="orderCompanies">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+<fault name="NotSortableFieldException">
+<soap:fault name="NotSortableFieldException" use="literal"/>
+</fault>
+<fault name="InvalidOrderException">
+<soap:fault name="InvalidOrderException" use="literal"/>
+</fault>
 </operation>
 <operation name="buyShare">
 <soap:operation soapAction=""/>
@@ -255,6 +290,39 @@
 </fault>
 <fault name="Exception">
 <soap:fault name="Exception" use="literal"/>
+</fault>
+</operation>
+<operation name="getCompanyData">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+<fault name="MarketStackAPIException">
+<soap:fault name="MarketStackAPIException" use="literal"/>
+</fault>
+<fault name="OverwriteCompanyDataException">
+<soap:fault name="OverwriteCompanyDataException" use="literal"/>
+</fault>
+<fault name="NotSortableFieldException">
+<soap:fault name="NotSortableFieldException" use="literal"/>
+</fault>
+<fault name="CompanyDataUnmarshellException">
+<soap:fault name="CompanyDataUnmarshellException" use="literal"/>
+</fault>
+<fault name="CompanyDataGenerationException">
+<soap:fault name="CompanyDataGenerationException" use="literal"/>
+</fault>
+<fault name="InvalidOrderException">
+<soap:fault name="InvalidOrderException" use="literal"/>
+</fault>
+<fault name="UnsupportedEncodingException">
+<soap:fault name="UnsupportedEncodingException" use="literal"/>
+</fault>
+<fault name="CurrencyConversionException">
+<soap:fault name="CurrencyConversionException" use="literal"/>
 </fault>
 </operation>
 <operation name="filterByPrice">

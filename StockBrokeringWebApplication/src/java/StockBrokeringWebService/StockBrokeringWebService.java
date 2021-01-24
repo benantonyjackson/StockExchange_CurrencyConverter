@@ -5,7 +5,14 @@
  */
 package StockBrokeringWebService;
 
+import Exception.CompanyDataGenerationException;
+import Exception.CompanyDataUnmarshellException;
 import Exception.CompanyNotFoundException;
+import Exception.CurrencyConversionException;
+import Exception.InvalidOrderException;
+import Exception.MarketStackAPIException;
+import Exception.NotSortableFieldException;
+import Exception.OverwriteCompanyDataException;
 import comparitors.SharePriceComparitor;
 import generated.Company;
 import generated.CompanyList;
@@ -122,36 +129,37 @@ public class StockBrokeringWebService {
      * Web service operation
      */
     @WebMethod(operationName = "getCompanyData")
-    public java.util.List<Company> getCompanyData(@WebParam(name = "currency") String currency, @WebParam(name = "orderBy") String orderBy, @WebParam(name = "order") String order) throws Exception  {
+    public java.util.List<Company> getCompanyData(@WebParam(name = "currency") String currency, @WebParam(name = "orderBy") String orderBy, @WebParam(name = "order") String order) throws MarketStackAPIException, OverwriteCompanyDataException, NotSortableFieldException, CompanyDataUnmarshellException, CompanyDataGenerationException, InvalidOrderException, UnsupportedEncodingException, CurrencyConversionException  {
         CompanyList allCompanies = new CompanyList();
         
         File file = new File(allCompaniesFile);
-        
-        if (!file.exists())
-        {
-            try
-            {
+
+        if (!file.exists()) {
+            try {
                 overwriteCompanyData(genorateRandomCompanyData());
-            }
-            catch (Exception ex)
-            {
-                throw new Exception();
+            } catch (IOException ex) {
+                throw new MarketStackAPIException();
+            } catch (DatatypeConfigurationException ex) {
+                throw new CompanyDataGenerationException(ex.getMessage());
             }
         }
-        
-       
-        javax.xml.bind.JAXBContext jaxbCtx = javax.xml.bind.JAXBContext.newInstance(allCompanies.getClass().getPackage().getName());
-        javax.xml.bind.Unmarshaller unmarshaller = jaxbCtx.createUnmarshaller();
-        allCompanies = (CompanyList) unmarshaller.unmarshal(new java.io.File(allCompaniesFile));
-        
-        
+
+        try {
+            javax.xml.bind.JAXBContext jaxbCtx = javax.xml.bind.JAXBContext.newInstance(allCompanies.getClass().getPackage().getName());
+            javax.xml.bind.Unmarshaller unmarshaller = jaxbCtx.createUnmarshaller();
+            allCompanies = (CompanyList) unmarshaller.unmarshal(new java.io.File(allCompaniesFile));
+
+        } catch (JAXBException ex) {
+            throw new CompanyDataUnmarshellException(ex.getMessage());
+        }
+
         List<Company> companies = convertCurrencies(allCompanies.getCompanyList(), currency);
         companies = orderCompanies(companies, orderBy, order);
-        
+
         return companies;
     }
     
-    private void overwriteCompanyData(List<Company> companies) throws Exception
+    private void overwriteCompanyData(List<Company> companies) throws OverwriteCompanyDataException 
     {
         CompanyList allCompanies = new CompanyList();
         
@@ -170,7 +178,7 @@ public class StockBrokeringWebService {
             marshaller.marshal(allCompanies, file);
             
         } catch (javax.xml.bind.JAXBException ex) {
-            throw new Exception();
+            throw new OverwriteCompanyDataException();
         } 
     }
 
@@ -322,7 +330,8 @@ public class StockBrokeringWebService {
      * Web service operation
      */
     @WebMethod(operationName = "convertCurrencies")
-    public List<Company> convertCurrencies(@WebParam(name = "companies") List<Company> companies, @WebParam(name = "currencyType") String currencyType) {
+    public List<Company> convertCurrencies(@WebParam(name = "companies") List<Company> companies, @WebParam(name = "currencyType") String currencyType) throws UnsupportedEncodingException, CurrencyConversionException {
+        //If currency string is empty, return unconverted list of currencies
         if (currencyType.length() == 0) {
             return companies;
         }
@@ -331,6 +340,7 @@ public class StockBrokeringWebService {
         JSONArray arr = new JSONArray();
         
         for (Company company : companies) {
+            //Only adds currencies that need converting to the JSON body
             if (!company.getSharePrice().getCurrency().equals(currencyType)) {
                 JSONObject obj = new JSONObject();
 
@@ -341,16 +351,14 @@ public class StockBrokeringWebService {
                 arr.put(obj);
             }
         }
-
+        
+        //Returns skips the request if no companies need converting
         if (!arr.isEmpty()) {
             String response = "";
-            try {
-                response = makeRequest(
-                        "http://127.0.0.1:5000/convert", "POST",
-                        arr.toString().getBytes("utf-8"));
-            } catch (UnsupportedEncodingException ex) {
-                Logger.getLogger(StockBrokeringWebService.class.getName()).log(Level.SEVERE, null, ex);
-            }
+
+            response = makeRequest(
+                    "http://127.0.0.1:5000/convert", "POST",
+                    arr.toString().getBytes("utf-8"));
 
             try {
                 JSONObject responseObj = new JSONObject(response);
@@ -367,7 +375,7 @@ public class StockBrokeringWebService {
                     companies.set(i, company);
                 }
             } catch (org.json.JSONException ex) {
-                //TODO
+                throw new CurrencyConversionException(ex.getMessage());
             }
         }
 
@@ -378,7 +386,7 @@ public class StockBrokeringWebService {
      * Web service operation
      */
     @WebMethod(operationName = "orderCompanies")
-    public List<Company> orderCompanies(@WebParam(name = "companies") List<Company> companies, @WebParam(name = "orderBy") String orderBy, @WebParam(name = "order") String order) {
+    public List<Company> orderCompanies(@WebParam(name = "companies") List<Company> companies, @WebParam(name = "orderBy") String orderBy, @WebParam(name = "order") String order) throws NotSortableFieldException, InvalidOrderException {
         List<Company> orderedCompanies = new ArrayList<>();
         
         //https://www.codebyamir.com/blog/sort-list-of-objects-by-field-java
@@ -408,12 +416,16 @@ public class StockBrokeringWebService {
                 break;
             
             default:
-                orderedCompanies = companies;
+                throw new NotSortableFieldException(orderBy);
         }
         
         if (order.toLowerCase().equals("desc"))
         {
             Collections.reverse(orderedCompanies);
+        }
+        else if (!order.toLowerCase().equals("asc"))
+        {
+            throw new InvalidOrderException(order);
         }
         
         return orderedCompanies;

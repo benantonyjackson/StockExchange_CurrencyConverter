@@ -27,12 +27,17 @@ public class ObjectFactory {
     private final static QName _FilterByPrice_QNAME = new QName("http://StockBrokeringWebService/", "filterByPrice");
     private final static QName _BuyShare_QNAME = new QName("http://StockBrokeringWebService/", "buyShare");
     private final static QName _GetCompanyData_QNAME = new QName("http://StockBrokeringWebService/", "getCompanyData");
+    private final static QName _InvalidOrderException_QNAME = new QName("http://StockBrokeringWebService/", "InvalidOrderException");
     private final static QName _BuyShareResponse_QNAME = new QName("http://StockBrokeringWebService/", "buyShareResponse");
     private final static QName _ConvertCurrenciesResponse_QNAME = new QName("http://StockBrokeringWebService/", "convertCurrenciesResponse");
+    private final static QName _CompanyDataGenerationException_QNAME = new QName("http://StockBrokeringWebService/", "CompanyDataGenerationException");
     private final static QName _GetCompanyDataResponse_QNAME = new QName("http://StockBrokeringWebService/", "getCompanyDataResponse");
+    private final static QName _NotSortableFieldException_QNAME = new QName("http://StockBrokeringWebService/", "NotSortableFieldException");
     private final static QName _ConvertCurrencies_QNAME = new QName("http://StockBrokeringWebService/", "convertCurrencies");
+    private final static QName _OverwriteCompanyDataException_QNAME = new QName("http://StockBrokeringWebService/", "OverwriteCompanyDataException");
     private final static QName _GetCompaniesBySymbol_QNAME = new QName("http://StockBrokeringWebService/", "GetCompaniesBySymbol");
     private final static QName _CompanyNotFoundException_QNAME = new QName("http://StockBrokeringWebService/", "CompanyNotFoundException");
+    private final static QName _MarketStackAPIException_QNAME = new QName("http://StockBrokeringWebService/", "MarketStackAPIException");
     private final static QName _GetCompanyNamesAndSymbols_QNAME = new QName("http://StockBrokeringWebService/", "getCompanyNamesAndSymbols");
     private final static QName _GetCurrencies_QNAME = new QName("http://StockBrokeringWebService/", "getCurrencies");
     private final static QName _OrderCompaniesResponse_QNAME = new QName("http://StockBrokeringWebService/", "orderCompaniesResponse");
@@ -43,11 +48,14 @@ public class ObjectFactory {
     private final static QName _FilterByPriceResponse_QNAME = new QName("http://StockBrokeringWebService/", "filterByPriceResponse");
     private final static QName _GetCompaniesByName_QNAME = new QName("http://StockBrokeringWebService/", "getCompaniesByName");
     private final static QName _FilterByAvailibleShares_QNAME = new QName("http://StockBrokeringWebService/", "filterByAvailibleShares");
+    private final static QName _CurrencyConversionException_QNAME = new QName("http://StockBrokeringWebService/", "CurrencyConversionException");
     private final static QName _Exception_QNAME = new QName("http://StockBrokeringWebService/", "Exception");
     private final static QName _GenorateRandomCompanyData_QNAME = new QName("http://StockBrokeringWebService/", "genorateRandomCompanyData");
     private final static QName _GetCurrenciesResponse_QNAME = new QName("http://StockBrokeringWebService/", "getCurrenciesResponse");
     private final static QName _GetCompaniesBySymbolResponse_QNAME = new QName("http://StockBrokeringWebService/", "GetCompaniesBySymbolResponse");
+    private final static QName _UnsupportedEncodingException_QNAME = new QName("http://StockBrokeringWebService/", "UnsupportedEncodingException");
     private final static QName _FilterByAvailibleSharesResponse_QNAME = new QName("http://StockBrokeringWebService/", "filterByAvailibleSharesResponse");
+    private final static QName _CompanyDataUnmarshellException_QNAME = new QName("http://StockBrokeringWebService/", "CompanyDataUnmarshellException");
     private final static QName _GenorateRandomCompanyDataResponse_QNAME = new QName("http://StockBrokeringWebService/", "genorateRandomCompanyDataResponse");
     private final static QName _IOException_QNAME = new QName("http://StockBrokeringWebService/", "IOException");
 
@@ -67,11 +75,27 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link NotSortableFieldException }
+     * 
+     */
+    public NotSortableFieldException createNotSortableFieldException() {
+        return new NotSortableFieldException();
+    }
+
+    /**
      * Create an instance of {@link ConvertCurrencies }
      * 
      */
     public ConvertCurrencies createConvertCurrencies() {
         return new ConvertCurrencies();
+    }
+
+    /**
+     * Create an instance of {@link OverwriteCompanyDataException }
+     * 
+     */
+    public OverwriteCompanyDataException createOverwriteCompanyDataException() {
+        return new OverwriteCompanyDataException();
     }
 
     /**
@@ -88,6 +112,14 @@ public class ObjectFactory {
      */
     public CompanyNotFoundException createCompanyNotFoundException() {
         return new CompanyNotFoundException();
+    }
+
+    /**
+     * Create an instance of {@link MarketStackAPIException }
+     * 
+     */
+    public MarketStackAPIException createMarketStackAPIException() {
+        return new MarketStackAPIException();
     }
 
     /**
@@ -115,11 +147,27 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link InvalidOrderException }
+     * 
+     */
+    public InvalidOrderException createInvalidOrderException() {
+        return new InvalidOrderException();
+    }
+
+    /**
      * Create an instance of {@link FilterByPrice }
      * 
      */
     public FilterByPrice createFilterByPrice() {
         return new FilterByPrice();
+    }
+
+    /**
+     * Create an instance of {@link CompanyDataGenerationException }
+     * 
+     */
+    public CompanyDataGenerationException createCompanyDataGenerationException() {
+        return new CompanyDataGenerationException();
     }
 
     /**
@@ -163,11 +211,27 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link UnsupportedEncodingException }
+     * 
+     */
+    public UnsupportedEncodingException createUnsupportedEncodingException() {
+        return new UnsupportedEncodingException();
+    }
+
+    /**
      * Create an instance of {@link FilterByAvailibleSharesResponse }
      * 
      */
     public FilterByAvailibleSharesResponse createFilterByAvailibleSharesResponse() {
         return new FilterByAvailibleSharesResponse();
+    }
+
+    /**
+     * Create an instance of {@link CompanyDataUnmarshellException }
+     * 
+     */
+    public CompanyDataUnmarshellException createCompanyDataUnmarshellException() {
+        return new CompanyDataUnmarshellException();
     }
 
     /**
@@ -184,6 +248,14 @@ public class ObjectFactory {
      */
     public IOException createIOException() {
         return new IOException();
+    }
+
+    /**
+     * Create an instance of {@link CurrencyConversionException }
+     * 
+     */
+    public CurrencyConversionException createCurrencyConversionException() {
+        return new CurrencyConversionException();
     }
 
     /**
@@ -318,6 +390,15 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link InvalidOrderException }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://StockBrokeringWebService/", name = "InvalidOrderException")
+    public JAXBElement<InvalidOrderException> createInvalidOrderException(InvalidOrderException value) {
+        return new JAXBElement<InvalidOrderException>(_InvalidOrderException_QNAME, InvalidOrderException.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link BuyShareResponse }{@code >}}
      * 
      */
@@ -336,6 +417,15 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link CompanyDataGenerationException }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://StockBrokeringWebService/", name = "CompanyDataGenerationException")
+    public JAXBElement<CompanyDataGenerationException> createCompanyDataGenerationException(CompanyDataGenerationException value) {
+        return new JAXBElement<CompanyDataGenerationException>(_CompanyDataGenerationException_QNAME, CompanyDataGenerationException.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link GetCompanyDataResponse }{@code >}}
      * 
      */
@@ -345,12 +435,30 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link NotSortableFieldException }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://StockBrokeringWebService/", name = "NotSortableFieldException")
+    public JAXBElement<NotSortableFieldException> createNotSortableFieldException(NotSortableFieldException value) {
+        return new JAXBElement<NotSortableFieldException>(_NotSortableFieldException_QNAME, NotSortableFieldException.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link ConvertCurrencies }{@code >}}
      * 
      */
     @XmlElementDecl(namespace = "http://StockBrokeringWebService/", name = "convertCurrencies")
     public JAXBElement<ConvertCurrencies> createConvertCurrencies(ConvertCurrencies value) {
         return new JAXBElement<ConvertCurrencies>(_ConvertCurrencies_QNAME, ConvertCurrencies.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link OverwriteCompanyDataException }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://StockBrokeringWebService/", name = "OverwriteCompanyDataException")
+    public JAXBElement<OverwriteCompanyDataException> createOverwriteCompanyDataException(OverwriteCompanyDataException value) {
+        return new JAXBElement<OverwriteCompanyDataException>(_OverwriteCompanyDataException_QNAME, OverwriteCompanyDataException.class, null, value);
     }
 
     /**
@@ -369,6 +477,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://StockBrokeringWebService/", name = "CompanyNotFoundException")
     public JAXBElement<CompanyNotFoundException> createCompanyNotFoundException(CompanyNotFoundException value) {
         return new JAXBElement<CompanyNotFoundException>(_CompanyNotFoundException_QNAME, CompanyNotFoundException.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link MarketStackAPIException }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://StockBrokeringWebService/", name = "MarketStackAPIException")
+    public JAXBElement<MarketStackAPIException> createMarketStackAPIException(MarketStackAPIException value) {
+        return new JAXBElement<MarketStackAPIException>(_MarketStackAPIException_QNAME, MarketStackAPIException.class, null, value);
     }
 
     /**
@@ -462,6 +579,15 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link CurrencyConversionException }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://StockBrokeringWebService/", name = "CurrencyConversionException")
+    public JAXBElement<CurrencyConversionException> createCurrencyConversionException(CurrencyConversionException value) {
+        return new JAXBElement<CurrencyConversionException>(_CurrencyConversionException_QNAME, CurrencyConversionException.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link Exception }{@code >}}
      * 
      */
@@ -498,12 +624,30 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link UnsupportedEncodingException }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://StockBrokeringWebService/", name = "UnsupportedEncodingException")
+    public JAXBElement<UnsupportedEncodingException> createUnsupportedEncodingException(UnsupportedEncodingException value) {
+        return new JAXBElement<UnsupportedEncodingException>(_UnsupportedEncodingException_QNAME, UnsupportedEncodingException.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link FilterByAvailibleSharesResponse }{@code >}}
      * 
      */
     @XmlElementDecl(namespace = "http://StockBrokeringWebService/", name = "filterByAvailibleSharesResponse")
     public JAXBElement<FilterByAvailibleSharesResponse> createFilterByAvailibleSharesResponse(FilterByAvailibleSharesResponse value) {
         return new JAXBElement<FilterByAvailibleSharesResponse>(_FilterByAvailibleSharesResponse_QNAME, FilterByAvailibleSharesResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link CompanyDataUnmarshellException }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://StockBrokeringWebService/", name = "CompanyDataUnmarshellException")
+    public JAXBElement<CompanyDataUnmarshellException> createCompanyDataUnmarshellException(CompanyDataUnmarshellException value) {
+        return new JAXBElement<CompanyDataUnmarshellException>(_CompanyDataUnmarshellException_QNAME, CompanyDataUnmarshellException.class, null, value);
     }
 
     /**

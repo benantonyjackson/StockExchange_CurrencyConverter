@@ -25,8 +25,8 @@ import javax.swing.JTextField;
 public class MainMenu extends javax.swing.JFrame {
     
     private List listOfCompanies = null; 
-    public String orderBy = "";
-    public String order = "";
+    public String orderBy = "symbol";
+    public String order = "ASC";
     public String currency = "";
 
     
@@ -81,7 +81,7 @@ public class MainMenu extends javax.swing.JFrame {
             return port.getCompanyData(currency, orderBy, order);
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Sorry, an error occured when"
-                    + "trying to connect to the web service\n\n"
+                    + " trying to connect to the web service\n\n"
                     + "Full error message: " + ex.getMessage(), "An error occured", JOptionPane.ERROR_MESSAGE);
 
             //Returns current list of loaded companies if new list cannot be loaded

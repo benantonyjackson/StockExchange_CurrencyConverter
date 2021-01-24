@@ -1,6 +1,12 @@
 <?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI (http://jax-ws.java.net). RI's version is Metro/2.4.3 (RELEASE-2.4.3-ad3323c; 2019-01-21T17:46:06+0000) JAXWS-RI/2.3.2 JAXWS-API/2.3.2 JAXB-RI/2.3.2 JAXB-API/2.3.2 git-revision#unknown. --><xs:schema xmlns:tns="http://StockBrokeringWebService/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://StockBrokeringWebService/">
 
+<xs:element name="CompanyDataGenerationException" type="tns:CompanyDataGenerationException"/>
+
+<xs:element name="CompanyDataUnmarshellException" type="tns:CompanyDataUnmarshellException"/>
+
 <xs:element name="CompanyNotFoundException" type="tns:CompanyNotFoundException"/>
+
+<xs:element name="CurrencyConversionException" type="tns:CurrencyConversionException"/>
 
 <xs:element name="DatatypeConfigurationException" type="tns:DatatypeConfigurationException"/>
 
@@ -11,6 +17,16 @@
 <xs:element name="GetCompaniesBySymbolResponse" type="tns:GetCompaniesBySymbolResponse"/>
 
 <xs:element name="IOException" type="tns:IOException"/>
+
+<xs:element name="InvalidOrderException" type="tns:InvalidOrderException"/>
+
+<xs:element name="MarketStackAPIException" type="tns:MarketStackAPIException"/>
+
+<xs:element name="NotSortableFieldException" type="tns:NotSortableFieldException"/>
+
+<xs:element name="OverwriteCompanyDataException" type="tns:OverwriteCompanyDataException"/>
+
+<xs:element name="UnsupportedEncodingException" type="tns:UnsupportedEncodingException"/>
 
 <xs:element name="buyShare" type="tns:buyShare"/>
 
@@ -149,17 +165,15 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="getCompanyData">
+<xs:complexType name="UnsupportedEncodingException">
 <xs:sequence>
-<xs:element name="currency" type="xs:string" minOccurs="0"/>
-<xs:element name="orderBy" type="xs:string" minOccurs="0"/>
-<xs:element name="order" type="xs:string" minOccurs="0"/>
+<xs:element name="message" type="xs:string" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="getCompanyDataResponse">
+<xs:complexType name="CurrencyConversionException">
 <xs:sequence>
-<xs:element name="return" type="tns:Company" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="message" type="xs:string" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -177,6 +191,56 @@
 </xs:complexType>
 
 <xs:complexType name="CompanyNotFoundException">
+<xs:sequence>
+<xs:element name="message" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getCompanyData">
+<xs:sequence>
+<xs:element name="currency" type="xs:string" minOccurs="0"/>
+<xs:element name="orderBy" type="xs:string" minOccurs="0"/>
+<xs:element name="order" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getCompanyDataResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:Company" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="MarketStackAPIException">
+<xs:sequence>
+<xs:element name="message" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="OverwriteCompanyDataException">
+<xs:sequence>
+<xs:element name="message" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="NotSortableFieldException">
+<xs:sequence>
+<xs:element name="message" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="CompanyDataUnmarshellException">
+<xs:sequence>
+<xs:element name="message" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="CompanyDataGenerationException">
+<xs:sequence>
+<xs:element name="message" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="InvalidOrderException">
 <xs:sequence>
 <xs:element name="message" type="xs:string" minOccurs="0"/>
 </xs:sequence>
