@@ -24,6 +24,7 @@ E:\repo\Cloud\StockBrokerClientApplication\target\generated-sources\jaxws-wsimpo
 E:\repo\Cloud\StockBrokerClientApplication\target\generated-sources\jaxws-wsimport\com\mycompany\stockbrokerclientapplication\Company.java
 E:\repo\Cloud\StockBrokerClientApplication\target\generated-sources\jaxws-wsimport\com\mycompany\stockbrokerclientapplication\OrderCompaniesResponse.java
 E:\repo\Cloud\StockBrokerClientApplication\target\generated-sources\jaxws-wsimport\com\mycompany\stockbrokerclientapplication\GetCompanyNamesAndSymbols.java
+E:\repo\Cloud\StockBrokerClientApplication\target\generated-sources\jaxws-wsimport\com\mycompany\stockbrokerclientapplication\InvalidNumberOfShares_Exception.java
 E:\repo\Cloud\StockBrokerClientApplication\target\generated-sources\jaxws-wsimport\com\mycompany\stockbrokerclientapplication\CompanyNotFoundException_Exception.java
 E:\repo\Cloud\StockBrokerClientApplication\target\generated-sources\jaxws-wsimport\com\mycompany\stockbrokerclientapplication\InvalidOperatorException.java
 E:\repo\Cloud\StockBrokerClientApplication\target\generated-sources\jaxws-wsimport\com\mycompany\stockbrokerclientapplication\GenorateRandomCompanyDataResponse.java
@@ -46,6 +47,7 @@ E:\repo\Cloud\StockBrokerClientApplication\target\generated-sources\jaxws-wsimpo
 E:\repo\Cloud\StockBrokerClientApplication\target\generated-sources\jaxws-wsimport\com\mycompany\stockbrokerclientapplication\Pair.java
 E:\repo\Cloud\StockBrokerClientApplication\target\generated-sources\jaxws-wsimport\com\mycompany\stockbrokerclientapplication\GenorateRandomCompanyData.java
 E:\repo\Cloud\StockBrokerClientApplication\target\generated-sources\jaxws-wsimport\com\mycompany\stockbrokerclientapplication\GetCurrenciesResponse.java
+E:\repo\Cloud\StockBrokerClientApplication\target\generated-sources\jaxws-wsimport\com\mycompany\stockbrokerclientapplication\InvalidNumberOfShares.java
 E:\repo\Cloud\StockBrokerClientApplication\target\generated-sources\jaxws-wsimport\com\mycompany\stockbrokerclientapplication\FilterByAvailibleSharesResponse.java
 E:\repo\Cloud\StockBrokerClientApplication\target\generated-sources\jaxws-wsimport\com\mycompany\stockbrokerclientapplication\GetCompanyNamesAndSymbolsResponse.java
 E:\repo\Cloud\StockBrokerClientApplication\target\generated-sources\jaxws-wsimport\com\mycompany\stockbrokerclientapplication\CompanyDataGenerationException_Exception.java
