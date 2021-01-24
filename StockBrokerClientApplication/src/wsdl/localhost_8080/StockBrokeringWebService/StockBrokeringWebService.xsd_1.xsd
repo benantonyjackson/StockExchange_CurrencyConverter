@@ -222,12 +222,6 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="NotSortableFieldException">
-<xs:sequence>
-<xs:element name="message" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
 <xs:complexType name="CompanyDataUnmarshellException">
 <xs:sequence>
 <xs:element name="message" type="xs:string" minOccurs="0"/>
@@ -235,12 +229,6 @@
 </xs:complexType>
 
 <xs:complexType name="CompanyDataGenerationException">
-<xs:sequence>
-<xs:element name="message" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="InvalidOrderException">
 <xs:sequence>
 <xs:element name="message" type="xs:string" minOccurs="0"/>
 </xs:sequence>
@@ -304,6 +292,18 @@
 <xs:complexType name="orderCompaniesResponse">
 <xs:sequence>
 <xs:element name="return" type="tns:Company" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="NotSortableFieldException">
+<xs:sequence>
+<xs:element name="message" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="InvalidOrderException">
+<xs:sequence>
+<xs:element name="message" type="xs:string" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 </xs:schema>

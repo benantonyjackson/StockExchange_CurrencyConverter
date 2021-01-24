@@ -32,8 +32,8 @@ public interface StockBrokeringWebService {
      * @param companies
      * @return
      *     returns java.util.List<com.mycompany.stockbrokerclientapplication.Company>
-     * @throws CurrencyConversionException_Exception
      * @throws UnsupportedEncodingException_Exception
+     * @throws CurrencyConversionException_Exception
      */
     @WebMethod
     @WebResult(targetNamespace = "")
@@ -55,8 +55,8 @@ public interface StockBrokeringWebService {
      * 
      * @return
      *     returns java.util.List<com.mycompany.stockbrokerclientapplication.Company>
-     * @throws IOException_Exception
      * @throws DatatypeConfigurationException_Exception
+     * @throws IOException_Exception
      */
     @WebMethod
     @WebResult(targetNamespace = "")
@@ -196,8 +196,8 @@ public interface StockBrokeringWebService {
      * @param order
      * @return
      *     returns java.util.List<com.mycompany.stockbrokerclientapplication.Company>
-     * @throws NotSortableFieldException_Exception
      * @throws InvalidOrderException_Exception
+     * @throws NotSortableFieldException_Exception
      */
     @WebMethod
     @WebResult(targetNamespace = "")
@@ -249,14 +249,11 @@ public interface StockBrokeringWebService {
      * @param order
      * @return
      *     returns java.util.List<com.mycompany.stockbrokerclientapplication.Company>
-     * @throws CurrencyConversionException_Exception
      * @throws MarketStackAPIException_Exception
      * @throws CompanyDataGenerationException_Exception
-     * @throws NotSortableFieldException_Exception
-     * @throws OverwriteCompanyDataException_Exception
-     * @throws InvalidOrderException_Exception
-     * @throws UnsupportedEncodingException_Exception
      * @throws CompanyDataUnmarshellException_Exception
+     * @throws OverwriteCompanyDataException_Exception
+     * @throws UnsupportedEncodingException_Exception
      */
     @WebMethod
     @WebResult(targetNamespace = "")
@@ -265,12 +262,9 @@ public interface StockBrokeringWebService {
     @Action(input = "http://StockBrokeringWebService/StockBrokeringWebService/getCompanyDataRequest", output = "http://StockBrokeringWebService/StockBrokeringWebService/getCompanyDataResponse", fault = {
         @FaultAction(className = MarketStackAPIException_Exception.class, value = "http://StockBrokeringWebService/StockBrokeringWebService/getCompanyData/Fault/MarketStackAPIException"),
         @FaultAction(className = OverwriteCompanyDataException_Exception.class, value = "http://StockBrokeringWebService/StockBrokeringWebService/getCompanyData/Fault/OverwriteCompanyDataException"),
-        @FaultAction(className = NotSortableFieldException_Exception.class, value = "http://StockBrokeringWebService/StockBrokeringWebService/getCompanyData/Fault/NotSortableFieldException"),
         @FaultAction(className = CompanyDataUnmarshellException_Exception.class, value = "http://StockBrokeringWebService/StockBrokeringWebService/getCompanyData/Fault/CompanyDataUnmarshellException"),
         @FaultAction(className = CompanyDataGenerationException_Exception.class, value = "http://StockBrokeringWebService/StockBrokeringWebService/getCompanyData/Fault/CompanyDataGenerationException"),
-        @FaultAction(className = InvalidOrderException_Exception.class, value = "http://StockBrokeringWebService/StockBrokeringWebService/getCompanyData/Fault/InvalidOrderException"),
-        @FaultAction(className = UnsupportedEncodingException_Exception.class, value = "http://StockBrokeringWebService/StockBrokeringWebService/getCompanyData/Fault/UnsupportedEncodingException"),
-        @FaultAction(className = CurrencyConversionException_Exception.class, value = "http://StockBrokeringWebService/StockBrokeringWebService/getCompanyData/Fault/CurrencyConversionException")
+        @FaultAction(className = UnsupportedEncodingException_Exception.class, value = "http://StockBrokeringWebService/StockBrokeringWebService/getCompanyData/Fault/UnsupportedEncodingException")
     })
     public List<Company> getCompanyData(
         @WebParam(name = "currency", targetNamespace = "")
@@ -279,7 +273,7 @@ public interface StockBrokeringWebService {
         String orderBy,
         @WebParam(name = "order", targetNamespace = "")
         String order)
-        throws CompanyDataGenerationException_Exception, CompanyDataUnmarshellException_Exception, CurrencyConversionException_Exception, InvalidOrderException_Exception, MarketStackAPIException_Exception, NotSortableFieldException_Exception, OverwriteCompanyDataException_Exception, UnsupportedEncodingException_Exception
+        throws CompanyDataGenerationException_Exception, CompanyDataUnmarshellException_Exception, MarketStackAPIException_Exception, OverwriteCompanyDataException_Exception, UnsupportedEncodingException_Exception
     ;
 
     /**

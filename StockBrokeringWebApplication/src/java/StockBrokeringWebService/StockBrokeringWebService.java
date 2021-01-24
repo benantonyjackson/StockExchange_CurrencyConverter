@@ -129,7 +129,7 @@ public class StockBrokeringWebService {
      * Web service operation
      */
     @WebMethod(operationName = "getCompanyData")
-    public java.util.List<Company> getCompanyData(@WebParam(name = "currency") String currency, @WebParam(name = "orderBy") String orderBy, @WebParam(name = "order") String order) throws MarketStackAPIException, OverwriteCompanyDataException, NotSortableFieldException, CompanyDataUnmarshellException, CompanyDataGenerationException, InvalidOrderException, UnsupportedEncodingException, CurrencyConversionException  {
+    public java.util.List<Company> getCompanyData(@WebParam(name = "currency") String currency, @WebParam(name = "orderBy") String orderBy, @WebParam(name = "order") String order) throws MarketStackAPIException, OverwriteCompanyDataException, CompanyDataUnmarshellException, CompanyDataGenerationException, UnsupportedEncodingException  {
         CompanyList allCompanies = new CompanyList();
         
         File file = new File(allCompaniesFile);
@@ -152,9 +152,26 @@ public class StockBrokeringWebService {
         } catch (JAXBException ex) {
             throw new CompanyDataUnmarshellException(ex.getMessage());
         }
-
-        List<Company> companies = convertCurrencies(allCompanies.getCompanyList(), currency);
-        companies = orderCompanies(companies, orderBy, order);
+        
+        //Attempts to sort and convert company data
+        //If these fucntions fail then they will be informed that these functions are not working 
+        //When they initially attempt to change currency / sort criteria
+        List<Company> companies = allCompanies.getCompanyList();
+        try
+        {
+            companies = convertCurrencies(companies, currency);
+        }
+        catch (Exception ex)
+        {}
+        
+        try
+        {
+            companies = orderCompanies(companies, orderBy, order);
+        }
+        catch (Exception ex)
+        {}
+        
+        
 
         return companies;
     }
@@ -466,6 +483,8 @@ public class StockBrokeringWebService {
         {
             return (x == y);
         }
+        
+        
         
         return false;
     }

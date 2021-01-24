@@ -160,12 +160,9 @@
 <output wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/getCompanyDataResponse" message="tns:getCompanyDataResponse"/>
 <fault message="tns:MarketStackAPIException" name="MarketStackAPIException" wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/getCompanyData/Fault/MarketStackAPIException"/>
 <fault message="tns:OverwriteCompanyDataException" name="OverwriteCompanyDataException" wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/getCompanyData/Fault/OverwriteCompanyDataException"/>
-<fault message="tns:NotSortableFieldException" name="NotSortableFieldException" wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/getCompanyData/Fault/NotSortableFieldException"/>
 <fault message="tns:CompanyDataUnmarshellException" name="CompanyDataUnmarshellException" wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/getCompanyData/Fault/CompanyDataUnmarshellException"/>
 <fault message="tns:CompanyDataGenerationException" name="CompanyDataGenerationException" wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/getCompanyData/Fault/CompanyDataGenerationException"/>
-<fault message="tns:InvalidOrderException" name="InvalidOrderException" wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/getCompanyData/Fault/InvalidOrderException"/>
 <fault message="tns:UnsupportedEncodingException" name="UnsupportedEncodingException" wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/getCompanyData/Fault/UnsupportedEncodingException"/>
-<fault message="tns:CurrencyConversionException" name="CurrencyConversionException" wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/getCompanyData/Fault/CurrencyConversionException"/>
 </operation>
 <operation name="filterByPrice">
 <input wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/filterByPriceRequest" message="tns:filterByPrice"/>
@@ -306,23 +303,14 @@
 <fault name="OverwriteCompanyDataException">
 <soap:fault name="OverwriteCompanyDataException" use="literal"/>
 </fault>
-<fault name="NotSortableFieldException">
-<soap:fault name="NotSortableFieldException" use="literal"/>
-</fault>
 <fault name="CompanyDataUnmarshellException">
 <soap:fault name="CompanyDataUnmarshellException" use="literal"/>
 </fault>
 <fault name="CompanyDataGenerationException">
 <soap:fault name="CompanyDataGenerationException" use="literal"/>
 </fault>
-<fault name="InvalidOrderException">
-<soap:fault name="InvalidOrderException" use="literal"/>
-</fault>
 <fault name="UnsupportedEncodingException">
 <soap:fault name="UnsupportedEncodingException" use="literal"/>
-</fault>
-<fault name="CurrencyConversionException">
-<soap:fault name="CurrencyConversionException" use="literal"/>
 </fault>
 </operation>
 <operation name="filterByPrice">
