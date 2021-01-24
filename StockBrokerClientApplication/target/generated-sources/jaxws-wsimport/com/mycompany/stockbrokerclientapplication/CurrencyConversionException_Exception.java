@@ -12,7 +12,7 @@ import javax.xml.ws.WebFault;
  */
 @WebFault(name = "CurrencyConversionException", targetNamespace = "http://StockBrokeringWebService/")
 public class CurrencyConversionException_Exception
-    extends java.lang.Exception
+    extends Exception
 {
 
     /**

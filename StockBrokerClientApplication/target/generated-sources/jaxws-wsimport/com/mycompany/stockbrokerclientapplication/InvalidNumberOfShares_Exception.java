@@ -10,23 +10,23 @@ import javax.xml.ws.WebFault;
  * Generated source version: 2.2
  * 
  */
-@WebFault(name = "UnsupportedEncodingException", targetNamespace = "http://StockBrokeringWebService/")
-public class UnsupportedEncodingException_Exception
-    extends java.lang.Exception
+@WebFault(name = "InvalidNumberOfShares", targetNamespace = "http://StockBrokeringWebService/")
+public class InvalidNumberOfShares_Exception
+    extends Exception
 {
 
     /**
      * Java type that goes as soapenv:Fault detail element.
      * 
      */
-    private UnsupportedEncodingException faultInfo;
+    private InvalidNumberOfShares faultInfo;
 
     /**
      * 
      * @param faultInfo
      * @param message
      */
-    public UnsupportedEncodingException_Exception(String message, UnsupportedEncodingException faultInfo) {
+    public InvalidNumberOfShares_Exception(String message, InvalidNumberOfShares faultInfo) {
         super(message);
         this.faultInfo = faultInfo;
     }
@@ -37,7 +37,7 @@ public class UnsupportedEncodingException_Exception
      * @param cause
      * @param message
      */
-    public UnsupportedEncodingException_Exception(String message, UnsupportedEncodingException faultInfo, Throwable cause) {
+    public InvalidNumberOfShares_Exception(String message, InvalidNumberOfShares faultInfo, Throwable cause) {
         super(message, cause);
         this.faultInfo = faultInfo;
     }
@@ -45,9 +45,9 @@ public class UnsupportedEncodingException_Exception
     /**
      * 
      * @return
-     *     returns fault bean: com.mycompany.stockbrokerclientapplication.UnsupportedEncodingException
+     *     returns fault bean: com.mycompany.stockbrokerclientapplication.InvalidNumberOfShares
      */
-    public UnsupportedEncodingException getFaultInfo() {
+    public InvalidNumberOfShares getFaultInfo() {
         return faultInfo;
     }
 

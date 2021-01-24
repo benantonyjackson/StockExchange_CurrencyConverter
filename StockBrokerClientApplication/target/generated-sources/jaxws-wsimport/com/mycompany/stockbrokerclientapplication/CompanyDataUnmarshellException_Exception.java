@@ -12,7 +12,7 @@ import javax.xml.ws.WebFault;
  */
 @WebFault(name = "CompanyDataUnmarshellException", targetNamespace = "http://StockBrokeringWebService/")
 public class CompanyDataUnmarshellException_Exception
-    extends java.lang.Exception
+    extends Exception
 {
 
     /**

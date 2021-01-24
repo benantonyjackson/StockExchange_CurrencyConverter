@@ -7,12 +7,12 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for UnsupportedEncodingException complex type.
+ * <p>Java class for NotEnoughSharesException complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="UnsupportedEncodingException">
+ * &lt;complexType name="NotEnoughSharesException">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
@@ -26,10 +26,10 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "UnsupportedEncodingException", propOrder = {
+@XmlType(name = "NotEnoughSharesException", propOrder = {
     "message"
 })
-public class UnsupportedEncodingException {
+public class NotEnoughSharesException {
 
     protected String message;
 

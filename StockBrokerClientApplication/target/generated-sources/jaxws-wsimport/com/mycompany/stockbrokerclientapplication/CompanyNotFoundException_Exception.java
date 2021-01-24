@@ -12,7 +12,7 @@ import javax.xml.ws.WebFault;
  */
 @WebFault(name = "CompanyNotFoundException", targetNamespace = "http://StockBrokeringWebService/")
 public class CompanyNotFoundException_Exception
-    extends java.lang.Exception
+    extends Exception
 {
 
     /**

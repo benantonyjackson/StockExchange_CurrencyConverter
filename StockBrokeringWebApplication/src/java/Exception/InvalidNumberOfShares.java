@@ -9,9 +9,9 @@ package Exception;
  *
  * @author Ben
  */
-public class InvalidOperatorException extends Exception {
-    public InvalidOperatorException(String operator)
+public class InvalidNumberOfShares extends Exception {
+    public InvalidNumberOfShares()
     {
-        super("This method only accepts greater, less and equal as operators. " + operator + " is invalid");
+        super("Number of shares purchased must be greater than 1");
     }
 }

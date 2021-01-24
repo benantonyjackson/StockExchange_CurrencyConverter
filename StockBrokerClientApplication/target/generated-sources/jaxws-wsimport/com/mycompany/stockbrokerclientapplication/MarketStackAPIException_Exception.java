@@ -12,7 +12,7 @@ import javax.xml.ws.WebFault;
  */
 @WebFault(name = "MarketStackAPIException", targetNamespace = "http://StockBrokeringWebService/")
 public class MarketStackAPIException_Exception
-    extends java.lang.Exception
+    extends Exception
 {
 
     /**

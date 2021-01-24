@@ -12,7 +12,7 @@ import javax.xml.ws.WebFault;
  */
 @WebFault(name = "InvalidOperatorException", targetNamespace = "http://StockBrokeringWebService/")
 public class InvalidOperatorException_Exception
-    extends java.lang.Exception
+    extends Exception
 {
 
     /**

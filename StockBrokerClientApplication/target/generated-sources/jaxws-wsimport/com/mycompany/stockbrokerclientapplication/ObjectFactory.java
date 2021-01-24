@@ -35,7 +35,9 @@ public class ObjectFactory {
     private final static QName _NotSortableFieldException_QNAME = new QName("http://StockBrokeringWebService/", "NotSortableFieldException");
     private final static QName _ConvertCurrencies_QNAME = new QName("http://StockBrokeringWebService/", "convertCurrencies");
     private final static QName _OverwriteCompanyDataException_QNAME = new QName("http://StockBrokeringWebService/", "OverwriteCompanyDataException");
+    private final static QName _InvalidNumberOfShares_QNAME = new QName("http://StockBrokeringWebService/", "InvalidNumberOfShares");
     private final static QName _GetCompaniesBySymbol_QNAME = new QName("http://StockBrokeringWebService/", "GetCompaniesBySymbol");
+    private final static QName _NotEnoughSharesException_QNAME = new QName("http://StockBrokeringWebService/", "NotEnoughSharesException");
     private final static QName _CompanyNotFoundException_QNAME = new QName("http://StockBrokeringWebService/", "CompanyNotFoundException");
     private final static QName _MarketStackAPIException_QNAME = new QName("http://StockBrokeringWebService/", "MarketStackAPIException");
     private final static QName _GetCompanyNamesAndSymbols_QNAME = new QName("http://StockBrokeringWebService/", "getCompanyNamesAndSymbols");
@@ -50,7 +52,6 @@ public class ObjectFactory {
     private final static QName _InvalidOperatorException_QNAME = new QName("http://StockBrokeringWebService/", "InvalidOperatorException");
     private final static QName _FilterByAvailibleShares_QNAME = new QName("http://StockBrokeringWebService/", "filterByAvailibleShares");
     private final static QName _CurrencyConversionException_QNAME = new QName("http://StockBrokeringWebService/", "CurrencyConversionException");
-    private final static QName _Exception_QNAME = new QName("http://StockBrokeringWebService/", "Exception");
     private final static QName _GenorateRandomCompanyData_QNAME = new QName("http://StockBrokeringWebService/", "genorateRandomCompanyData");
     private final static QName _GetCurrenciesResponse_QNAME = new QName("http://StockBrokeringWebService/", "getCurrenciesResponse");
     private final static QName _GetCompaniesBySymbolResponse_QNAME = new QName("http://StockBrokeringWebService/", "GetCompaniesBySymbolResponse");
@@ -123,11 +124,27 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link InvalidNumberOfShares }
+     * 
+     */
+    public InvalidNumberOfShares createInvalidNumberOfShares() {
+        return new InvalidNumberOfShares();
+    }
+
+    /**
      * Create an instance of {@link GetCompaniesBySymbol }
      * 
      */
     public GetCompaniesBySymbol createGetCompaniesBySymbol() {
         return new GetCompaniesBySymbol();
+    }
+
+    /**
+     * Create an instance of {@link NotEnoughSharesException }
+     * 
+     */
+    public NotEnoughSharesException createNotEnoughSharesException() {
+        return new NotEnoughSharesException();
     }
 
     /**
@@ -256,14 +273,6 @@ public class ObjectFactory {
      */
     public CurrencyConversionException createCurrencyConversionException() {
         return new CurrencyConversionException();
-    }
-
-    /**
-     * Create an instance of {@link Exception }
-     * 
-     */
-    public Exception createException() {
-        return new Exception();
     }
 
     /**
@@ -462,12 +471,30 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link InvalidNumberOfShares }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://StockBrokeringWebService/", name = "InvalidNumberOfShares")
+    public JAXBElement<InvalidNumberOfShares> createInvalidNumberOfShares(InvalidNumberOfShares value) {
+        return new JAXBElement<InvalidNumberOfShares>(_InvalidNumberOfShares_QNAME, InvalidNumberOfShares.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link GetCompaniesBySymbol }{@code >}}
      * 
      */
     @XmlElementDecl(namespace = "http://StockBrokeringWebService/", name = "GetCompaniesBySymbol")
     public JAXBElement<GetCompaniesBySymbol> createGetCompaniesBySymbol(GetCompaniesBySymbol value) {
         return new JAXBElement<GetCompaniesBySymbol>(_GetCompaniesBySymbol_QNAME, GetCompaniesBySymbol.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link NotEnoughSharesException }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://StockBrokeringWebService/", name = "NotEnoughSharesException")
+    public JAXBElement<NotEnoughSharesException> createNotEnoughSharesException(NotEnoughSharesException value) {
+        return new JAXBElement<NotEnoughSharesException>(_NotEnoughSharesException_QNAME, NotEnoughSharesException.class, null, value);
     }
 
     /**
@@ -594,15 +621,6 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://StockBrokeringWebService/", name = "CurrencyConversionException")
     public JAXBElement<CurrencyConversionException> createCurrencyConversionException(CurrencyConversionException value) {
         return new JAXBElement<CurrencyConversionException>(_CurrencyConversionException_QNAME, CurrencyConversionException.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link Exception }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://StockBrokeringWebService/", name = "Exception")
-    public JAXBElement<Exception> createException(Exception value) {
-        return new JAXBElement<Exception>(_Exception_QNAME, Exception.class, null, value);
     }
 
     /**

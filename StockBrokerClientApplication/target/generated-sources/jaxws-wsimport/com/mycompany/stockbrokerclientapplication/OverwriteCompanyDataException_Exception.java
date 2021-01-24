@@ -12,7 +12,7 @@ import javax.xml.ws.WebFault;
  */
 @WebFault(name = "OverwriteCompanyDataException", targetNamespace = "http://StockBrokeringWebService/")
 public class OverwriteCompanyDataException_Exception
-    extends java.lang.Exception
+    extends Exception
 {
 
     /**

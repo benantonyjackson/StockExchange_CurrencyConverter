@@ -2,6 +2,8 @@
 import com.mycompany.stockbrokerclientapplication.Company;
 import com.mycompany.stockbrokerclientapplication.CompanyNotFoundException;
 import com.mycompany.stockbrokerclientapplication.CompanyNotFoundException_Exception;
+import com.mycompany.stockbrokerclientapplication.InvalidNumberOfShares_Exception;
+import com.mycompany.stockbrokerclientapplication.NotEnoughSharesException_Exception;
 import com.mycompany.stockbrokerclientapplication.StockBrokeringWebService;
 import com.mycompany.stockbrokerclientapplication.StockBrokeringWebService_Service;
 import javax.swing.JOptionPane;
@@ -147,7 +149,6 @@ public class CompanyView extends javax.swing.JPanel {
         }
         
     }//GEN-LAST:event_btnBuySharesActionPerformed
-
     
     void buyShares(int numberOfShares)
     {
@@ -163,6 +164,14 @@ public class CompanyView extends javax.swing.JPanel {
         catch (CompanyNotFoundException_Exception ex)
         {
             JOptionPane.showMessageDialog(this, "Company specified could not be found", "An error occured", JOptionPane.ERROR_MESSAGE);
+        }
+        catch (NotEnoughSharesException_Exception ex)
+        {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "An error occured", JOptionPane.ERROR_MESSAGE);
+        }
+        catch (InvalidNumberOfShares_Exception ex)
+        {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "An error occured", JOptionPane.ERROR_MESSAGE);
         }
         catch (Exception ex) {
             

@@ -10,23 +10,23 @@ import javax.xml.ws.WebFault;
  * Generated source version: 2.2
  * 
  */
-@WebFault(name = "Exception", targetNamespace = "http://StockBrokeringWebService/")
-public class Exception_Exception
-    extends java.lang.Exception
+@WebFault(name = "NotEnoughSharesException", targetNamespace = "http://StockBrokeringWebService/")
+public class NotEnoughSharesException_Exception
+    extends Exception
 {
 
     /**
      * Java type that goes as soapenv:Fault detail element.
      * 
      */
-    private com.mycompany.stockbrokerclientapplication.Exception faultInfo;
+    private NotEnoughSharesException faultInfo;
 
     /**
      * 
      * @param faultInfo
      * @param message
      */
-    public Exception_Exception(String message, com.mycompany.stockbrokerclientapplication.Exception faultInfo) {
+    public NotEnoughSharesException_Exception(String message, NotEnoughSharesException faultInfo) {
         super(message);
         this.faultInfo = faultInfo;
     }
@@ -37,7 +37,7 @@ public class Exception_Exception
      * @param cause
      * @param message
      */
-    public Exception_Exception(String message, com.mycompany.stockbrokerclientapplication.Exception faultInfo, Throwable cause) {
+    public NotEnoughSharesException_Exception(String message, NotEnoughSharesException faultInfo, Throwable cause) {
         super(message, cause);
         this.faultInfo = faultInfo;
     }
@@ -45,9 +45,9 @@ public class Exception_Exception
     /**
      * 
      * @return
-     *     returns fault bean: com.mycompany.stockbrokerclientapplication.Exception
+     *     returns fault bean: com.mycompany.stockbrokerclientapplication.NotEnoughSharesException
      */
-    public com.mycompany.stockbrokerclientapplication.Exception getFaultInfo() {
+    public NotEnoughSharesException getFaultInfo() {
         return faultInfo;
     }
 

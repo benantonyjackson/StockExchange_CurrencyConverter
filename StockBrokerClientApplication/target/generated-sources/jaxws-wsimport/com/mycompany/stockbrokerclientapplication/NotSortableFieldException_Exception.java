@@ -12,7 +12,7 @@ import javax.xml.ws.WebFault;
  */
 @WebFault(name = "NotSortableFieldException", targetNamespace = "http://StockBrokeringWebService/")
 public class NotSortableFieldException_Exception
-    extends java.lang.Exception
+    extends Exception
 {
 
     /**

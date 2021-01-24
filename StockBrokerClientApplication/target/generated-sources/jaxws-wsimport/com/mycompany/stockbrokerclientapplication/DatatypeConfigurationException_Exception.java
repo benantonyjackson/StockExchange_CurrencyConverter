@@ -12,7 +12,7 @@ import javax.xml.ws.WebFault;
  */
 @WebFault(name = "DatatypeConfigurationException", targetNamespace = "http://StockBrokeringWebService/")
 public class DatatypeConfigurationException_Exception
-    extends java.lang.Exception
+    extends Exception
 {
 
     /**

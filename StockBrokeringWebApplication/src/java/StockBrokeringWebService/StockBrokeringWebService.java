@@ -9,9 +9,11 @@ import Exception.CompanyDataGenerationException;
 import Exception.CompanyDataUnmarshellException;
 import Exception.CompanyNotFoundException;
 import Exception.CurrencyConversionException;
+import Exception.InvalidNumberOfShares;
 import Exception.InvalidOperatorException;
 import Exception.InvalidOrderException;
 import Exception.MarketStackAPIException;
+import Exception.NotEnoughSharesException;
 import Exception.NotSortableFieldException;
 import Exception.OverwriteCompanyDataException;
 import comparitors.SharePriceComparitor;
@@ -34,8 +36,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import javafx.util.Pair;
 import javax.jws.WebService;
@@ -46,7 +46,6 @@ import javax.xml.bind.JAXBException;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
-import java.lang.NullPointerException;
 import java.lang.Exception;
 
 import org.json.*;
@@ -204,7 +203,7 @@ public class StockBrokeringWebService {
      * Web service operation
      */
     @WebMethod(operationName = "buyShare")
-    public Company buyShare(@WebParam(name = "Symbol") String Symbol, @WebParam(name = "NumberOfShares") int numberOfShares) throws CompanyNotFoundException, Exception {
+    public Company buyShare(@WebParam(name = "Symbol") String Symbol, @WebParam(name = "NumberOfShares") int numberOfShares) throws CompanyNotFoundException, NotEnoughSharesException, OverwriteCompanyDataException, MarketStackAPIException, CompanyDataUnmarshellException, CompanyDataGenerationException, InvalidNumberOfShares {
         Company company = null;
 
         java.util.List<Company> Companies = getCompanyData(baseCurrencyRate, "", "");
@@ -219,6 +218,16 @@ public class StockBrokeringWebService {
         
         if (company == null) {
             throw new CompanyNotFoundException();
+        }
+        
+        if (company.getNumberOfShares() < numberOfShares)
+        {
+            throw new NotEnoughSharesException();
+        }
+        
+        if (numberOfShares <= 0)
+        {
+            throw new InvalidNumberOfShares();
         }
         
         //Updates number of shares availible

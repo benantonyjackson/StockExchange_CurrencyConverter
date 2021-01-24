@@ -12,7 +12,7 @@ import javax.xml.ws.WebFault;
  */
 @WebFault(name = "CompanyDataGenerationException", targetNamespace = "http://StockBrokeringWebService/")
 public class CompanyDataGenerationException_Exception
-    extends java.lang.Exception
+    extends Exception
 {
 
     /**
