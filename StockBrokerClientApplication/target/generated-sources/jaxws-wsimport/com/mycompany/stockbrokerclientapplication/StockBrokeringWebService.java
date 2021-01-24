@@ -34,8 +34,8 @@ public interface StockBrokeringWebService {
      * @return
      *     returns java.util.List<com.mycompany.stockbrokerclientapplication.Company>
      * @throws OverwriteCompanyDataException_Exception
-     * @throws CompanyDataUnmarshellException_Exception
      * @throws CompanyDataGenerationException_Exception
+     * @throws CompanyDataUnmarshellException_Exception
      * @throws MarketStackAPIException_Exception
      */
     @WebMethod
@@ -68,9 +68,9 @@ public interface StockBrokeringWebService {
      * @return
      *     returns java.util.List<com.mycompany.stockbrokerclientapplication.Company>
      * @throws OverwriteCompanyDataException_Exception
+     * @throws CompanyDataGenerationException_Exception
      * @throws CompanyDataUnmarshellException_Exception
      * @throws InvalidOperatorException_Exception
-     * @throws CompanyDataGenerationException_Exception
      * @throws MarketStackAPIException_Exception
      */
     @WebMethod
@@ -102,13 +102,18 @@ public interface StockBrokeringWebService {
      * 
      * @return
      *     returns java.util.List<java.lang.String>
+     * @throws CurrencyConversionException_Exception
      */
     @WebMethod
     @WebResult(targetNamespace = "")
     @RequestWrapper(localName = "getCurrencies", targetNamespace = "http://StockBrokeringWebService/", className = "com.mycompany.stockbrokerclientapplication.GetCurrencies")
     @ResponseWrapper(localName = "getCurrenciesResponse", targetNamespace = "http://StockBrokeringWebService/", className = "com.mycompany.stockbrokerclientapplication.GetCurrenciesResponse")
-    @Action(input = "http://StockBrokeringWebService/StockBrokeringWebService/getCurrenciesRequest", output = "http://StockBrokeringWebService/StockBrokeringWebService/getCurrenciesResponse")
-    public List<String> getCurrencies();
+    @Action(input = "http://StockBrokeringWebService/StockBrokeringWebService/getCurrenciesRequest", output = "http://StockBrokeringWebService/StockBrokeringWebService/getCurrenciesResponse", fault = {
+        @FaultAction(className = CurrencyConversionException_Exception.class, value = "http://StockBrokeringWebService/StockBrokeringWebService/getCurrencies/Fault/CurrencyConversionException")
+    })
+    public List<String> getCurrencies()
+        throws CurrencyConversionException_Exception
+    ;
 
     /**
      * 
@@ -167,8 +172,8 @@ public interface StockBrokeringWebService {
      * 
      * @return
      *     returns java.util.List<com.mycompany.stockbrokerclientapplication.Company>
-     * @throws IOException_Exception
      * @throws DatatypeConfigurationException_Exception
+     * @throws IOException_Exception
      */
     @WebMethod
     @WebResult(targetNamespace = "")
@@ -191,8 +196,8 @@ public interface StockBrokeringWebService {
      * @return
      *     returns java.util.List<com.mycompany.stockbrokerclientapplication.Company>
      * @throws OverwriteCompanyDataException_Exception
-     * @throws CompanyDataUnmarshellException_Exception
      * @throws CompanyDataGenerationException_Exception
+     * @throws CompanyDataUnmarshellException_Exception
      * @throws MarketStackAPIException_Exception
      */
     @WebMethod(operationName = "GetCompaniesBySymbol")
@@ -226,8 +231,8 @@ public interface StockBrokeringWebService {
      * @return
      *     returns java.util.List<com.mycompany.stockbrokerclientapplication.Company>
      * @throws OverwriteCompanyDataException_Exception
-     * @throws CompanyDataUnmarshellException_Exception
      * @throws CompanyDataGenerationException_Exception
+     * @throws CompanyDataUnmarshellException_Exception
      * @throws MarketStackAPIException_Exception
      */
     @WebMethod
@@ -262,9 +267,9 @@ public interface StockBrokeringWebService {
      * @return
      *     returns java.util.List<com.mycompany.stockbrokerclientapplication.Company>
      * @throws OverwriteCompanyDataException_Exception
+     * @throws CompanyDataGenerationException_Exception
      * @throws CompanyDataUnmarshellException_Exception
      * @throws InvalidOperatorException_Exception
-     * @throws CompanyDataGenerationException_Exception
      * @throws MarketStackAPIException_Exception
      */
     @WebMethod

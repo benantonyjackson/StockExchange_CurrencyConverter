@@ -37,6 +37,9 @@
 <message name="getCurrenciesResponse">
 <part name="parameters" element="tns:getCurrenciesResponse"/>
 </message>
+<message name="CurrencyConversionException">
+<part name="fault" element="tns:CurrencyConversionException"/>
+</message>
 <message name="buyShare">
 <part name="parameters" element="tns:buyShare"/>
 </message>
@@ -103,9 +106,6 @@
 <message name="convertCurrenciesResponse">
 <part name="parameters" element="tns:convertCurrenciesResponse"/>
 </message>
-<message name="CurrencyConversionException">
-<part name="fault" element="tns:CurrencyConversionException"/>
-</message>
 <portType name="StockBrokeringWebService">
 <operation name="getCompanyData">
 <input wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/getCompanyDataRequest" message="tns:getCompanyData"/>
@@ -127,6 +127,7 @@
 <operation name="getCurrencies">
 <input wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/getCurrenciesRequest" message="tns:getCurrencies"/>
 <output wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/getCurrenciesResponse" message="tns:getCurrenciesResponse"/>
+<fault message="tns:CurrencyConversionException" name="CurrencyConversionException" wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/getCurrencies/Fault/CurrencyConversionException"/>
 </operation>
 <operation name="buyShare">
 <input wsam:Action="http://StockBrokeringWebService/StockBrokeringWebService/buyShareRequest" message="tns:buyShare"/>
@@ -237,6 +238,9 @@
 <output>
 <soap:body use="literal"/>
 </output>
+<fault name="CurrencyConversionException">
+<soap:fault name="CurrencyConversionException" use="literal"/>
+</fault>
 </operation>
 <operation name="buyShare">
 <soap:operation soapAction=""/>

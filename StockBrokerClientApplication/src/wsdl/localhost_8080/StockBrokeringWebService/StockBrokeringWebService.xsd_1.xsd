@@ -98,6 +98,12 @@
 </xs:sequence>
 </xs:complexType>
 
+<xs:complexType name="CurrencyConversionException">
+<xs:sequence>
+<xs:element name="message" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
 <xs:complexType name="filterByPrice">
 <xs:sequence>
 <xs:element name="value" type="xs:float"/>
@@ -225,12 +231,6 @@
 <xs:complexType name="convertCurrenciesResponse">
 <xs:sequence>
 <xs:element name="return" type="tns:Company" minOccurs="0" maxOccurs="unbounded"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="CurrencyConversionException">
-<xs:sequence>
-<xs:element name="message" type="xs:string" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 

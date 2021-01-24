@@ -67,13 +67,16 @@ public class StockBrokeringWebService {
 
     public List<Pair<String, String>> getCompanyNamesAndSymbols() throws IOException {
         List<Pair<String, String>> namesAndSymbols = new ArrayList<>();
-
+        
+        //Fetches list of companies from market stack
         String response = makeRequest("http://api.marketstack.com/v1/tickers?access_key=" + access_key, "GET");
 
         JSONObject obj = new JSONObject(response);
-
+        
+        //Gets array of companies from json response
         JSONArray companies = obj.getJSONArray("data");
-
+        
+        //Retrieves names and symbols from json array
         for (int i = 0; i < companies.length(); i++) {
             String symbol = ((JSONObject) companies.get(i)).get("symbol").toString();
             String name = ((JSONObject) companies.get(i)).get("name").toString();
@@ -89,20 +92,24 @@ public class StockBrokeringWebService {
         List<Pair<String, String>> symbolsAndNames;
 
         symbolsAndNames = getCompanyNamesAndSymbols();
+        
+        //Assigns randomly generated numbers for share price and availibilty for each company in the list
         for (Pair<String, String> nameAndSymbol : symbolsAndNames) {
             Company company = new Company();
 
             company.setCompanySymbol(nameAndSymbol.getKey());
             company.setCompanyName(nameAndSymbol.getValue());
 
+            //Sets date last updated to current date
             XMLGregorianCalendar xmlGregorianCalendar;
-
             xmlGregorianCalendar = DatatypeFactory.newInstance()
                     .newXMLGregorianCalendar(LocalDateTime.now().toString());
-
             company.setLastUpdated(xmlGregorianCalendar);
+            
+            //Sets shares availibilty
             company.setNumberOfShares(10000);
-
+            
+            //Sets randomly generated share price
             Company.SharePrice sharePrice = new Company.SharePrice();
             sharePrice.setCurrency(baseCurrencyRate);
             float min = 10;
@@ -110,9 +117,9 @@ public class StockBrokeringWebService {
             float price = (min + (float) Math.random() * (max - min));
             BigDecimal bd = new BigDecimal(price).setScale(2, RoundingMode.HALF_UP);
             sharePrice.setValue(bd.floatValue());
-
             company.setSharePrice(sharePrice);
-
+            
+            //adds constructed company to list
             allCompanies.add(company);
         }
 
@@ -127,17 +134,21 @@ public class StockBrokeringWebService {
         CompanyList allCompanies = new CompanyList();
 
         File file = new File(allCompaniesFile);
-
+        
         if (!file.exists()) {
             try {
+                //if the xml file does not exist, generate and write new file
                 overwriteCompanyData(genorateRandomCompanyData());
             } catch (IOException ex) {
+                //thrown if an error occured when fetching the company data from market stack
                 throw new MarketStackAPIException();
             } catch (DatatypeConfigurationException ex) {
+                //Thrown if error occurs when parsing todays date
                 throw new CompanyDataGenerationException(ex.getMessage());
             }
         }
-
+        
+        //Load company data from xml file
         try {
             javax.xml.bind.JAXBContext jaxbCtx = javax.xml.bind.JAXBContext.newInstance(allCompanies.getClass().getPackage().getName());
             javax.xml.bind.Unmarshaller unmarshaller = jaxbCtx.createUnmarshaller();
@@ -168,9 +179,10 @@ public class StockBrokeringWebService {
 
     private void overwriteCompanyData(List<Company> companies) throws OverwriteCompanyDataException {
         CompanyList allCompanies = new CompanyList();
-
+        
         allCompanies.getCompanyList().addAll(companies);
 
+        //Writes company data to xml file
         try {
             javax.xml.bind.JAXBContext jaxbCtx = javax.xml.bind.JAXBContext.newInstance(allCompanies.getClass().getPackage().getName());
             javax.xml.bind.Marshaller marshaller = jaxbCtx.createMarshaller();
@@ -196,21 +208,23 @@ public class StockBrokeringWebService {
         Company company = null;
 
         java.util.List<Company> Companies = getCompanyData(baseCurrencyRate, "", "");
-
+        
+        //Locates company with specified symbol
         for (Company c : Companies) {
-            if (c.getCompanySymbol().equals(Symbol)) {
+            if (c.getCompanySymbol().toLowerCase().equals(Symbol.toLowerCase())) {
                 company = c;
                 break;
             }
         }
-
+        
         if (company == null) {
             throw new CompanyNotFoundException();
         }
-
+        
+        //Updates number of shares availible
         company.setNumberOfShares(company.getNumberOfShares() - numberOfShares);
-
         overwriteCompanyData(Companies);
+        
         return company;
     }
 
@@ -221,7 +235,8 @@ public class StockBrokeringWebService {
     public List<Company> GetCompaniesBySymbol(@WebParam(name = "symbol") String symbol, @WebParam(name = "currency") String currency, String orderBy, @WebParam(name = "order") String order) throws MarketStackAPIException, OverwriteCompanyDataException, CompanyDataUnmarshellException, CompanyDataGenerationException {
         java.util.List<Company> allCompanies = getCompanyData(currency, orderBy, order);
         List<Company> filteredCompanies = new ArrayList<>();
-
+        
+        
         for (Company company : allCompanies) {
             if (company.getCompanySymbol().toLowerCase().equals(symbol.toLowerCase())) {
                 filteredCompanies.add(company);
@@ -254,7 +269,7 @@ public class StockBrokeringWebService {
 
     private String makeRequest(String uri, String MethodType, byte[] input) {
         URL url = null;
-
+        
         boolean bodyIsEmpty = (input.length == 0);
 
         try {
@@ -297,7 +312,6 @@ public class StockBrokeringWebService {
             while ((responseLine = br.readLine()) != null) {
                 responseBuilder.append(responseLine.trim());
             }
-            System.out.println(responseBuilder.toString());
             response = responseBuilder.toString();
         } catch (IOException ex) {
             System.out.println("An error occured " + ex.getMessage());
@@ -310,9 +324,11 @@ public class StockBrokeringWebService {
      * Web service operation
      */
     @WebMethod(operationName = "getCurrencies")
-    public List<String> getCurrencies() throws org.json.JSONException {
+    public List<String> getCurrencies() throws CurrencyConversionException {
+        //Gets list of currencies in json format
         String response = makeRequest("http://127.0.0.1:5000/currencies", "GET");
-
+        
+        //Parses json and returns list java list of currencies
         try {
             JSONObject obj = new JSONObject(response);
             JSONArray arr = obj.getJSONArray("all_currencies");
@@ -321,7 +337,7 @@ public class StockBrokeringWebService {
 
             return currencies;
         } catch (Exception ex) {
-            throw ex;
+            throw new CurrencyConversionException(ex.getMessage());
         }
     }
 
@@ -351,7 +367,7 @@ public class StockBrokeringWebService {
             }
         }
 
-        //Returns skips the request if no companies need converting
+        //skips the request if no companies need converting
         if (!arr.isEmpty()) {
             String response = "";
 
@@ -362,7 +378,8 @@ public class StockBrokeringWebService {
             } catch (UnsupportedEncodingException ex) {
                 //This shouldn't ever be thrown as encoding standard is hard coded
             }
-
+            
+            //Parses json response and updates curreny values
             try {
                 JSONObject responseObj = new JSONObject(response);
                 JSONArray responseArray = responseObj.getJSONArray("values");
@@ -393,6 +410,7 @@ public class StockBrokeringWebService {
         List<Company> orderedCompanies = new ArrayList<>();
 
         //https://www.codebyamir.com/blog/sort-list-of-objects-by-field-java
+        //Sorts list based on orderBy paramater
         switch (orderBy.toLowerCase()) {
             case "name":
                 orderedCompanies = companies.stream()
@@ -420,10 +438,12 @@ public class StockBrokeringWebService {
             default:
                 throw new NotSortableFieldException(orderBy);
         }
-
+        
+        //Reverses list if in decending order
         if (order.toLowerCase().equals("desc")) {
             Collections.reverse(orderedCompanies);
         } else if (!order.toLowerCase().equals("asc")) {
+            //Throws exception if order code is invalid
             throw new InvalidOrderException(order);
         }
 
