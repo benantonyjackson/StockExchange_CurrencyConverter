@@ -1,6 +1,10 @@
 <?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI (http://jax-ws.java.net). RI's version is Metro/2.4.3 (RELEASE-2.4.3-ad3323c; 2019-01-21T17:46:06+0000) JAXWS-RI/2.3.2 JAXWS-API/2.3.2 JAXB-RI/2.3.2 JAXB-API/2.3.2 git-revision#unknown. --><xs:schema xmlns:tns="http://StockBrokeringWebService/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://StockBrokeringWebService/">
 
+<xs:element name="CompanyNotFoundException" type="tns:CompanyNotFoundException"/>
+
 <xs:element name="DatatypeConfigurationException" type="tns:DatatypeConfigurationException"/>
+
+<xs:element name="Exception" type="tns:Exception"/>
 
 <xs:element name="GetCompaniesBySymbol" type="tns:GetCompaniesBySymbol"/>
 
@@ -78,17 +82,16 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="filterByPrice">
+<xs:complexType name="getCompaniesByName">
 <xs:sequence>
-<xs:element name="value" type="xs:float"/>
-<xs:element name="operator" type="xs:string" minOccurs="0"/>
+<xs:element name="name" type="xs:string" minOccurs="0"/>
 <xs:element name="currency" type="xs:string" minOccurs="0"/>
-<xs:element name="orderBy" type="xs:string" minOccurs="0"/>
+<xs:element name="arg2" type="xs:string" minOccurs="0"/>
 <xs:element name="order" type="xs:string" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="filterByPriceResponse">
+<xs:complexType name="getCompaniesByNameResponse">
 <xs:sequence>
 <xs:element name="return" type="tns:Company" minOccurs="0" maxOccurs="unbounded"/>
 </xs:sequence>
@@ -111,16 +114,36 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="getCompaniesByName">
+<xs:complexType name="Exception">
 <xs:sequence>
-<xs:element name="name" type="xs:string" minOccurs="0"/>
+<xs:element name="message" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="filterByPrice">
+<xs:sequence>
+<xs:element name="value" type="xs:float"/>
+<xs:element name="operator" type="xs:string" minOccurs="0"/>
 <xs:element name="currency" type="xs:string" minOccurs="0"/>
-<xs:element name="arg2" type="xs:string" minOccurs="0"/>
+<xs:element name="orderBy" type="xs:string" minOccurs="0"/>
 <xs:element name="order" type="xs:string" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="getCompaniesByNameResponse">
+<xs:complexType name="filterByPriceResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:Company" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="convertCurrencies">
+<xs:sequence>
+<xs:element name="companies" type="tns:Company" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="currencyType" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="convertCurrenciesResponse">
 <xs:sequence>
 <xs:element name="return" type="tns:Company" minOccurs="0" maxOccurs="unbounded"/>
 </xs:sequence>
@@ -140,12 +163,6 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="DatatypeConfigurationException">
-<xs:sequence>
-<xs:element name="message" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
 <xs:complexType name="buyShare">
 <xs:sequence>
 <xs:element name="Symbol" type="xs:string" minOccurs="0"/>
@@ -159,16 +176,9 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="convertCurrencies">
+<xs:complexType name="CompanyNotFoundException">
 <xs:sequence>
-<xs:element name="companies" type="tns:Company" minOccurs="0" maxOccurs="unbounded"/>
-<xs:element name="currencyType" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="convertCurrenciesResponse">
-<xs:sequence>
-<xs:element name="return" type="tns:Company" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="message" type="xs:string" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -188,20 +198,6 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="orderCompanies">
-<xs:sequence>
-<xs:element name="companies" type="tns:Company" minOccurs="0" maxOccurs="unbounded"/>
-<xs:element name="orderBy" type="xs:string" minOccurs="0"/>
-<xs:element name="order" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="orderCompaniesResponse">
-<xs:sequence>
-<xs:element name="return" type="tns:Company" minOccurs="0" maxOccurs="unbounded"/>
-</xs:sequence>
-</xs:complexType>
-
 <xs:complexType name="genorateRandomCompanyData">
 <xs:sequence/>
 </xs:complexType>
@@ -209,6 +205,12 @@
 <xs:complexType name="genorateRandomCompanyDataResponse">
 <xs:sequence>
 <xs:element name="return" type="tns:Company" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="DatatypeConfigurationException">
+<xs:sequence>
+<xs:element name="message" type="xs:string" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -222,6 +224,20 @@
 </xs:complexType>
 
 <xs:complexType name="GetCompaniesBySymbolResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:Company" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="orderCompanies">
+<xs:sequence>
+<xs:element name="companies" type="tns:Company" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="orderBy" type="xs:string" minOccurs="0"/>
+<xs:element name="order" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="orderCompaniesResponse">
 <xs:sequence>
 <xs:element name="return" type="tns:Company" minOccurs="0" maxOccurs="unbounded"/>
 </xs:sequence>

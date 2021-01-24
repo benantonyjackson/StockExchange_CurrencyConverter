@@ -1,5 +1,7 @@
 
 import com.mycompany.stockbrokerclientapplication.Company;
+import com.mycompany.stockbrokerclientapplication.CompanyNotFoundException;
+import com.mycompany.stockbrokerclientapplication.CompanyNotFoundException_Exception;
 import com.mycompany.stockbrokerclientapplication.StockBrokeringWebService;
 import com.mycompany.stockbrokerclientapplication.StockBrokeringWebService_Service;
 import javax.swing.JOptionPane;
@@ -141,7 +143,7 @@ public class CompanyView extends javax.swing.JPanel {
         }
         catch (java.lang.NumberFormatException ex)
         {
-            JOptionPane.showMessageDialog(this, "Please enter a number");
+            JOptionPane.showMessageDialog(this, "Please enter a number", "An error occured", JOptionPane.ERROR_MESSAGE);
         }
         
     }//GEN-LAST:event_btnBuySharesActionPerformed
@@ -150,16 +152,21 @@ public class CompanyView extends javax.swing.JPanel {
     void buyShares(int numberOfShares)
     {
         
-        try { // Call Web Service Operation
+        try {
             StockBrokeringWebService_Service service = new StockBrokeringWebService_Service();
             StockBrokeringWebService port = service.getStockBrokeringWebServicePort();
             
             java.lang.String symbol = txtSymbol.getText();
             
             txtShares.setText("" + port.buyShare(symbol, numberOfShares).getNumberOfShares());
+        }
+        catch (CompanyNotFoundException_Exception ex)
+        {
+            JOptionPane.showMessageDialog(this, "Company specified could not be found", "An error occured", JOptionPane.ERROR_MESSAGE);
+        }
+        catch (Exception ex) {
             
-        } catch (Exception ex) {
-            // TODO handle custom exceptions here
+            JOptionPane.showMessageDialog(this, "An error occured while attempting to purchase the share", "An error occured", JOptionPane.ERROR_MESSAGE);
         }
 
     }

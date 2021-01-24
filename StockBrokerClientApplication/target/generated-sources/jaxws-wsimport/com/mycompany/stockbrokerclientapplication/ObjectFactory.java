@@ -24,24 +24,26 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
-    private final static QName _GetCompanyNamesAndSymbols_QNAME = new QName("http://StockBrokeringWebService/", "getCompanyNamesAndSymbols");
-    private final static QName _GetCurrencies_QNAME = new QName("http://StockBrokeringWebService/", "getCurrencies");
     private final static QName _FilterByPrice_QNAME = new QName("http://StockBrokeringWebService/", "filterByPrice");
-    private final static QName _OrderCompaniesResponse_QNAME = new QName("http://StockBrokeringWebService/", "orderCompaniesResponse");
     private final static QName _BuyShare_QNAME = new QName("http://StockBrokeringWebService/", "buyShare");
     private final static QName _GetCompanyData_QNAME = new QName("http://StockBrokeringWebService/", "getCompanyData");
-    private final static QName _DatatypeConfigurationException_QNAME = new QName("http://StockBrokeringWebService/", "DatatypeConfigurationException");
-    private final static QName _GetCompaniesByNameResponse_QNAME = new QName("http://StockBrokeringWebService/", "getCompaniesByNameResponse");
     private final static QName _BuyShareResponse_QNAME = new QName("http://StockBrokeringWebService/", "buyShareResponse");
     private final static QName _ConvertCurrenciesResponse_QNAME = new QName("http://StockBrokeringWebService/", "convertCurrenciesResponse");
+    private final static QName _GetCompanyDataResponse_QNAME = new QName("http://StockBrokeringWebService/", "getCompanyDataResponse");
+    private final static QName _ConvertCurrencies_QNAME = new QName("http://StockBrokeringWebService/", "convertCurrencies");
+    private final static QName _GetCompaniesBySymbol_QNAME = new QName("http://StockBrokeringWebService/", "GetCompaniesBySymbol");
+    private final static QName _CompanyNotFoundException_QNAME = new QName("http://StockBrokeringWebService/", "CompanyNotFoundException");
+    private final static QName _GetCompanyNamesAndSymbols_QNAME = new QName("http://StockBrokeringWebService/", "getCompanyNamesAndSymbols");
+    private final static QName _GetCurrencies_QNAME = new QName("http://StockBrokeringWebService/", "getCurrencies");
+    private final static QName _OrderCompaniesResponse_QNAME = new QName("http://StockBrokeringWebService/", "orderCompaniesResponse");
+    private final static QName _DatatypeConfigurationException_QNAME = new QName("http://StockBrokeringWebService/", "DatatypeConfigurationException");
+    private final static QName _GetCompaniesByNameResponse_QNAME = new QName("http://StockBrokeringWebService/", "getCompaniesByNameResponse");
     private final static QName _GetCompanyNamesAndSymbolsResponse_QNAME = new QName("http://StockBrokeringWebService/", "getCompanyNamesAndSymbolsResponse");
     private final static QName _OrderCompanies_QNAME = new QName("http://StockBrokeringWebService/", "orderCompanies");
     private final static QName _FilterByPriceResponse_QNAME = new QName("http://StockBrokeringWebService/", "filterByPriceResponse");
     private final static QName _GetCompaniesByName_QNAME = new QName("http://StockBrokeringWebService/", "getCompaniesByName");
-    private final static QName _GetCompanyDataResponse_QNAME = new QName("http://StockBrokeringWebService/", "getCompanyDataResponse");
-    private final static QName _ConvertCurrencies_QNAME = new QName("http://StockBrokeringWebService/", "convertCurrencies");
     private final static QName _FilterByAvailibleShares_QNAME = new QName("http://StockBrokeringWebService/", "filterByAvailibleShares");
-    private final static QName _GetCompaniesBySymbol_QNAME = new QName("http://StockBrokeringWebService/", "GetCompaniesBySymbol");
+    private final static QName _Exception_QNAME = new QName("http://StockBrokeringWebService/", "Exception");
     private final static QName _GenorateRandomCompanyData_QNAME = new QName("http://StockBrokeringWebService/", "genorateRandomCompanyData");
     private final static QName _GetCurrenciesResponse_QNAME = new QName("http://StockBrokeringWebService/", "getCurrenciesResponse");
     private final static QName _GetCompaniesBySymbolResponse_QNAME = new QName("http://StockBrokeringWebService/", "GetCompaniesBySymbolResponse");
@@ -73,6 +75,70 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link GetCompanyDataResponse }
+     * 
+     */
+    public GetCompanyDataResponse createGetCompanyDataResponse() {
+        return new GetCompanyDataResponse();
+    }
+
+    /**
+     * Create an instance of {@link CompanyNotFoundException }
+     * 
+     */
+    public CompanyNotFoundException createCompanyNotFoundException() {
+        return new CompanyNotFoundException();
+    }
+
+    /**
+     * Create an instance of {@link GetCompaniesBySymbol }
+     * 
+     */
+    public GetCompaniesBySymbol createGetCompaniesBySymbol() {
+        return new GetCompaniesBySymbol();
+    }
+
+    /**
+     * Create an instance of {@link BuyShare }
+     * 
+     */
+    public BuyShare createBuyShare() {
+        return new BuyShare();
+    }
+
+    /**
+     * Create an instance of {@link GetCompanyData }
+     * 
+     */
+    public GetCompanyData createGetCompanyData() {
+        return new GetCompanyData();
+    }
+
+    /**
+     * Create an instance of {@link FilterByPrice }
+     * 
+     */
+    public FilterByPrice createFilterByPrice() {
+        return new FilterByPrice();
+    }
+
+    /**
+     * Create an instance of {@link BuyShareResponse }
+     * 
+     */
+    public BuyShareResponse createBuyShareResponse() {
+        return new BuyShareResponse();
+    }
+
+    /**
+     * Create an instance of {@link ConvertCurrenciesResponse }
+     * 
+     */
+    public ConvertCurrenciesResponse createConvertCurrenciesResponse() {
+        return new ConvertCurrenciesResponse();
+    }
+
+    /**
      * Create an instance of {@link FilterByAvailibleShares }
      * 
      */
@@ -86,14 +152,6 @@ public class ObjectFactory {
      */
     public GetCompaniesByName createGetCompaniesByName() {
         return new GetCompaniesByName();
-    }
-
-    /**
-     * Create an instance of {@link GetCompanyDataResponse }
-     * 
-     */
-    public GetCompanyDataResponse createGetCompanyDataResponse() {
-        return new GetCompanyDataResponse();
     }
 
     /**
@@ -129,11 +187,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GetCompaniesBySymbol }
+     * Create an instance of {@link Exception }
      * 
      */
-    public GetCompaniesBySymbol createGetCompaniesBySymbol() {
-        return new GetCompaniesBySymbol();
+    public Exception createException() {
+        return new Exception();
     }
 
     /**
@@ -150,22 +208,6 @@ public class ObjectFactory {
      */
     public GetCurrenciesResponse createGetCurrenciesResponse() {
         return new GetCurrenciesResponse();
-    }
-
-    /**
-     * Create an instance of {@link BuyShare }
-     * 
-     */
-    public BuyShare createBuyShare() {
-        return new BuyShare();
-    }
-
-    /**
-     * Create an instance of {@link GetCompanyData }
-     * 
-     */
-    public GetCompanyData createGetCompanyData() {
-        return new GetCompanyData();
     }
 
     /**
@@ -201,14 +243,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link FilterByPrice }
-     * 
-     */
-    public FilterByPrice createFilterByPrice() {
-        return new FilterByPrice();
-    }
-
-    /**
      * Create an instance of {@link OrderCompaniesResponse }
      * 
      */
@@ -222,22 +256,6 @@ public class ObjectFactory {
      */
     public FilterByPriceResponse createFilterByPriceResponse() {
         return new FilterByPriceResponse();
-    }
-
-    /**
-     * Create an instance of {@link BuyShareResponse }
-     * 
-     */
-    public BuyShareResponse createBuyShareResponse() {
-        return new BuyShareResponse();
-    }
-
-    /**
-     * Create an instance of {@link ConvertCurrenciesResponse }
-     * 
-     */
-    public ConvertCurrenciesResponse createConvertCurrenciesResponse() {
-        return new ConvertCurrenciesResponse();
     }
 
     /**
@@ -273,39 +291,12 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GetCompanyNamesAndSymbols }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://StockBrokeringWebService/", name = "getCompanyNamesAndSymbols")
-    public JAXBElement<GetCompanyNamesAndSymbols> createGetCompanyNamesAndSymbols(GetCompanyNamesAndSymbols value) {
-        return new JAXBElement<GetCompanyNamesAndSymbols>(_GetCompanyNamesAndSymbols_QNAME, GetCompanyNamesAndSymbols.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GetCurrencies }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://StockBrokeringWebService/", name = "getCurrencies")
-    public JAXBElement<GetCurrencies> createGetCurrencies(GetCurrencies value) {
-        return new JAXBElement<GetCurrencies>(_GetCurrencies_QNAME, GetCurrencies.class, null, value);
-    }
-
-    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link FilterByPrice }{@code >}}
      * 
      */
     @XmlElementDecl(namespace = "http://StockBrokeringWebService/", name = "filterByPrice")
     public JAXBElement<FilterByPrice> createFilterByPrice(FilterByPrice value) {
         return new JAXBElement<FilterByPrice>(_FilterByPrice_QNAME, FilterByPrice.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link OrderCompaniesResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://StockBrokeringWebService/", name = "orderCompaniesResponse")
-    public JAXBElement<OrderCompaniesResponse> createOrderCompaniesResponse(OrderCompaniesResponse value) {
-        return new JAXBElement<OrderCompaniesResponse>(_OrderCompaniesResponse_QNAME, OrderCompaniesResponse.class, null, value);
     }
 
     /**
@@ -327,24 +318,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link DatatypeConfigurationException }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://StockBrokeringWebService/", name = "DatatypeConfigurationException")
-    public JAXBElement<DatatypeConfigurationException> createDatatypeConfigurationException(DatatypeConfigurationException value) {
-        return new JAXBElement<DatatypeConfigurationException>(_DatatypeConfigurationException_QNAME, DatatypeConfigurationException.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GetCompaniesByNameResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://StockBrokeringWebService/", name = "getCompaniesByNameResponse")
-    public JAXBElement<GetCompaniesByNameResponse> createGetCompaniesByNameResponse(GetCompaniesByNameResponse value) {
-        return new JAXBElement<GetCompaniesByNameResponse>(_GetCompaniesByNameResponse_QNAME, GetCompaniesByNameResponse.class, null, value);
-    }
-
-    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link BuyShareResponse }{@code >}}
      * 
      */
@@ -360,6 +333,87 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://StockBrokeringWebService/", name = "convertCurrenciesResponse")
     public JAXBElement<ConvertCurrenciesResponse> createConvertCurrenciesResponse(ConvertCurrenciesResponse value) {
         return new JAXBElement<ConvertCurrenciesResponse>(_ConvertCurrenciesResponse_QNAME, ConvertCurrenciesResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetCompanyDataResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://StockBrokeringWebService/", name = "getCompanyDataResponse")
+    public JAXBElement<GetCompanyDataResponse> createGetCompanyDataResponse(GetCompanyDataResponse value) {
+        return new JAXBElement<GetCompanyDataResponse>(_GetCompanyDataResponse_QNAME, GetCompanyDataResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ConvertCurrencies }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://StockBrokeringWebService/", name = "convertCurrencies")
+    public JAXBElement<ConvertCurrencies> createConvertCurrencies(ConvertCurrencies value) {
+        return new JAXBElement<ConvertCurrencies>(_ConvertCurrencies_QNAME, ConvertCurrencies.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetCompaniesBySymbol }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://StockBrokeringWebService/", name = "GetCompaniesBySymbol")
+    public JAXBElement<GetCompaniesBySymbol> createGetCompaniesBySymbol(GetCompaniesBySymbol value) {
+        return new JAXBElement<GetCompaniesBySymbol>(_GetCompaniesBySymbol_QNAME, GetCompaniesBySymbol.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link CompanyNotFoundException }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://StockBrokeringWebService/", name = "CompanyNotFoundException")
+    public JAXBElement<CompanyNotFoundException> createCompanyNotFoundException(CompanyNotFoundException value) {
+        return new JAXBElement<CompanyNotFoundException>(_CompanyNotFoundException_QNAME, CompanyNotFoundException.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetCompanyNamesAndSymbols }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://StockBrokeringWebService/", name = "getCompanyNamesAndSymbols")
+    public JAXBElement<GetCompanyNamesAndSymbols> createGetCompanyNamesAndSymbols(GetCompanyNamesAndSymbols value) {
+        return new JAXBElement<GetCompanyNamesAndSymbols>(_GetCompanyNamesAndSymbols_QNAME, GetCompanyNamesAndSymbols.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetCurrencies }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://StockBrokeringWebService/", name = "getCurrencies")
+    public JAXBElement<GetCurrencies> createGetCurrencies(GetCurrencies value) {
+        return new JAXBElement<GetCurrencies>(_GetCurrencies_QNAME, GetCurrencies.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link OrderCompaniesResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://StockBrokeringWebService/", name = "orderCompaniesResponse")
+    public JAXBElement<OrderCompaniesResponse> createOrderCompaniesResponse(OrderCompaniesResponse value) {
+        return new JAXBElement<OrderCompaniesResponse>(_OrderCompaniesResponse_QNAME, OrderCompaniesResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link DatatypeConfigurationException }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://StockBrokeringWebService/", name = "DatatypeConfigurationException")
+    public JAXBElement<DatatypeConfigurationException> createDatatypeConfigurationException(DatatypeConfigurationException value) {
+        return new JAXBElement<DatatypeConfigurationException>(_DatatypeConfigurationException_QNAME, DatatypeConfigurationException.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetCompaniesByNameResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://StockBrokeringWebService/", name = "getCompaniesByNameResponse")
+    public JAXBElement<GetCompaniesByNameResponse> createGetCompaniesByNameResponse(GetCompaniesByNameResponse value) {
+        return new JAXBElement<GetCompaniesByNameResponse>(_GetCompaniesByNameResponse_QNAME, GetCompaniesByNameResponse.class, null, value);
     }
 
     /**
@@ -399,24 +453,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GetCompanyDataResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://StockBrokeringWebService/", name = "getCompanyDataResponse")
-    public JAXBElement<GetCompanyDataResponse> createGetCompanyDataResponse(GetCompanyDataResponse value) {
-        return new JAXBElement<GetCompanyDataResponse>(_GetCompanyDataResponse_QNAME, GetCompanyDataResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ConvertCurrencies }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://StockBrokeringWebService/", name = "convertCurrencies")
-    public JAXBElement<ConvertCurrencies> createConvertCurrencies(ConvertCurrencies value) {
-        return new JAXBElement<ConvertCurrencies>(_ConvertCurrencies_QNAME, ConvertCurrencies.class, null, value);
-    }
-
-    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link FilterByAvailibleShares }{@code >}}
      * 
      */
@@ -426,12 +462,12 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GetCompaniesBySymbol }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link Exception }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://StockBrokeringWebService/", name = "GetCompaniesBySymbol")
-    public JAXBElement<GetCompaniesBySymbol> createGetCompaniesBySymbol(GetCompaniesBySymbol value) {
-        return new JAXBElement<GetCompaniesBySymbol>(_GetCompaniesBySymbol_QNAME, GetCompaniesBySymbol.class, null, value);
+    @XmlElementDecl(namespace = "http://StockBrokeringWebService/", name = "Exception")
+    public JAXBElement<Exception> createException(Exception value) {
+        return new JAXBElement<Exception>(_Exception_QNAME, Exception.class, null, value);
     }
 
     /**

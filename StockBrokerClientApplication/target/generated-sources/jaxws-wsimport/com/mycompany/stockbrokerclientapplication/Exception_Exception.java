@@ -10,8 +10,8 @@ import javax.xml.ws.WebFault;
  * Generated source version: 2.2
  * 
  */
-@WebFault(name = "DatatypeConfigurationException", targetNamespace = "http://StockBrokeringWebService/")
-public class DatatypeConfigurationException_Exception
+@WebFault(name = "Exception", targetNamespace = "http://StockBrokeringWebService/")
+public class Exception_Exception
     extends java.lang.Exception
 {
 
@@ -19,14 +19,14 @@ public class DatatypeConfigurationException_Exception
      * Java type that goes as soapenv:Fault detail element.
      * 
      */
-    private DatatypeConfigurationException faultInfo;
+    private com.mycompany.stockbrokerclientapplication.Exception faultInfo;
 
     /**
      * 
      * @param faultInfo
      * @param message
      */
-    public DatatypeConfigurationException_Exception(String message, DatatypeConfigurationException faultInfo) {
+    public Exception_Exception(String message, com.mycompany.stockbrokerclientapplication.Exception faultInfo) {
         super(message);
         this.faultInfo = faultInfo;
     }
@@ -37,7 +37,7 @@ public class DatatypeConfigurationException_Exception
      * @param cause
      * @param message
      */
-    public DatatypeConfigurationException_Exception(String message, DatatypeConfigurationException faultInfo, Throwable cause) {
+    public Exception_Exception(String message, com.mycompany.stockbrokerclientapplication.Exception faultInfo, Throwable cause) {
         super(message, cause);
         this.faultInfo = faultInfo;
     }
@@ -45,9 +45,9 @@ public class DatatypeConfigurationException_Exception
     /**
      * 
      * @return
-     *     returns fault bean: com.mycompany.stockbrokerclientapplication.DatatypeConfigurationException
+     *     returns fault bean: com.mycompany.stockbrokerclientapplication.Exception
      */
-    public DatatypeConfigurationException getFaultInfo() {
+    public com.mycompany.stockbrokerclientapplication.Exception getFaultInfo() {
         return faultInfo;
     }
 

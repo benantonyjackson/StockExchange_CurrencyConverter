@@ -10,8 +10,8 @@ import javax.xml.ws.WebFault;
  * Generated source version: 2.2
  * 
  */
-@WebFault(name = "DatatypeConfigurationException", targetNamespace = "http://StockBrokeringWebService/")
-public class DatatypeConfigurationException_Exception
+@WebFault(name = "CompanyNotFoundException", targetNamespace = "http://StockBrokeringWebService/")
+public class CompanyNotFoundException_Exception
     extends java.lang.Exception
 {
 
@@ -19,14 +19,14 @@ public class DatatypeConfigurationException_Exception
      * Java type that goes as soapenv:Fault detail element.
      * 
      */
-    private DatatypeConfigurationException faultInfo;
+    private CompanyNotFoundException faultInfo;
 
     /**
      * 
      * @param faultInfo
      * @param message
      */
-    public DatatypeConfigurationException_Exception(String message, DatatypeConfigurationException faultInfo) {
+    public CompanyNotFoundException_Exception(String message, CompanyNotFoundException faultInfo) {
         super(message);
         this.faultInfo = faultInfo;
     }
@@ -37,7 +37,7 @@ public class DatatypeConfigurationException_Exception
      * @param cause
      * @param message
      */
-    public DatatypeConfigurationException_Exception(String message, DatatypeConfigurationException faultInfo, Throwable cause) {
+    public CompanyNotFoundException_Exception(String message, CompanyNotFoundException faultInfo, Throwable cause) {
         super(message, cause);
         this.faultInfo = faultInfo;
     }
@@ -45,9 +45,9 @@ public class DatatypeConfigurationException_Exception
     /**
      * 
      * @return
-     *     returns fault bean: com.mycompany.stockbrokerclientapplication.DatatypeConfigurationException
+     *     returns fault bean: com.mycompany.stockbrokerclientapplication.CompanyNotFoundException
      */
-    public DatatypeConfigurationException getFaultInfo() {
+    public CompanyNotFoundException getFaultInfo() {
         return faultInfo;
     }
 

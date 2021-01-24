@@ -12,7 +12,7 @@ import javax.xml.ws.WebFault;
  */
 @WebFault(name = "IOException", targetNamespace = "http://StockBrokeringWebService/")
 public class IOException_Exception
-    extends Exception
+    extends java.lang.Exception
 {
 
     /**

@@ -5,6 +5,7 @@
  */
 package StockBrokeringWebService;
 
+import Exception.CompanyNotFoundException;
 import comparitors.SharePriceComparitor;
 import generated.Company;
 import generated.CompanyList;
@@ -116,8 +117,6 @@ public class StockBrokeringWebService {
         
         return allCompanies;
     }
-    
-
 
     /**
      * Web service operation
@@ -152,7 +151,7 @@ public class StockBrokeringWebService {
         return companies;
     }
     
-    private void overwriteCompanyData(List<Company> companies)
+    private void overwriteCompanyData(List<Company> companies) throws Exception
     {
         CompanyList allCompanies = new CompanyList();
         
@@ -171,8 +170,7 @@ public class StockBrokeringWebService {
             marshaller.marshal(allCompanies, file);
             
         } catch (javax.xml.bind.JAXBException ex) {
-            //TODO Handle exception
-            java.util.logging.Logger.getLogger("global").log(java.util.logging.Level.SEVERE, null, ex);
+            throw new Exception();
         } 
     }
 
@@ -180,9 +178,11 @@ public class StockBrokeringWebService {
      * Web service operation
      */
     @WebMethod(operationName = "buyShare")
-    public Company buyShare(@WebParam(name = "Symbol") String Symbol, @WebParam(name = "NumberOfShares") int numberOfShares) throws NullPointerException, Exception {
+    public Company buyShare(@WebParam(name = "Symbol") String Symbol, @WebParam(name = "NumberOfShares") int numberOfShares) throws CompanyNotFoundException, Exception {
         Company company = null;
+        
         java.util.List<Company> Companies = getCompanyData(baseCurrencyRate, "", "");
+        
         for (Company c: Companies)
         {
             if (c.getCompanySymbol().equals(Symbol))
@@ -192,15 +192,14 @@ public class StockBrokeringWebService {
             }
         }
         
-        if (company.equals(null))
+        if (company == null)
         {
-            throw new NullPointerException();
+            throw new CompanyNotFoundException();
         }
         
         company.setNumberOfShares(company.getNumberOfShares() - numberOfShares);
         
         overwriteCompanyData(Companies);
-        
         return company;
     }
 
