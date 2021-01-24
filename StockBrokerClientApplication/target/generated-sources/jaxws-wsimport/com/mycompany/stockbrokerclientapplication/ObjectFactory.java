@@ -47,13 +47,13 @@ public class ObjectFactory {
     private final static QName _OrderCompanies_QNAME = new QName("http://StockBrokeringWebService/", "orderCompanies");
     private final static QName _FilterByPriceResponse_QNAME = new QName("http://StockBrokeringWebService/", "filterByPriceResponse");
     private final static QName _GetCompaniesByName_QNAME = new QName("http://StockBrokeringWebService/", "getCompaniesByName");
+    private final static QName _InvalidOperatorException_QNAME = new QName("http://StockBrokeringWebService/", "InvalidOperatorException");
     private final static QName _FilterByAvailibleShares_QNAME = new QName("http://StockBrokeringWebService/", "filterByAvailibleShares");
     private final static QName _CurrencyConversionException_QNAME = new QName("http://StockBrokeringWebService/", "CurrencyConversionException");
     private final static QName _Exception_QNAME = new QName("http://StockBrokeringWebService/", "Exception");
     private final static QName _GenorateRandomCompanyData_QNAME = new QName("http://StockBrokeringWebService/", "genorateRandomCompanyData");
     private final static QName _GetCurrenciesResponse_QNAME = new QName("http://StockBrokeringWebService/", "getCurrenciesResponse");
     private final static QName _GetCompaniesBySymbolResponse_QNAME = new QName("http://StockBrokeringWebService/", "GetCompaniesBySymbolResponse");
-    private final static QName _UnsupportedEncodingException_QNAME = new QName("http://StockBrokeringWebService/", "UnsupportedEncodingException");
     private final static QName _FilterByAvailibleSharesResponse_QNAME = new QName("http://StockBrokeringWebService/", "filterByAvailibleSharesResponse");
     private final static QName _CompanyDataUnmarshellException_QNAME = new QName("http://StockBrokeringWebService/", "CompanyDataUnmarshellException");
     private final static QName _GenorateRandomCompanyDataResponse_QNAME = new QName("http://StockBrokeringWebService/", "genorateRandomCompanyDataResponse");
@@ -187,6 +187,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link InvalidOperatorException }
+     * 
+     */
+    public InvalidOperatorException createInvalidOperatorException() {
+        return new InvalidOperatorException();
+    }
+
+    /**
      * Create an instance of {@link FilterByAvailibleShares }
      * 
      */
@@ -208,14 +216,6 @@ public class ObjectFactory {
      */
     public GetCompaniesBySymbolResponse createGetCompaniesBySymbolResponse() {
         return new GetCompaniesBySymbolResponse();
-    }
-
-    /**
-     * Create an instance of {@link UnsupportedEncodingException }
-     * 
-     */
-    public UnsupportedEncodingException createUnsupportedEncodingException() {
-        return new UnsupportedEncodingException();
     }
 
     /**
@@ -570,6 +570,15 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link InvalidOperatorException }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://StockBrokeringWebService/", name = "InvalidOperatorException")
+    public JAXBElement<InvalidOperatorException> createInvalidOperatorException(InvalidOperatorException value) {
+        return new JAXBElement<InvalidOperatorException>(_InvalidOperatorException_QNAME, InvalidOperatorException.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link FilterByAvailibleShares }{@code >}}
      * 
      */
@@ -621,15 +630,6 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://StockBrokeringWebService/", name = "GetCompaniesBySymbolResponse")
     public JAXBElement<GetCompaniesBySymbolResponse> createGetCompaniesBySymbolResponse(GetCompaniesBySymbolResponse value) {
         return new JAXBElement<GetCompaniesBySymbolResponse>(_GetCompaniesBySymbolResponse_QNAME, GetCompaniesBySymbolResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link UnsupportedEncodingException }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://StockBrokeringWebService/", name = "UnsupportedEncodingException")
-    public JAXBElement<UnsupportedEncodingException> createUnsupportedEncodingException(UnsupportedEncodingException value) {
-        return new JAXBElement<UnsupportedEncodingException>(_UnsupportedEncodingException_QNAME, UnsupportedEncodingException.class, null, value);
     }
 
     /**

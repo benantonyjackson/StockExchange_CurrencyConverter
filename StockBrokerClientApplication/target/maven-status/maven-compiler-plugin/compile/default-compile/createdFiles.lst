@@ -18,6 +18,7 @@ com\mycompany\stockbrokerclientapplication\OrderCompanies.class
 com\mycompany\stockbrokerclientapplication\ConvertCurrenciesResponse.class
 com\mycompany\stockbrokerclientapplication\BuyShare.class
 com\mycompany\stockbrokerclientapplication\Pair.class
+com\mycompany\stockbrokerclientapplication\InvalidOperatorException_Exception.class
 com\mycompany\stockbrokerclientapplication\StockBrokeringWebService.class
 com\mycompany\stockbrokerclientapplication\CompanyDataUnmarshellException.class
 MainMenu$14.class
@@ -31,6 +32,7 @@ com\mycompany\stockbrokerclientapplication\GetCompanyDataResponse.class
 MainMenu$7.class
 MainMenu$13.class
 com\mycompany\stockbrokerclientapplication\Company.class
+com\mycompany\stockbrokerclientapplication\InvalidOperatorException.class
 com\mycompany\stockbrokerclientapplication\GetCompaniesBySymbol.class
 MainMenu$3.class
 com\mycompany\stockbrokerclientapplication\UnsupportedEncodingException.class

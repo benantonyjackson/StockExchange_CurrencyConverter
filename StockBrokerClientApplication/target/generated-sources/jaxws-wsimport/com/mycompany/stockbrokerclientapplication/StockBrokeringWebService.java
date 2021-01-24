@@ -28,92 +28,34 @@ public interface StockBrokeringWebService {
 
     /**
      * 
-     * @param currencyType
-     * @param companies
-     * @return
-     *     returns java.util.List<com.mycompany.stockbrokerclientapplication.Company>
-     * @throws UnsupportedEncodingException_Exception
-     * @throws CurrencyConversionException_Exception
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "convertCurrencies", targetNamespace = "http://StockBrokeringWebService/", className = "com.mycompany.stockbrokerclientapplication.ConvertCurrencies")
-    @ResponseWrapper(localName = "convertCurrenciesResponse", targetNamespace = "http://StockBrokeringWebService/", className = "com.mycompany.stockbrokerclientapplication.ConvertCurrenciesResponse")
-    @Action(input = "http://StockBrokeringWebService/StockBrokeringWebService/convertCurrenciesRequest", output = "http://StockBrokeringWebService/StockBrokeringWebService/convertCurrenciesResponse", fault = {
-        @FaultAction(className = UnsupportedEncodingException_Exception.class, value = "http://StockBrokeringWebService/StockBrokeringWebService/convertCurrencies/Fault/UnsupportedEncodingException"),
-        @FaultAction(className = CurrencyConversionException_Exception.class, value = "http://StockBrokeringWebService/StockBrokeringWebService/convertCurrencies/Fault/CurrencyConversionException")
-    })
-    public List<Company> convertCurrencies(
-        @WebParam(name = "companies", targetNamespace = "")
-        List<Company> companies,
-        @WebParam(name = "currencyType", targetNamespace = "")
-        String currencyType)
-        throws CurrencyConversionException_Exception, UnsupportedEncodingException_Exception
-    ;
-
-    /**
-     * 
-     * @return
-     *     returns java.util.List<com.mycompany.stockbrokerclientapplication.Company>
-     * @throws DatatypeConfigurationException_Exception
-     * @throws IOException_Exception
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "genorateRandomCompanyData", targetNamespace = "http://StockBrokeringWebService/", className = "com.mycompany.stockbrokerclientapplication.GenorateRandomCompanyData")
-    @ResponseWrapper(localName = "genorateRandomCompanyDataResponse", targetNamespace = "http://StockBrokeringWebService/", className = "com.mycompany.stockbrokerclientapplication.GenorateRandomCompanyDataResponse")
-    @Action(input = "http://StockBrokeringWebService/StockBrokeringWebService/genorateRandomCompanyDataRequest", output = "http://StockBrokeringWebService/StockBrokeringWebService/genorateRandomCompanyDataResponse", fault = {
-        @FaultAction(className = DatatypeConfigurationException_Exception.class, value = "http://StockBrokeringWebService/StockBrokeringWebService/genorateRandomCompanyData/Fault/DatatypeConfigurationException"),
-        @FaultAction(className = IOException_Exception.class, value = "http://StockBrokeringWebService/StockBrokeringWebService/genorateRandomCompanyData/Fault/IOException")
-    })
-    public List<Company> genorateRandomCompanyData()
-        throws DatatypeConfigurationException_Exception, IOException_Exception
-    ;
-
-    /**
-     * 
-     * @param arg2
-     * @param name
+     * @param orderBy
      * @param currency
      * @param order
      * @return
      *     returns java.util.List<com.mycompany.stockbrokerclientapplication.Company>
-     * @throws Exception_Exception
+     * @throws OverwriteCompanyDataException_Exception
+     * @throws CompanyDataUnmarshellException_Exception
+     * @throws CompanyDataGenerationException_Exception
+     * @throws MarketStackAPIException_Exception
      */
     @WebMethod
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "getCompaniesByName", targetNamespace = "http://StockBrokeringWebService/", className = "com.mycompany.stockbrokerclientapplication.GetCompaniesByName")
-    @ResponseWrapper(localName = "getCompaniesByNameResponse", targetNamespace = "http://StockBrokeringWebService/", className = "com.mycompany.stockbrokerclientapplication.GetCompaniesByNameResponse")
-    @Action(input = "http://StockBrokeringWebService/StockBrokeringWebService/getCompaniesByNameRequest", output = "http://StockBrokeringWebService/StockBrokeringWebService/getCompaniesByNameResponse", fault = {
-        @FaultAction(className = Exception_Exception.class, value = "http://StockBrokeringWebService/StockBrokeringWebService/getCompaniesByName/Fault/Exception")
+    @RequestWrapper(localName = "getCompanyData", targetNamespace = "http://StockBrokeringWebService/", className = "com.mycompany.stockbrokerclientapplication.GetCompanyData")
+    @ResponseWrapper(localName = "getCompanyDataResponse", targetNamespace = "http://StockBrokeringWebService/", className = "com.mycompany.stockbrokerclientapplication.GetCompanyDataResponse")
+    @Action(input = "http://StockBrokeringWebService/StockBrokeringWebService/getCompanyDataRequest", output = "http://StockBrokeringWebService/StockBrokeringWebService/getCompanyDataResponse", fault = {
+        @FaultAction(className = MarketStackAPIException_Exception.class, value = "http://StockBrokeringWebService/StockBrokeringWebService/getCompanyData/Fault/MarketStackAPIException"),
+        @FaultAction(className = OverwriteCompanyDataException_Exception.class, value = "http://StockBrokeringWebService/StockBrokeringWebService/getCompanyData/Fault/OverwriteCompanyDataException"),
+        @FaultAction(className = CompanyDataUnmarshellException_Exception.class, value = "http://StockBrokeringWebService/StockBrokeringWebService/getCompanyData/Fault/CompanyDataUnmarshellException"),
+        @FaultAction(className = CompanyDataGenerationException_Exception.class, value = "http://StockBrokeringWebService/StockBrokeringWebService/getCompanyData/Fault/CompanyDataGenerationException")
     })
-    public List<Company> getCompaniesByName(
-        @WebParam(name = "name", targetNamespace = "")
-        String name,
+    public List<Company> getCompanyData(
         @WebParam(name = "currency", targetNamespace = "")
         String currency,
-        @WebParam(name = "arg2", targetNamespace = "")
-        String arg2,
+        @WebParam(name = "orderBy", targetNamespace = "")
+        String orderBy,
         @WebParam(name = "order", targetNamespace = "")
         String order)
-        throws Exception_Exception
-    ;
-
-    /**
-     * 
-     * @return
-     *     returns java.util.List<com.mycompany.stockbrokerclientapplication.Pair>
-     * @throws IOException_Exception
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "getCompanyNamesAndSymbols", targetNamespace = "http://StockBrokeringWebService/", className = "com.mycompany.stockbrokerclientapplication.GetCompanyNamesAndSymbols")
-    @ResponseWrapper(localName = "getCompanyNamesAndSymbolsResponse", targetNamespace = "http://StockBrokeringWebService/", className = "com.mycompany.stockbrokerclientapplication.GetCompanyNamesAndSymbolsResponse")
-    @Action(input = "http://StockBrokeringWebService/StockBrokeringWebService/getCompanyNamesAndSymbolsRequest", output = "http://StockBrokeringWebService/StockBrokeringWebService/getCompanyNamesAndSymbolsResponse", fault = {
-        @FaultAction(className = IOException_Exception.class, value = "http://StockBrokeringWebService/StockBrokeringWebService/getCompanyNamesAndSymbols/Fault/IOException")
-    })
-    public List<Pair> getCompanyNamesAndSymbols()
-        throws IOException_Exception
+        throws CompanyDataGenerationException_Exception, CompanyDataUnmarshellException_Exception, MarketStackAPIException_Exception, OverwriteCompanyDataException_Exception
     ;
 
     /**
@@ -125,16 +67,24 @@ public interface StockBrokeringWebService {
      * @param order
      * @return
      *     returns java.util.List<com.mycompany.stockbrokerclientapplication.Company>
-     * @throws Exception_Exception
+     * @throws OverwriteCompanyDataException_Exception
+     * @throws CompanyDataUnmarshellException_Exception
+     * @throws InvalidOperatorException_Exception
+     * @throws CompanyDataGenerationException_Exception
+     * @throws MarketStackAPIException_Exception
      */
     @WebMethod
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "filterByAvailibleShares", targetNamespace = "http://StockBrokeringWebService/", className = "com.mycompany.stockbrokerclientapplication.FilterByAvailibleShares")
-    @ResponseWrapper(localName = "filterByAvailibleSharesResponse", targetNamespace = "http://StockBrokeringWebService/", className = "com.mycompany.stockbrokerclientapplication.FilterByAvailibleSharesResponse")
-    @Action(input = "http://StockBrokeringWebService/StockBrokeringWebService/filterByAvailibleSharesRequest", output = "http://StockBrokeringWebService/StockBrokeringWebService/filterByAvailibleSharesResponse", fault = {
-        @FaultAction(className = Exception_Exception.class, value = "http://StockBrokeringWebService/StockBrokeringWebService/filterByAvailibleShares/Fault/Exception")
+    @RequestWrapper(localName = "filterByPrice", targetNamespace = "http://StockBrokeringWebService/", className = "com.mycompany.stockbrokerclientapplication.FilterByPrice")
+    @ResponseWrapper(localName = "filterByPriceResponse", targetNamespace = "http://StockBrokeringWebService/", className = "com.mycompany.stockbrokerclientapplication.FilterByPriceResponse")
+    @Action(input = "http://StockBrokeringWebService/StockBrokeringWebService/filterByPriceRequest", output = "http://StockBrokeringWebService/StockBrokeringWebService/filterByPriceResponse", fault = {
+        @FaultAction(className = MarketStackAPIException_Exception.class, value = "http://StockBrokeringWebService/StockBrokeringWebService/filterByPrice/Fault/MarketStackAPIException"),
+        @FaultAction(className = OverwriteCompanyDataException_Exception.class, value = "http://StockBrokeringWebService/StockBrokeringWebService/filterByPrice/Fault/OverwriteCompanyDataException"),
+        @FaultAction(className = CompanyDataUnmarshellException_Exception.class, value = "http://StockBrokeringWebService/StockBrokeringWebService/filterByPrice/Fault/CompanyDataUnmarshellException"),
+        @FaultAction(className = CompanyDataGenerationException_Exception.class, value = "http://StockBrokeringWebService/StockBrokeringWebService/filterByPrice/Fault/CompanyDataGenerationException"),
+        @FaultAction(className = InvalidOperatorException_Exception.class, value = "http://StockBrokeringWebService/StockBrokeringWebService/filterByPrice/Fault/InvalidOperatorException")
     })
-    public List<Company> filterByAvailibleShares(
+    public List<Company> filterByPrice(
         @WebParam(name = "value", targetNamespace = "")
         float value,
         @WebParam(name = "operator", targetNamespace = "")
@@ -145,36 +95,7 @@ public interface StockBrokeringWebService {
         String orderBy,
         @WebParam(name = "order", targetNamespace = "")
         String order)
-        throws Exception_Exception
-    ;
-
-    /**
-     * 
-     * @param symbol
-     * @param arg2
-     * @param currency
-     * @param order
-     * @return
-     *     returns java.util.List<com.mycompany.stockbrokerclientapplication.Company>
-     * @throws Exception_Exception
-     */
-    @WebMethod(operationName = "GetCompaniesBySymbol")
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "GetCompaniesBySymbol", targetNamespace = "http://StockBrokeringWebService/", className = "com.mycompany.stockbrokerclientapplication.GetCompaniesBySymbol")
-    @ResponseWrapper(localName = "GetCompaniesBySymbolResponse", targetNamespace = "http://StockBrokeringWebService/", className = "com.mycompany.stockbrokerclientapplication.GetCompaniesBySymbolResponse")
-    @Action(input = "http://StockBrokeringWebService/StockBrokeringWebService/GetCompaniesBySymbolRequest", output = "http://StockBrokeringWebService/StockBrokeringWebService/GetCompaniesBySymbolResponse", fault = {
-        @FaultAction(className = Exception_Exception.class, value = "http://StockBrokeringWebService/StockBrokeringWebService/GetCompaniesBySymbol/Fault/Exception")
-    })
-    public List<Company> getCompaniesBySymbol(
-        @WebParam(name = "symbol", targetNamespace = "")
-        String symbol,
-        @WebParam(name = "currency", targetNamespace = "")
-        String currency,
-        @WebParam(name = "arg2", targetNamespace = "")
-        String arg2,
-        @WebParam(name = "order", targetNamespace = "")
-        String order)
-        throws Exception_Exception
+        throws CompanyDataGenerationException_Exception, CompanyDataUnmarshellException_Exception, InvalidOperatorException_Exception, MarketStackAPIException_Exception, OverwriteCompanyDataException_Exception
     ;
 
     /**
@@ -191,13 +112,38 @@ public interface StockBrokeringWebService {
 
     /**
      * 
+     * @param symbol
+     * @param numberOfShares
+     * @return
+     *     returns com.mycompany.stockbrokerclientapplication.Company
+     * @throws CompanyNotFoundException_Exception
+     * @throws Exception_Exception
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "buyShare", targetNamespace = "http://StockBrokeringWebService/", className = "com.mycompany.stockbrokerclientapplication.BuyShare")
+    @ResponseWrapper(localName = "buyShareResponse", targetNamespace = "http://StockBrokeringWebService/", className = "com.mycompany.stockbrokerclientapplication.BuyShareResponse")
+    @Action(input = "http://StockBrokeringWebService/StockBrokeringWebService/buyShareRequest", output = "http://StockBrokeringWebService/StockBrokeringWebService/buyShareResponse", fault = {
+        @FaultAction(className = CompanyNotFoundException_Exception.class, value = "http://StockBrokeringWebService/StockBrokeringWebService/buyShare/Fault/CompanyNotFoundException"),
+        @FaultAction(className = Exception_Exception.class, value = "http://StockBrokeringWebService/StockBrokeringWebService/buyShare/Fault/Exception")
+    })
+    public Company buyShare(
+        @WebParam(name = "Symbol", targetNamespace = "")
+        String symbol,
+        @WebParam(name = "NumberOfShares", targetNamespace = "")
+        int numberOfShares)
+        throws CompanyNotFoundException_Exception, Exception_Exception
+    ;
+
+    /**
+     * 
      * @param companies
      * @param orderBy
      * @param order
      * @return
      *     returns java.util.List<com.mycompany.stockbrokerclientapplication.Company>
-     * @throws InvalidOrderException_Exception
      * @throws NotSortableFieldException_Exception
+     * @throws InvalidOrderException_Exception
      */
     @WebMethod
     @WebResult(targetNamespace = "")
@@ -219,61 +165,91 @@ public interface StockBrokeringWebService {
 
     /**
      * 
-     * @param symbol
-     * @param numberOfShares
      * @return
-     *     returns com.mycompany.stockbrokerclientapplication.Company
-     * @throws Exception_Exception
-     * @throws CompanyNotFoundException_Exception
+     *     returns java.util.List<com.mycompany.stockbrokerclientapplication.Company>
+     * @throws IOException_Exception
+     * @throws DatatypeConfigurationException_Exception
      */
     @WebMethod
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "buyShare", targetNamespace = "http://StockBrokeringWebService/", className = "com.mycompany.stockbrokerclientapplication.BuyShare")
-    @ResponseWrapper(localName = "buyShareResponse", targetNamespace = "http://StockBrokeringWebService/", className = "com.mycompany.stockbrokerclientapplication.BuyShareResponse")
-    @Action(input = "http://StockBrokeringWebService/StockBrokeringWebService/buyShareRequest", output = "http://StockBrokeringWebService/StockBrokeringWebService/buyShareResponse", fault = {
-        @FaultAction(className = CompanyNotFoundException_Exception.class, value = "http://StockBrokeringWebService/StockBrokeringWebService/buyShare/Fault/CompanyNotFoundException"),
-        @FaultAction(className = Exception_Exception.class, value = "http://StockBrokeringWebService/StockBrokeringWebService/buyShare/Fault/Exception")
+    @RequestWrapper(localName = "genorateRandomCompanyData", targetNamespace = "http://StockBrokeringWebService/", className = "com.mycompany.stockbrokerclientapplication.GenorateRandomCompanyData")
+    @ResponseWrapper(localName = "genorateRandomCompanyDataResponse", targetNamespace = "http://StockBrokeringWebService/", className = "com.mycompany.stockbrokerclientapplication.GenorateRandomCompanyDataResponse")
+    @Action(input = "http://StockBrokeringWebService/StockBrokeringWebService/genorateRandomCompanyDataRequest", output = "http://StockBrokeringWebService/StockBrokeringWebService/genorateRandomCompanyDataResponse", fault = {
+        @FaultAction(className = DatatypeConfigurationException_Exception.class, value = "http://StockBrokeringWebService/StockBrokeringWebService/genorateRandomCompanyData/Fault/DatatypeConfigurationException"),
+        @FaultAction(className = IOException_Exception.class, value = "http://StockBrokeringWebService/StockBrokeringWebService/genorateRandomCompanyData/Fault/IOException")
     })
-    public Company buyShare(
-        @WebParam(name = "Symbol", targetNamespace = "")
-        String symbol,
-        @WebParam(name = "NumberOfShares", targetNamespace = "")
-        int numberOfShares)
-        throws CompanyNotFoundException_Exception, Exception_Exception
+    public List<Company> genorateRandomCompanyData()
+        throws DatatypeConfigurationException_Exception, IOException_Exception
     ;
 
     /**
      * 
-     * @param orderBy
+     * @param symbol
+     * @param arg2
      * @param currency
      * @param order
      * @return
      *     returns java.util.List<com.mycompany.stockbrokerclientapplication.Company>
-     * @throws MarketStackAPIException_Exception
-     * @throws CompanyDataGenerationException_Exception
-     * @throws CompanyDataUnmarshellException_Exception
      * @throws OverwriteCompanyDataException_Exception
-     * @throws UnsupportedEncodingException_Exception
+     * @throws CompanyDataUnmarshellException_Exception
+     * @throws CompanyDataGenerationException_Exception
+     * @throws MarketStackAPIException_Exception
+     */
+    @WebMethod(operationName = "GetCompaniesBySymbol")
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "GetCompaniesBySymbol", targetNamespace = "http://StockBrokeringWebService/", className = "com.mycompany.stockbrokerclientapplication.GetCompaniesBySymbol")
+    @ResponseWrapper(localName = "GetCompaniesBySymbolResponse", targetNamespace = "http://StockBrokeringWebService/", className = "com.mycompany.stockbrokerclientapplication.GetCompaniesBySymbolResponse")
+    @Action(input = "http://StockBrokeringWebService/StockBrokeringWebService/GetCompaniesBySymbolRequest", output = "http://StockBrokeringWebService/StockBrokeringWebService/GetCompaniesBySymbolResponse", fault = {
+        @FaultAction(className = MarketStackAPIException_Exception.class, value = "http://StockBrokeringWebService/StockBrokeringWebService/GetCompaniesBySymbol/Fault/MarketStackAPIException"),
+        @FaultAction(className = OverwriteCompanyDataException_Exception.class, value = "http://StockBrokeringWebService/StockBrokeringWebService/GetCompaniesBySymbol/Fault/OverwriteCompanyDataException"),
+        @FaultAction(className = CompanyDataUnmarshellException_Exception.class, value = "http://StockBrokeringWebService/StockBrokeringWebService/GetCompaniesBySymbol/Fault/CompanyDataUnmarshellException"),
+        @FaultAction(className = CompanyDataGenerationException_Exception.class, value = "http://StockBrokeringWebService/StockBrokeringWebService/GetCompaniesBySymbol/Fault/CompanyDataGenerationException")
+    })
+    public List<Company> getCompaniesBySymbol(
+        @WebParam(name = "symbol", targetNamespace = "")
+        String symbol,
+        @WebParam(name = "currency", targetNamespace = "")
+        String currency,
+        @WebParam(name = "arg2", targetNamespace = "")
+        String arg2,
+        @WebParam(name = "order", targetNamespace = "")
+        String order)
+        throws CompanyDataGenerationException_Exception, CompanyDataUnmarshellException_Exception, MarketStackAPIException_Exception, OverwriteCompanyDataException_Exception
+    ;
+
+    /**
+     * 
+     * @param arg2
+     * @param name
+     * @param currency
+     * @param order
+     * @return
+     *     returns java.util.List<com.mycompany.stockbrokerclientapplication.Company>
+     * @throws OverwriteCompanyDataException_Exception
+     * @throws CompanyDataUnmarshellException_Exception
+     * @throws CompanyDataGenerationException_Exception
+     * @throws MarketStackAPIException_Exception
      */
     @WebMethod
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "getCompanyData", targetNamespace = "http://StockBrokeringWebService/", className = "com.mycompany.stockbrokerclientapplication.GetCompanyData")
-    @ResponseWrapper(localName = "getCompanyDataResponse", targetNamespace = "http://StockBrokeringWebService/", className = "com.mycompany.stockbrokerclientapplication.GetCompanyDataResponse")
-    @Action(input = "http://StockBrokeringWebService/StockBrokeringWebService/getCompanyDataRequest", output = "http://StockBrokeringWebService/StockBrokeringWebService/getCompanyDataResponse", fault = {
-        @FaultAction(className = MarketStackAPIException_Exception.class, value = "http://StockBrokeringWebService/StockBrokeringWebService/getCompanyData/Fault/MarketStackAPIException"),
-        @FaultAction(className = OverwriteCompanyDataException_Exception.class, value = "http://StockBrokeringWebService/StockBrokeringWebService/getCompanyData/Fault/OverwriteCompanyDataException"),
-        @FaultAction(className = CompanyDataUnmarshellException_Exception.class, value = "http://StockBrokeringWebService/StockBrokeringWebService/getCompanyData/Fault/CompanyDataUnmarshellException"),
-        @FaultAction(className = CompanyDataGenerationException_Exception.class, value = "http://StockBrokeringWebService/StockBrokeringWebService/getCompanyData/Fault/CompanyDataGenerationException"),
-        @FaultAction(className = UnsupportedEncodingException_Exception.class, value = "http://StockBrokeringWebService/StockBrokeringWebService/getCompanyData/Fault/UnsupportedEncodingException")
+    @RequestWrapper(localName = "getCompaniesByName", targetNamespace = "http://StockBrokeringWebService/", className = "com.mycompany.stockbrokerclientapplication.GetCompaniesByName")
+    @ResponseWrapper(localName = "getCompaniesByNameResponse", targetNamespace = "http://StockBrokeringWebService/", className = "com.mycompany.stockbrokerclientapplication.GetCompaniesByNameResponse")
+    @Action(input = "http://StockBrokeringWebService/StockBrokeringWebService/getCompaniesByNameRequest", output = "http://StockBrokeringWebService/StockBrokeringWebService/getCompaniesByNameResponse", fault = {
+        @FaultAction(className = MarketStackAPIException_Exception.class, value = "http://StockBrokeringWebService/StockBrokeringWebService/getCompaniesByName/Fault/MarketStackAPIException"),
+        @FaultAction(className = OverwriteCompanyDataException_Exception.class, value = "http://StockBrokeringWebService/StockBrokeringWebService/getCompaniesByName/Fault/OverwriteCompanyDataException"),
+        @FaultAction(className = CompanyDataUnmarshellException_Exception.class, value = "http://StockBrokeringWebService/StockBrokeringWebService/getCompaniesByName/Fault/CompanyDataUnmarshellException"),
+        @FaultAction(className = CompanyDataGenerationException_Exception.class, value = "http://StockBrokeringWebService/StockBrokeringWebService/getCompaniesByName/Fault/CompanyDataGenerationException")
     })
-    public List<Company> getCompanyData(
+    public List<Company> getCompaniesByName(
+        @WebParam(name = "name", targetNamespace = "")
+        String name,
         @WebParam(name = "currency", targetNamespace = "")
         String currency,
-        @WebParam(name = "orderBy", targetNamespace = "")
-        String orderBy,
+        @WebParam(name = "arg2", targetNamespace = "")
+        String arg2,
         @WebParam(name = "order", targetNamespace = "")
         String order)
-        throws CompanyDataGenerationException_Exception, CompanyDataUnmarshellException_Exception, MarketStackAPIException_Exception, OverwriteCompanyDataException_Exception, UnsupportedEncodingException_Exception
+        throws CompanyDataGenerationException_Exception, CompanyDataUnmarshellException_Exception, MarketStackAPIException_Exception, OverwriteCompanyDataException_Exception
     ;
 
     /**
@@ -285,16 +261,24 @@ public interface StockBrokeringWebService {
      * @param order
      * @return
      *     returns java.util.List<com.mycompany.stockbrokerclientapplication.Company>
-     * @throws Exception_Exception
+     * @throws OverwriteCompanyDataException_Exception
+     * @throws CompanyDataUnmarshellException_Exception
+     * @throws InvalidOperatorException_Exception
+     * @throws CompanyDataGenerationException_Exception
+     * @throws MarketStackAPIException_Exception
      */
     @WebMethod
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "filterByPrice", targetNamespace = "http://StockBrokeringWebService/", className = "com.mycompany.stockbrokerclientapplication.FilterByPrice")
-    @ResponseWrapper(localName = "filterByPriceResponse", targetNamespace = "http://StockBrokeringWebService/", className = "com.mycompany.stockbrokerclientapplication.FilterByPriceResponse")
-    @Action(input = "http://StockBrokeringWebService/StockBrokeringWebService/filterByPriceRequest", output = "http://StockBrokeringWebService/StockBrokeringWebService/filterByPriceResponse", fault = {
-        @FaultAction(className = Exception_Exception.class, value = "http://StockBrokeringWebService/StockBrokeringWebService/filterByPrice/Fault/Exception")
+    @RequestWrapper(localName = "filterByAvailibleShares", targetNamespace = "http://StockBrokeringWebService/", className = "com.mycompany.stockbrokerclientapplication.FilterByAvailibleShares")
+    @ResponseWrapper(localName = "filterByAvailibleSharesResponse", targetNamespace = "http://StockBrokeringWebService/", className = "com.mycompany.stockbrokerclientapplication.FilterByAvailibleSharesResponse")
+    @Action(input = "http://StockBrokeringWebService/StockBrokeringWebService/filterByAvailibleSharesRequest", output = "http://StockBrokeringWebService/StockBrokeringWebService/filterByAvailibleSharesResponse", fault = {
+        @FaultAction(className = MarketStackAPIException_Exception.class, value = "http://StockBrokeringWebService/StockBrokeringWebService/filterByAvailibleShares/Fault/MarketStackAPIException"),
+        @FaultAction(className = OverwriteCompanyDataException_Exception.class, value = "http://StockBrokeringWebService/StockBrokeringWebService/filterByAvailibleShares/Fault/OverwriteCompanyDataException"),
+        @FaultAction(className = CompanyDataUnmarshellException_Exception.class, value = "http://StockBrokeringWebService/StockBrokeringWebService/filterByAvailibleShares/Fault/CompanyDataUnmarshellException"),
+        @FaultAction(className = CompanyDataGenerationException_Exception.class, value = "http://StockBrokeringWebService/StockBrokeringWebService/filterByAvailibleShares/Fault/CompanyDataGenerationException"),
+        @FaultAction(className = InvalidOperatorException_Exception.class, value = "http://StockBrokeringWebService/StockBrokeringWebService/filterByAvailibleShares/Fault/InvalidOperatorException")
     })
-    public List<Company> filterByPrice(
+    public List<Company> filterByAvailibleShares(
         @WebParam(name = "value", targetNamespace = "")
         float value,
         @WebParam(name = "operator", targetNamespace = "")
@@ -305,7 +289,47 @@ public interface StockBrokeringWebService {
         String orderBy,
         @WebParam(name = "order", targetNamespace = "")
         String order)
-        throws Exception_Exception
+        throws CompanyDataGenerationException_Exception, CompanyDataUnmarshellException_Exception, InvalidOperatorException_Exception, MarketStackAPIException_Exception, OverwriteCompanyDataException_Exception
+    ;
+
+    /**
+     * 
+     * @return
+     *     returns java.util.List<com.mycompany.stockbrokerclientapplication.Pair>
+     * @throws IOException_Exception
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "getCompanyNamesAndSymbols", targetNamespace = "http://StockBrokeringWebService/", className = "com.mycompany.stockbrokerclientapplication.GetCompanyNamesAndSymbols")
+    @ResponseWrapper(localName = "getCompanyNamesAndSymbolsResponse", targetNamespace = "http://StockBrokeringWebService/", className = "com.mycompany.stockbrokerclientapplication.GetCompanyNamesAndSymbolsResponse")
+    @Action(input = "http://StockBrokeringWebService/StockBrokeringWebService/getCompanyNamesAndSymbolsRequest", output = "http://StockBrokeringWebService/StockBrokeringWebService/getCompanyNamesAndSymbolsResponse", fault = {
+        @FaultAction(className = IOException_Exception.class, value = "http://StockBrokeringWebService/StockBrokeringWebService/getCompanyNamesAndSymbols/Fault/IOException")
+    })
+    public List<Pair> getCompanyNamesAndSymbols()
+        throws IOException_Exception
+    ;
+
+    /**
+     * 
+     * @param currencyType
+     * @param companies
+     * @return
+     *     returns java.util.List<com.mycompany.stockbrokerclientapplication.Company>
+     * @throws CurrencyConversionException_Exception
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "convertCurrencies", targetNamespace = "http://StockBrokeringWebService/", className = "com.mycompany.stockbrokerclientapplication.ConvertCurrencies")
+    @ResponseWrapper(localName = "convertCurrenciesResponse", targetNamespace = "http://StockBrokeringWebService/", className = "com.mycompany.stockbrokerclientapplication.ConvertCurrenciesResponse")
+    @Action(input = "http://StockBrokeringWebService/StockBrokeringWebService/convertCurrenciesRequest", output = "http://StockBrokeringWebService/StockBrokeringWebService/convertCurrenciesResponse", fault = {
+        @FaultAction(className = CurrencyConversionException_Exception.class, value = "http://StockBrokeringWebService/StockBrokeringWebService/convertCurrencies/Fault/CurrencyConversionException")
+    })
+    public List<Company> convertCurrencies(
+        @WebParam(name = "companies", targetNamespace = "")
+        List<Company> companies,
+        @WebParam(name = "currencyType", targetNamespace = "")
+        String currencyType)
+        throws CurrencyConversionException_Exception
     ;
 
 }

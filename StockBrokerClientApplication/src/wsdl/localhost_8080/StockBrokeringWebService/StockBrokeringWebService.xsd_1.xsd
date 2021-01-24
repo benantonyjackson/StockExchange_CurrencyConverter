@@ -18,6 +18,8 @@
 
 <xs:element name="IOException" type="tns:IOException"/>
 
+<xs:element name="InvalidOperatorException" type="tns:InvalidOperatorException"/>
+
 <xs:element name="InvalidOrderException" type="tns:InvalidOrderException"/>
 
 <xs:element name="MarketStackAPIException" type="tns:MarketStackAPIException"/>
@@ -25,8 +27,6 @@
 <xs:element name="NotSortableFieldException" type="tns:NotSortableFieldException"/>
 
 <xs:element name="OverwriteCompanyDataException" type="tns:OverwriteCompanyDataException"/>
-
-<xs:element name="UnsupportedEncodingException" type="tns:UnsupportedEncodingException"/>
 
 <xs:element name="buyShare" type="tns:buyShare"/>
 
@@ -98,16 +98,17 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="getCompaniesByName">
+<xs:complexType name="filterByPrice">
 <xs:sequence>
-<xs:element name="name" type="xs:string" minOccurs="0"/>
+<xs:element name="value" type="xs:float"/>
+<xs:element name="operator" type="xs:string" minOccurs="0"/>
 <xs:element name="currency" type="xs:string" minOccurs="0"/>
-<xs:element name="arg2" type="xs:string" minOccurs="0"/>
+<xs:element name="orderBy" type="xs:string" minOccurs="0"/>
 <xs:element name="order" type="xs:string" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="getCompaniesByNameResponse">
+<xs:complexType name="filterByPriceResponse">
 <xs:sequence>
 <xs:element name="return" type="tns:Company" minOccurs="0" maxOccurs="unbounded"/>
 </xs:sequence>
@@ -127,86 +128,6 @@
 </xs:complexType>
 </xs:element>
 <xs:element name="lastUpdated" type="xs:date"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="Exception">
-<xs:sequence>
-<xs:element name="message" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="filterByPrice">
-<xs:sequence>
-<xs:element name="value" type="xs:float"/>
-<xs:element name="operator" type="xs:string" minOccurs="0"/>
-<xs:element name="currency" type="xs:string" minOccurs="0"/>
-<xs:element name="orderBy" type="xs:string" minOccurs="0"/>
-<xs:element name="order" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="filterByPriceResponse">
-<xs:sequence>
-<xs:element name="return" type="tns:Company" minOccurs="0" maxOccurs="unbounded"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="convertCurrencies">
-<xs:sequence>
-<xs:element name="companies" type="tns:Company" minOccurs="0" maxOccurs="unbounded"/>
-<xs:element name="currencyType" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="convertCurrenciesResponse">
-<xs:sequence>
-<xs:element name="return" type="tns:Company" minOccurs="0" maxOccurs="unbounded"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="UnsupportedEncodingException">
-<xs:sequence>
-<xs:element name="message" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="CurrencyConversionException">
-<xs:sequence>
-<xs:element name="message" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="buyShare">
-<xs:sequence>
-<xs:element name="Symbol" type="xs:string" minOccurs="0"/>
-<xs:element name="NumberOfShares" type="xs:int"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="buyShareResponse">
-<xs:sequence>
-<xs:element name="return" type="tns:Company" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="CompanyNotFoundException">
-<xs:sequence>
-<xs:element name="message" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="getCompanyData">
-<xs:sequence>
-<xs:element name="currency" type="xs:string" minOccurs="0"/>
-<xs:element name="orderBy" type="xs:string" minOccurs="0"/>
-<xs:element name="order" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="getCompanyDataResponse">
-<xs:sequence>
-<xs:element name="return" type="tns:Company" minOccurs="0" maxOccurs="unbounded"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -234,6 +155,85 @@
 </xs:sequence>
 </xs:complexType>
 
+<xs:complexType name="InvalidOperatorException">
+<xs:sequence>
+<xs:element name="message" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getCompaniesByName">
+<xs:sequence>
+<xs:element name="name" type="xs:string" minOccurs="0"/>
+<xs:element name="currency" type="xs:string" minOccurs="0"/>
+<xs:element name="arg2" type="xs:string" minOccurs="0"/>
+<xs:element name="order" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getCompaniesByNameResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:Company" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getCompanyData">
+<xs:sequence>
+<xs:element name="currency" type="xs:string" minOccurs="0"/>
+<xs:element name="orderBy" type="xs:string" minOccurs="0"/>
+<xs:element name="order" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getCompanyDataResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:Company" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="buyShare">
+<xs:sequence>
+<xs:element name="Symbol" type="xs:string" minOccurs="0"/>
+<xs:element name="NumberOfShares" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="buyShareResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:Company" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="CompanyNotFoundException">
+<xs:sequence>
+<xs:element name="message" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="Exception">
+<xs:sequence>
+<xs:element name="message" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="convertCurrencies">
+<xs:sequence>
+<xs:element name="companies" type="tns:Company" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="currencyType" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="convertCurrenciesResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:Company" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="CurrencyConversionException">
+<xs:sequence>
+<xs:element name="message" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
 <xs:complexType name="filterByAvailibleShares">
 <xs:sequence>
 <xs:element name="value" type="xs:float"/>
@@ -247,6 +247,32 @@
 <xs:complexType name="filterByAvailibleSharesResponse">
 <xs:sequence>
 <xs:element name="return" type="tns:Company" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="orderCompanies">
+<xs:sequence>
+<xs:element name="companies" type="tns:Company" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="orderBy" type="xs:string" minOccurs="0"/>
+<xs:element name="order" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="orderCompaniesResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:Company" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="NotSortableFieldException">
+<xs:sequence>
+<xs:element name="message" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="InvalidOrderException">
+<xs:sequence>
+<xs:element name="message" type="xs:string" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -278,32 +304,6 @@
 <xs:complexType name="GetCompaniesBySymbolResponse">
 <xs:sequence>
 <xs:element name="return" type="tns:Company" minOccurs="0" maxOccurs="unbounded"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="orderCompanies">
-<xs:sequence>
-<xs:element name="companies" type="tns:Company" minOccurs="0" maxOccurs="unbounded"/>
-<xs:element name="orderBy" type="xs:string" minOccurs="0"/>
-<xs:element name="order" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="orderCompaniesResponse">
-<xs:sequence>
-<xs:element name="return" type="tns:Company" minOccurs="0" maxOccurs="unbounded"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="NotSortableFieldException">
-<xs:sequence>
-<xs:element name="message" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="InvalidOrderException">
-<xs:sequence>
-<xs:element name="message" type="xs:string" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 </xs:schema>
